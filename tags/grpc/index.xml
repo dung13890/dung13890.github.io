@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Grpc on while (!(successed = try()));</title>
+    <link>https://daoanhdung.com/tags/grpc/</link>
+    <description>Recent content in Grpc on while (!(successed = try()));</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 27 Dec 2017 05:40:41 +0000</lastBuildDate>
+    
+	<atom:link href="https://daoanhdung.com/tags/grpc/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Grpc Va Ung Dung No Trong Microservices</title>
+      <link>https://daoanhdung.com/posts/grpc-va-ung-dung-no-trong-microservices/</link>
+      <pubDate>Wed, 27 Dec 2017 05:40:41 +0000</pubDate>
+      
+      <guid>https://daoanhdung.com/posts/grpc-va-ung-dung-no-trong-microservices/</guid>
+      <description>Hiện tại với API thì quá phổ biến cho các ứng dụng từ giao tiếp client tới server hay từ instance tới instance. Tuy nhiên ngày nay công nghệ càng ngày càng phát triển với http2 ra đời đã kéo theo 1 loạt những thay đổi để cải thiện performance, gRPC là sự kết hợp của Protocol Buffers và http2, Protocol Buffers được phát triển bởi google nó nhẹ hơn, nhanh hơn và cung cấp hiệu năng tốt hơn so với sử dụng XML hoặc Json gRPC cũng cho phép định nghĩa cấu trúc của data dưới dạng file protoc và nó tự động generate ra file sử dụng để giao tiếp với ngôn ngữ mà bạn sử dụng.</description>
+    </item>
+    
+  </channel>
+</rss>
