@@ -6,15 +6,24 @@
     <description>Recent content in Tags on while (!(successed = try()));</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 27 Dec 2017 05:40:41 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 30 Dec 2017 16:28:33 +0000</lastBuildDate>
     
 	<atom:link href="https://daoanhdung.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Caddy</title>
+      <link>https://daoanhdung.com/tags/caddy/</link>
+      <pubDate>Sat, 30 Dec 2017 16:28:33 +0000</pubDate>
+      
+      <guid>https://daoanhdung.com/tags/caddy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Golang</title>
       <link>https://daoanhdung.com/tags/golang/</link>
-      <pubDate>Wed, 27 Dec 2017 05:40:41 +0000</pubDate>
+      <pubDate>Sat, 30 Dec 2017 16:28:33 +0000</pubDate>
       
       <guid>https://daoanhdung.com/tags/golang/</guid>
       <description></description>
@@ -35,6 +44,15 @@
       <pubDate>Wed, 27 Dec 2017 05:40:41 +0000</pubDate>
       
       <guid>https://daoanhdung.com/tags/microservice/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Web Server</title>
+      <link>https://daoanhdung.com/tags/web-server/</link>
+      <pubDate>Sat, 30 Dec 2017 16:28:33 +0000</pubDate>
+      
+      <guid>https://daoanhdung.com/tags/web-server/</guid>
       <description></description>
     </item>
     
