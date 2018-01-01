@@ -21,9 +21,18 @@
     </item>
     
     <item>
+      <title>Concurrency</title>
+      <link>https://daoanhdung.com/tags/concurrency/</link>
+      <pubDate>Mon, 01 Jan 2018 16:04:10 +0000</pubDate>
+      
+      <guid>https://daoanhdung.com/tags/concurrency/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Golang</title>
       <link>https://daoanhdung.com/tags/golang/</link>
-      <pubDate>Sat, 30 Dec 2017 16:28:33 +0000</pubDate>
+      <pubDate>Mon, 01 Jan 2018 16:04:10 +0000</pubDate>
       
       <guid>https://daoanhdung.com/tags/golang/</guid>
       <description></description>
@@ -44,6 +53,15 @@
       <pubDate>Wed, 27 Dec 2017 05:40:41 +0000</pubDate>
       
       <guid>https://daoanhdung.com/tags/microservice/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Routines</title>
+      <link>https://daoanhdung.com/tags/routines/</link>
+      <pubDate>Mon, 01 Jan 2018 16:04:10 +0000</pubDate>
+      
+      <guid>https://daoanhdung.com/tags/routines/</guid>
       <description></description>
     </item>
     

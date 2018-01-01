@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://daoanhdung.com/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/</loc>
+    <lastmod>2018-01-01T16:04:10+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://daoanhdung.com/posts/caddy-web-server-don-gian-va-hien-dai/</loc>
     <lastmod>2017-12-30T16:28:33+00:00</lastmod>
   </url>
@@ -29,8 +34,14 @@
   </url>
   
   <url>
+    <loc>https://daoanhdung.com/tags/concurrency/</loc>
+    <lastmod>2018-01-01T16:04:10+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://daoanhdung.com/tags/golang/</loc>
-    <lastmod>2017-12-30T16:28:33+00:00</lastmod>
+    <lastmod>2018-01-01T16:04:10+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -48,7 +59,13 @@
   
   <url>
     <loc>https://daoanhdung.com/posts/</loc>
-    <lastmod>2017-12-30T16:28:33+00:00</lastmod>
+    <lastmod>2018-01-01T16:04:10+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://daoanhdung.com/tags/routines/</loc>
+    <lastmod>2018-01-01T16:04:10+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -66,7 +83,7 @@
   
   <url>
     <loc>https://daoanhdung.com/</loc>
-    <lastmod>2017-12-30T16:28:33+00:00</lastmod>
+    <lastmod>2018-01-01T16:04:10+00:00</lastmod>
     <priority>0</priority>
   </url>
   
