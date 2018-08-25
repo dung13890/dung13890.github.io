@@ -57,21 +57,8 @@
         });
 
         // Main Slider
-        var controlNav;
-        var directionNav;
-        if(detectCss("large")){
-            directionNav = false;
-            controlNav = true;
-        }else if(detectCss("medium")){
-            directionNav = false;
-            controlNav = true;
-        }else if(detectCss("small")){
-            directionNav = true;
-            controlNav = false;
-        }else{
-            directionNav = true;
-            controlNav = false;
-        }
+        var controlNav = true;
+        var directionNav = false;
         $(".flexsliderMain").flexslider({
             animation: "slide",
             animationLoop: true,
