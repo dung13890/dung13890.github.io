@@ -1,0 +1,58 @@
+/*Most Smartphones like the iPhone and some Android don't recognize the handheld.css?x=1. They took the mediatype="screen" */
+
+/*@media /*ratio 1.1 to 1.9
+	all	and (min-width: 2001px)	and (-webkit-min-device-pixel-ratio: 1.1)  // Webkit-based browsers 
+	and (-webkit-max-device-pixel-ratio: 1.9),
+
+	all	and (min-width: 2001px)	and (min--moz-device-pixel-ratio: 1.1)  // Older Firefox browsers (prior to Firefox 16) 
+	and (max--moz-device-pixel-ratio: 1.9),
+	
+	all	and (min-width: 2001px)	and (-o-min-device-pixel-ratio: 11/10)	and (-o-max-device-pixel-ratio: 19/10),  //opera
+
+	all	and (min-width: 2001px)	and (min-device-pixel-ratio: 1.1)  	and (max-device-pixel-ratio: 1.9),  //ratio for non webkit
+
+	all	and (min-width: 2001px)	and (min-resolution: 1.1dppx)  // The standard way 
+	and (max-resolution: 1.9dppx),
+
+	all
+	and (min-width: 2001px)	and (min-resolution: 110dpi)  // dppx fallback  
+	and (max-resolution: 190dpi)
+
+	{// Styles 
+		.mobile{display: block;}
+	}*/
+
+
+/*
+@import url("landscape.css?x=1")	all and (orientation: landscape);
+@import url("portrait.css?x=1")	all and (orientation: portrait);
+*/
+
+
+/*0 to 320px */
+	@import url("mobilec8cd.css?x=1.0.1") all and (max-device-width: 320px);
+
+/*321 to 480px */
+	@import url("mobilec8cd.css?x=1.0.1") all and (min-device-width: 321px) and (max-device-width: 480px);
+
+/*481 to 767px */
+	@import url("mobilec8cd.css?x=1.0.1") all and (min-device-width: 481px) and (max-device-width: 767px);
+
+/*768 to 979px */
+	@import url("smallc8cd.css?x=1.0.1") all and (min-device-width: 768px) and (max-device-width: 979px);
+
+/*980 to 1023px */
+	@import url("smallc8cd.css?x=1.0.1") all and (min-device-width: 980px) and (max-device-width: 1023px);
+	
+/*1024px to 1281px */
+	@import url("mediumc8cd.css?x=1.0.1") all and (min-device-width: 1024px) and (max-device-width: 1281px);
+
+
+/* 1281+ */
+	@import url("mobilec8cd.css?x=1.0.1") all and (min-device-width: 1282px) and (max-width: 679px);
+
+	@import url("smallc8cd.css?x=1.0.1") all and (min-device-width: 1282px) and (min-width: 680px) and (max-width: 1001px);
+
+	@import url("mediumc8cd.css?x=1.0.1") all and (min-device-width: 1282px) and (min-width: 1002px) and (max-width: 1282px);
+
+	@import url("largec8cd.css?x=1.0.1") all and (min-device-width: 1282px) and (min-width: 1283px);

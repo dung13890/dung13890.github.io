@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from www.we-edit.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Aug 2018 05:59:00 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+<meta charset="utf-8">
+
+<title>we-edit.com.vn &ndash; Real Estate Photo Editing, Virtual Staging & Floor Plans</title>
+<meta name="description" content="Photo editing, floor plans, clipping, CGI renders, custom edits at unbeatable prices. Our digital experts will edit or enhance your images in 24 hours." />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="format-detection" content="telephone=no" />
+<meta property="og:title" content="we-edit.com – Real Estate Photo Editing, Virtual Staging & Floor Plans" />
+<meta property="og:url" content="#" />
+<meta property="og:image" content="../d1dbtne32ilur4.cloudfront.net/img/socialPictures/homePage.jpg" />
+<meta property="og:type" content="website" />
+<meta property="og:description" content="Photo editing, floor plans, clipping, CGI renders, custom edits at unbeatable prices. Our digital experts will edit or enhance your images in 24 hours." />
+<meta property="og:site_name" content="we-edit.com" />
+<link rel="shortcut icon" href="images/100.png"  type="image/png" sizes="30x30" />
+<link rel="stylesheet" href="js/flexslider2/flexslider.css" type="text/css" />
+<link rel="stylesheet" href="fonts/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="css/mediaqueriesGrid3447.css" />
+<link rel="stylesheet" type="text/css" href="css/mediaqueries3447.css" />
+
+<script src="js/jquery-1.11.2.min.js"></script>
+<script src="js/jquery-1.11.2.ui.min.js"></script>
+<script src="js/flexslider2/jquery.flexslider.js"></script>
+<script src="js/functions.js"></script>
+
+<script>
+    $(document).ready(function(){
+        sortMenu();
+        scrollSmooth();
+
+        $(document).on("click",".menuBtn",function(){
+            $(".navDrop").hide();
+            $(this).toggleClass('menuBtnActive');
+            toggleMenu();
+        });
+
+        $(document).on("click",".countrySelect",function(){
+            toggleCurrencyMenu();
+        });
+
+        $(document).on("click",".userDropDown",function(){
+            userMenu();
+        });
+
+        $(document).on("click",".submenuTrigger",function(){
+            $(".menuContainer").height("auto");
+            if($(this).next(".navDrop").hasClass("down")){
+                $(this).next(".navDrop").slideToggle("slow").removeClass("down");
+          }else{
+                $(this).next(".navDrop").slideToggle("slow").addClass("down");
+            }
+        });
+
+        // Main Slider
+        var controlNav;
+        var directionNav;
+        if(detectCss("large")){
+            directionNav = false;
+            controlNav = true;
+        }else if(detectCss("medium")){
+            directionNav = false;
+            controlNav = true;
+        }else if(detectCss("small")){
+            directionNav = true;
+            controlNav = false;
+        }else{
+            directionNav = true;
+            controlNav = false;
+        }
+        $(".flexsliderMain").flexslider({
+            animation: "slide",
+            animationLoop: true,
+            itemWidth: "100%",
+            pausePlay: true,
+            slideshowSpeed: 6000,
+            directionNav: directionNav,
+            controlNav: controlNav,
+            pauseOnAction: true,
+            start: function(slider){
+                $('body').removeClass('loading');
+                $('.flexsliderMain').removeClass('flexsliderHidden');
+            },
+            after: function(slider) {
+            /* auto-restart player if paused after action */
+            if (!slider.playing) {
+                slider.play();
+            }}
+        });
+        // End Main Slider
+
+        // Secondary Slider
+        $(".flexslider").flexslider({
+            animation: "slide",
+            animationLoop: true,
+            itemWidth: "100%",
+            pausePlay: true,
+            slideshowSpeed: 6000,
+            directionNav: false,
+            controlNav: true,
+            pauseOnAction: true,
+            start: function(slider){
+                $('body').removeClass('loading');
+            },
+            after: function(slider) {
+            /* auto-restart player if paused after action */
+            if (!slider.playing) {
+                slider.play();
+            }}
+        });
+        // End Secondary Slider
+    });
+</script>
+</head>
+
+<body id="bodyPush">
+    <div class="detectcss"></div>
+    <header>
+        <a class="inlineAnchor" id="topScroll"></a>
+        <div class="row">
+            <div class="logo">
+                <a href="#"><img src="images/100.png" alt="we-edit.com" style="width:auto; height: 70px" /></a>
+            </div>
+            <div class="signUpFront">
+                <h4 class="contactTel">(+84) 97 6243 323 | info@we-edit.com.vn</h4>
+            </div>
+            <div class="menuBtnWrapper">
+                <button class="menuBtn"><span></span><span></span><span></span><span></span></button>
+            </div>
+            <div class="subNav" style="margin-right: 57px">
+                <ul>
+                    <li><a class="" href="#">About</a><span class="verticalDivider">|</span></li>
+                    <li><a class="" href="#">Blog</a><span class="verticalDivider">|</span></li>
+                    <li><a class="" href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="menuContainer menuHidden">
+            <ul class="topLevel">
+                <li class="submenuTriggerFull"><a href="#">Photo Editing</a><i class="fa fa-angle-down submenuTrigger"></i>
+                    <ul class="navDrop">
+                        <li><a href="#">Photo Enhancement</a></li>
+                        <li><a href="#">Day To Dusk</a></li>
+                        <li><a href="#">Item Removal</a></li>
+                        <li><a href="#">Panorama Stitching</a></li>
+                    </ul>
+                </li>
+                <li class=""><a href="#">Floor Plan</a></li>
+                <li class=""><a href="#">Virtual Furniture</a></li>
+                <li class=""><a href="#">Video & Slideshow</a></li>
+                <li class=""><a href="#">Background Removal</a></li>
+                <li class=""><a href="#">Portrait Retouching</a></li>
+            </ul>
+        </div>
+        <div class="clear"></div>
+    </nav>
+<main>
+    <section class="slider">
+        <div class="flexsliderMain flexsliderHidden">
+            <ul class="slides">
+                <li>
+                    <a href="#">
+                        <div class="imgWrapper">
+                            <img src="images/6-a.jpg" alt="Image Enhancement" />
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="imgWrapper">
+                            <img src="images/23-a-1.jpg" alt="Image Enhancement" />
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="imgWrapper">
+                            <img src="images/17-aa.jpg" alt="Image Enhancement" />
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <div class="imgWrapper">
+                            <img src="images/22-a-1.jpg" alt="Image Enhancement" />
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="keyPoints">
+        <div class="row">
+            <h1>WHO WE ARE?</h1>
+        </div>
+        <div class="row colCount1">
+            <div class="colSpan1">
+                <p>Based in Hanoi, We-edit provides a high quality and dedicated photo editing service platform with the main focus on real estate photo editing sector for cooperation and individual clients around the world.
+Beyond in 2017, we have never stopped to improve and develop our full service solution to our photographers in line with the highest industry standards and customer expectations.
+
+We-edit is equipped with a highly talented and enthusiastic team of photo editors who reached outstanding level in editing techniques to guarantee the best quality and turnaround time.</p>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <section class="signUp">
+        <div class="row colCount2">
+            <div class="colSpan1 left">
+                <h2><span class="subHead">Begin yours today, no credit card details required</span>FREE TRIAL</h2>
+            </div>
+            <div class="colSpan1 left last">
+                <form id="theForm3" class="simform" autocomplete="off" style="padding: 1.2em">
+                    <div class="simform-inner">
+                        <ol class="questions">
+                            <li class="active">
+                                <input class="firstName" name="firstName" type="text" placeholder="First Name" />
+                            </li>
+                            <br>
+                            <li>
+                                <input class="lastName" name="lastName" type="text" placeholder="Last Name" />
+                            </li>
+                            <br>
+                            <li>
+                                <input class="email" name="email" type="email" placeholder="Email Address" />
+                            </li>
+                            <br>
+                            <li>
+                                <button style="margin: 10px 0 0;
+    padding: 8px;
+    width: 100%;background-color: #f0c55b;color: #FFF;
+    font-size: 14px;">SUBMIT</button>
+                            </li>
+                        </ol>
+                    </div>
+                </form>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <section class="categories grey">
+    <div class="fullRow itemLoop">
+        <h2>THIS IS WHAT WE DO</h2>
+        <div class="item">
+            <div class="imgContainer">
+                <a href="#"><img src="images/1.jpg" alt="Image Enhancement" /></a>
+            </div>
+            <div class="content">
+                <a href="image-#">
+                    <h3>Image Enhancement</h3>
+                    <p>Perfect for real estate photo editing so you can present your listing with top-notch, retouched professional-looking photos.</p>
+                    <p class="price">
+                        AU$2.00
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="item">
+            <div class="imgContainer">
+                <a href="#"><img src="images/2.jpg" alt="Virtual Furniture" /></a>
+            </div>
+            <div class="content">
+                <a href="virtual-#">
+                    <h3>Virtual Staging</h3>
+                    <p>Our team can add furniture to real estate photography to show potential buyers just how versatile the space is.</p>
+                    <p class="price">
+                        AU$40.00
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="item">
+            <div class="imgContainer">
+                <a href="#"><img src="images/3.jpg" alt="Image Enhancement" /></a>
+            </div>
+            <div class="content">
+                <a href="image-#">
+                    <h3>Renders</h3>
+                    <p>Bring plans to life with our render service available for a range of plans and designs.</p>
+                    <p class="price">
+                        AU$82.00
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="item">
+            <div class="imgContainer">
+                <a href="#"><img src="images/4.jpg" alt="Virtual Furniture" /></a>
+            </div>
+            <div class="content">
+                <a href="virtual-#">
+                    <h3>Day to Dusk</h3>
+                    <p>Our photo retouching service will take your exterior property photo from drab to fab by adding a beautiful dusk sky.</p>
+                    <p class="price">
+                        AU$30.00
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="item">
+            <div class="imgContainer">
+                <a href="#"><img src="images/5.jpg" alt="Image Enhancement" /></a>
+            </div>
+            <div class="content">
+                <a href="image-#">
+                    <h3>Item Removal</h3>
+                    <p>Our photo editing experts can remove any object from a photo.</p>
+                    <p class="price">
+                        AU$23.00
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="item">
+            <div class="imgContainer">
+                <a href="#"><img src="images/6.jpg" alt="Virtual Furniture" /></a>
+            </div>
+            <div class="content">
+                <a href="virtual-#">
+                    <h3>Floor Plan Redraws</h3>
+                    <p>Clearly showcase your listing to potential buyers with an online floorplan available in a range of 2D and 3D options.</p>
+                    <p class="price">
+                        AU$48.00
+                    </p>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+    <section class="howTo">
+        <div class="row colCount4">
+            <div class="colSpan1 left">
+                <img src="images/edit.png" style="width: 20%;display: initial;">
+                <h2>TWILIGHT</h2>
+                <p>Upload your photos from your mobile, tablet or desktop computer.</p>
+            </div>
+            <div class="colSpan1 left mobileLast">
+                <img src="images/reason.png" style="width: 20%;display: initial;">
+                <h2>REMOVE ITEM</h2>
+                <p>Our team of professional editors will perform over 16 editing tasks on your images within 24 hours. 100% satisfaction guaranteed.</p>
+            </div>
+            <div class="colSpan1 left">
+                <img src="images/best-quality.png" style="width: 20%;display: initial;">
+                <h2>DAY TO DUSK</h2>
+                <p>Each image is viewed &amp; checked by our quality control team.</p>
+            </div>
+            <div class="colSpan1 left last">
+                <img src="images/24h.png" style="width: 20%;display: initial;">
+                <h2>IMAGE ENHANCEMENT</h2>
+                <p>Download the professionally edited images from your account as soon as they are complete.</p>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <section class="about grey">
+        <div class="row colCount2">
+            <h2>About Us</h2>
+            <div class="colSpan1 left">
+                <p>WE-EDIT team located in Vietnam, serves you in a wide range of services including photo editing, floor plans, virtual staging and video listing as a best center for your promotional campaigns, expand your photography bussiness. Every job is processed with calibrated screens, top softwares, high connection internet, fast turnaround time, affordable price.</p>
+            </div>
+            <div class="colSpan1 left last">
+                <p>Whether you are in real estate and need high-quality images to showcase a home or are presenting products to the retail market, WE-EDIT will work with your images to get the best result for your needs. High quality photos are proven to increase sales and our editors will make your product or listing stand out from the competition.</p>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2>Testimonials</h2>
+        <div class="row">
+            <div class="flexslider">
+                <ul class="slides">
+                    <li>
+                        <div class="left">
+                            <img src="images/user1.jpg" alt="realestate.com.au " />
+                        </div>
+                        <div class="right">
+                            <p>Working with Box Brownie at both an agency level and now purely online advertising level. Their services are fast, effectively and efficient, but most of all affordable, which we all know is an Agents and Admin&rsquo;s dream! I have only excellent things to say about the team. I highly recommend Box Brownie to any agency wanting to take their online advertising to the next level, or, any agency that has struggled to find the time to create quality online listings. They are the online support team you have been looking for and they are really, so easy to use.</p>
+                            <p class="testimonialsName">&ndash; Aimee Berridge, realestate.com.au </p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left">
+                            <img src="images/user2.jpg" alt="realestate.com.au " />
+                        </div>
+                        <div class="right">
+                            <p>Hi team, very happy so far but really questioning how good a job my photographer is doing! The service your company provides is pretty mind-blowing!</p>
+                            <p class="testimonialsName">&ndash; Craig Phillips, Robeson &amp; Associates</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left">
+                            <img src="images/user3.jpg" alt="realestate.com.au " />
+                        </div>
+                        <div class="right">
+                            <p>I was amazed when I saw the email come through saying that it was ready for download, it was so fast! The website is the easiest I have used, great job!</p>
+                            <p class="testimonialsName">&ndash; Brittany Shields, Ray White</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+        <section class="workTogether">
+            <h3><a href="sign-#"><span>Let&rsquo;s Work Together</span> <i class="icon-arrowRight"></i></a></h3>
+        </section>
+
+    <section class="footerContent">
+        <div class="row colCount4">
+            <div class="colSpan1 left content1">
+                <div class="logoContainer">
+                    <a href="#"><img src="images/100.png" alt="we-edit.com" /></a>
+                </div>
+            </div>
+            <div class="colSpan1 left content2">
+                <h3>Services List</h3>
+                <ul>
+                    <li><a href="#">Photo Editing</a></li>
+                    <li><a href="#">Floor Plan</a></li>
+                    <li><a href="#">Virtual Furniture</a></li>
+                    <li><a href="#">Background Removal</a></li>
+                    <li><a href="#">Portrait Retouching</a></li>
+                </ul>
+            </div>
+            <div class="colSpan1 left content3">
+                <h3>Company Link</h3>
+                <ul>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Term</a></li>
+                    <li><a href="#">Service</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="colSpan1 left content4">
+                <h3>Social</h3>
+                <p>Connect and Share:</p>
+                <ul>
+                    <li><a href="https://www.facebook.com" target="_blank"><i class="fa fa-facebook" aria-label="Facebook"></i></a></li>
+                    <li><a href="https://twitter.com" target="_blank"><i class="fa fa-twitter" aria-label="Twitter"></i></a></li>
+                    <li><a href="https://plus.google.com" target="_blank"><i class="fa fa-google-plus" aria-label="Google Plus"></i></a></li>
+                    <li><a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram" aria-label="true"></i></a></li>
+                    <li><a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube" aria-label="YouTube"></i></a></li>
+                    <li class="last"><a href="https://www.linkedin.com/" target="_blank"><i class="fa fa-linkedin-square" aria-label="Linkedin"></i></a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+            </section>
+    <section class="backToTop">
+        <a href="#topScroll">
+            <i class="icon-arrowUp"></i>
+            <span class="block">Back To Top</span>
+        </a>
+    </section>
+    <section class="copyright">
+        <div class="row">
+            <p><img src="images/100.png" alt="we-edit.com" /> &copy; we-edit.com Pty Ltd. All Rights Reserved. </p>
+        </div>
+    </section>
+</footer>
+
+</body>
+
+</html>
