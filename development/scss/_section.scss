@@ -1,0 +1,172 @@
+/*! Section styles */
+.section-wrapper {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.bg-dark {
+    background: #272a35 !important;
+}
+
+.bg-less-dark {
+    background: #343a40 !important;
+}
+
+.bg-grey {
+    background: #e9e9ea !important;
+}
+
+.bg-dark,
+.bg-less-dark {
+    color: #fff;
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: #fff;
+    }
+
+    input,
+    select,
+    textarea,
+    .form-control {
+        color: #9e9eab;
+        background: #343a40;   
+        border-color: #343a40;
+
+        &:focus {
+            box-shadow: 0 0 0 1px rgba($color-primary, .4);
+        }
+    }
+}
+
+.section-title {
+    .heading {
+        color: #111;
+        font-size: 2em;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin: 0;
+        padding-bottom: 20px;
+        position: relative;
+
+        &:after {
+            content: "";
+            background-color: #111;
+            width: 50px;
+            height: 1px;
+            position: absolute;
+            left: 0;
+            bottom: 0;            
+        }
+    }
+
+    &.text-center {
+        .heading {
+            &:after {
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+        }
+    }
+}
+
+.crazy-block {
+    position: relative;
+    padding: 1.9em 1em 1.9em 22em;        
+
+    &.section-title {
+        .heading {            
+            color: #fff;
+            font-size: 2.6em;
+
+            &:after {
+                background-color: #fff;
+            }
+        }
+
+        .sub-title {
+            color: $color-primary;
+            display: block;
+            margin: 0 0 0.25em;
+            font-size: 0.5em;
+            line-height: 1em;
+            letter-spacing: 0.07em;
+        }
+    }    
+}
+
+.list-items {
+    .item {
+        font-size: 0.8em;
+        
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+
+        a {
+            color: $color-body;
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                color: #000;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+            .price {
+                color: $color-primary;
+            }
+
+            > img {
+                margin-bottom: 10px;
+            }
+
+            &:hover {
+                h1,
+                h2,
+                h3,
+                h4,
+                h5,
+                h6 {
+                    color: $color-primary;
+                }
+            }
+        }
+    }
+}
+
+.feature-item {
+    > img {
+        margin-bottom: 20px;
+    }
+
+    h2,
+    h3 {
+        font-size: 1em;
+        font-weight: 600;
+        margin-bottom: 0;
+    }
+
+    p, ul, ol {
+        line-height: 1.6em;
+        margin: 0.5em 0 0;
+        font-size: 0.9em;
+    }
+}
+
+.single-gallery-items {
+    float: left;
+    width: 10%;
+
+    img {
+        width: 100%;
+    }
+}    

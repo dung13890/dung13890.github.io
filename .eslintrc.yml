@@ -1,0 +1,41 @@
+---
+root: true
+
+parser: babel-eslint
+extends:
+  - prettier
+  - prettier/flowtype
+  - prettier/react
+
+plugins:
+  # https://github.com/prettier/eslint-plugin-prettier
+  - prettier
+
+settings:
+  flowtype:
+    # with this option you do not have to add @flow in files
+    onlyFilesWithFlowAnnotation: false
+
+env:
+  es6: true
+  browser: true
+  node: true
+
+parserOptions:
+  ecmaVersion: 2017
+  sourceType: module
+
+rules:
+  prettier/prettier:
+    - error
+    -
+      trailingComma: all
+      bracketSpacing: false
+
+  ### Different from airbnb config
+
+  ### Styling ###
+
+  # Prefer new line before return
+  # http://eslint.org/docs/rules/newline-before-return
+  newline-before-return: error # airbnb default: off
