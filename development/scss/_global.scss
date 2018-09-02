@@ -1,0 +1,143 @@
+/* Main styles */
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
+
+/* Global */
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+}
+
+ul, ol {
+    list-style: none;
+
+    &.no-list,
+    &.list-items {
+        padding: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+    }   
+}
+
+a {
+    text-decoration: none;
+    color: #f1c55a;
+    transition: color 0.2s ease-in-out;
+
+    &:hover {
+        color: $color-primary;
+        text-decoration: none;
+    }
+}
+
+img {
+    max-width: 100%;
+    border: none;
+    height: auto;
+    display: block;
+}
+
+a:focus,
+button:focus {
+    outline: 0;
+}
+
+::selection {
+    background: #f1c55a;
+    color: #fff;
+}
+
+::-moz-selection {
+    background: #f1c55a;
+    color: #fff;
+}
+
+em {
+    font-style: italic;
+}
+
+strong {
+    font-weight: 700;
+}
+
+strong.highlight {
+    color: #f1c55a;
+}
+
+i {
+    font-style: italic;
+}
+
+sup {
+    font-size: 0.65em;
+    vertical-align: super;
+    position: relative;
+    margin: 0 0.2em 0 0;
+    line-height: 0;
+}
+
+h1,
+h2 {
+    font-size: 2.2em;
+    line-height: 1em;
+    margin: 0 0 1em;
+    letter-spacing: 0.04em;
+}
+
+h1 {
+    font-size: 2.4em;
+    margin: 0 auto 1em;
+}
+
+h3 {
+    font-size: 1.3em;
+    line-height: 1.3em;
+    margin: 0 0 0.25em;
+}
+
+h4 {
+    font-size: 1.1em;
+    line-height: 1.3em;
+    margin: 0.5em 0;
+}
+
+h5 {
+    font-size: 1em;
+    line-height: 1.3em;
+    margin: 0.5em 0;
+}
+
+p,
+ul,
+ol {
+    line-height: 1.6em;
+    margin: 0.9em 0 0;
+    font-size: 1em;
+}
+
+.site-wrapper {
+    position: relative;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    background: #fff;
+    z-index: 2;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.site-overlay {
+    background-color: rgba(0,0,0,0.75);
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 999999;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+    cursor: url(../images/close-cursor.png),pointer;
+}

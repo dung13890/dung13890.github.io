@@ -1,0 +1,109 @@
+/*! Footer styles */
+.site-footer {
+    background: rgba(31, 31, 34, 0.9) none repeat scroll 0 0;
+    color: #fff;
+    padding: 120px 0 90px;
+}
+
+.f-col {
+    ul {
+        li {
+            line-height: 30px;
+
+            &:hover {
+                a {
+                    color: #fff;
+                }
+            }
+        }
+
+        &.social {
+            li {
+                display: inline-block;
+
+                a {
+                    margin: 0 5px;
+                    padding: 5px;
+                }
+
+                &:first-child {
+                    a {
+                        margin-left: 0;
+                        padding-left: 0;
+                    }
+                }
+
+                &:last-child {
+                    a {
+                        margin-right: 0;
+                        padding-right: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.copyright {
+    text-align: center;
+    padding-top: 120px;
+
+    p {
+        margin: 0;
+    }
+}
+
+#site-options {
+    position: fixed;
+    right: 20px;
+    bottom: 50%;
+    z-index: 88;
+    transition: all 0.3s;
+    box-shadow: 2px 2px 40px rgba(0, 0, 0, 0.3);
+    
+    .option-item {
+        color: #fff;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        display: inline-block;
+        text-align: center;
+        transition: all 0.6s;
+        background: rgba(0, 0, 0, 0.5) none repeat scroll 0 0;
+    }
+
+    #fullscreen {
+        &::before {
+            content: "\f065";
+            font-family: FontAwesome;
+            transition: all 0.6s;
+        }
+
+        &.open {
+            &::before {
+                content: "\f066";
+            }
+        }
+    }
+}
+
+#back-top {
+    color: #fff;
+    background: $color-secondary none repeat scroll 0 0;
+    font-size: 20px;
+    text-align: center;
+    display: none;
+    width: 40px;
+    height: 40px;
+    padding-top: 6px;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 99;
+    transition: 0.3s;
+    box-shadow: 2px 2px 40px rgba(0, 0, 0, 0.3);
+
+    &:hover {
+        background: $color-primary
+    }
+}
