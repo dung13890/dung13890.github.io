@@ -805,7 +805,6 @@ label.fileToUpload input[type="file"] {
   .flexslider .img-wrapper {
     position: relative; }
     .flexslider .img-wrapper::before {
-      background: rgba(0, 0, 0, 0.85) url(../images/pattarn.png);
       content: "";
       height: 100%;
       left: 0;
