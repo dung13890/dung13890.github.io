@@ -1,410 +1,439 @@
 <!doctype html>
 <html lang="en">
-
 <!-- Mirrored from www.we-edit.com/ by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 25 Aug 2018 05:59:00 GMT -->
 <!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
 <head>
-<meta charset="utf-8">
+    <meta charset="utf-8">
 
-<title>we-edit.com.vn &ndash; Real Estate Photo Editing, Virtual Staging & Floor Plans</title>
-<meta name="description" content="Photo editing, floor plans, clipping, CGI renders, custom edits at unbeatable prices. Our digital experts will edit or enhance your images in 24 hours." />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="format-detection" content="telephone=no" />
-<meta property="og:title" content="we-edit.com – Real Estate Photo Editing, Virtual Staging & Floor Plans" />
-<meta property="og:url" content="#" />
-<meta property="og:image" content="images/6-a.jpg"" />
-<meta property="og:type" content="website" />
-<meta property="og:description" content="Photo editing, floor plans, clipping, CGI renders, custom edits at unbeatable prices. Our digital experts will edit or enhance your images in 24 hours." />
-<meta property="og:site_name" content="we-edit.com" />
-<link rel="shortcut icon" href="images/100.png"  type="image/png" sizes="30x30" />
-<link rel="stylesheet" href="js/flexslider2/flexslider.css" type="text/css" />
-<link rel="stylesheet" href="fonts/css/font-awesome.min.css" />
-<link rel="stylesheet" type="text/css" href="css/mediaqueriesGrid3447.css" />
-<link rel="stylesheet" type="text/css" href="css/mediaqueries3447.css" />
+    <title>we-edit.com.vn &ndash; Photo Enhancement</title>
+    <meta name="description" content="Photo editing, floor plans, clipping, CGI renders, custom edits at unbeatable prices. Our digital experts will edit or enhance your images in 24 hours." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta property="og:title" content="we-edit.com – Real Estate Photo Editing, Virtual Staging & Floor Plans" />
+    <meta property="og:url" content="#" />
+    <meta property="og:image" content="../d1dbtne32ilur4.cloudfront.net/img/socialPictures/homePage.jpg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="Photo editing, floor plans, clipping, CGI renders, custom edits at unbeatable prices. Our digital experts will edit or enhance your images in 24 hours." />
+    <meta property="og:site_name" content="we-edit.com" />
+    <link rel="shortcut icon" href="images/100.png"  type="image/png" sizes="30x30" />
 
-<script src="js/jquery-1.11.2.min.js"></script>
-<script src="js/jquery-1.11.2.ui.min.js"></script>
-<script src="js/flexslider2/jquery.flexslider.js"></script>
-<script src="js/functions.js"></script>
-
-<script>
-    $(document).ready(function(){
-        sortMenu();
-        scrollSmooth();
-
-        $(document).on("click",".menuBtn",function(){
-            $(".navDrop").hide();
-            $(this).toggleClass('menuBtnActive');
-            toggleMenu();
-        });
-
-        $(document).on("click",".countrySelect",function(){
-            toggleCurrencyMenu();
-        });
-
-        $(document).on("click",".userDropDown",function(){
-            userMenu();
-        });
-
-        $(document).on("click",".submenuTrigger",function(){
-            $(".menuContainer").height("auto");
-            if($(this).next(".navDrop").hasClass("down")){
-                $(this).next(".navDrop").slideToggle("slow").removeClass("down");
-          }else{
-                $(this).next(".navDrop").slideToggle("slow").addClass("down");
-            }
-        });
-
-        // Main Slider
-        var controlNav = true;
-        var directionNav = false;
-        $(".flexsliderMain").flexslider({
-            animation: "slide",
-            animationLoop: true,
-            itemWidth: "100%",
-            pausePlay: true,
-            slideshowSpeed: 6000,
-            directionNav: directionNav,
-            controlNav: controlNav,
-            pauseOnAction: true,
-            start: function(slider){
-                $('body').removeClass('loading');
-                $('.flexsliderMain').removeClass('flexsliderHidden');
-            },
-            after: function(slider) {
-            /* auto-restart player if paused after action */
-            if (!slider.playing) {
-                slider.play();
-            }}
-        });
-        // End Main Slider
-
-        // Secondary Slider
-        $(".flexslider").flexslider({
-            animation: "slide",
-            animationLoop: true,
-            itemWidth: "100%",
-            pausePlay: true,
-            slideshowSpeed: 6000,
-            directionNav: false,
-            controlNav: true,
-            pauseOnAction: true,
-            start: function(slider){
-                $('body').removeClass('loading');
-            },
-            after: function(slider) {
-            /* auto-restart player if paused after action */
-            if (!slider.playing) {
-                slider.play();
-            }}
-        });
-        // End Secondary Slider
-    });
-</script>
+    <!-- Stylesheet import -->
+    <link rel="stylesheet" type="text/css" href="fonts/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="fonts/css/flexslider.css" />
+    <link rel="stylesheet" type="text/css" href="css/app.css" />
+    
+    <!-- Scripts import -->
+    <script src="js/vendor/jquery.min.js"></script>
+    <script
+      src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+      integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+      crossorigin="anonymous"></script>
+    <script src="js/vendor/popper.min.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/vendor/jquery.flexslider-min.js"></script>
+    <script src="js/vendor/jquery.sticky.js"></script>
+    <script src="js/vendor/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="js/app.bundle.js"></script>
 </head>
 
-<body id="bodyPush">
-    <div class="detectcss"></div>
-    <header>
-        <a class="inlineAnchor" id="topScroll"></a>
-        <div class="row">
-            <div class="logo">
-                <a href="index.html"><img src="images/100.png" alt="we-edit.com" style="width:auto; height: 70px" /></a>
-            </div>
-            <div class="signUpFront">
-                <h4 class="contactTel">(+84) 97 6243 323 | info@we-edit.com.vn</h4>
-            </div>
-            <div class="menuBtnWrapper">
-                <button class="menuBtn"><span></span><span></span><span></span><span></span></button>
-            </div>
-            <div class="subNav" style="margin-right: 57px">
-                <ul>
-                    <li><a class="" href="about.html">About</a><span class="verticalDivider">|</span></li>
-                    <li><a class="" href="blog.html">Blog</a><span class="verticalDivider">|</span></li>
-                    <li><a class="" href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </header>
-
-    <nav>
-        <div class="menuContainer menuHidden">
-            <ul class="topLevel">
-                <li class="submenuTriggerFull"><a href="category.html">Photo Editing</a><i class="fa fa-angle-down submenuTrigger"></i>
-                    <ul class="navDrop">
-                        <li><a href="category.html">Photo Enhancement</a></li>
-                        <li><a href="category.html">Day To Dusk</a></li>
-                        <li><a href="category.html">Item Removal</a></li>
-                        <li><a href="category.html">Panorama Stitching</a></li>
-                    </ul>
-                </li>
-                <li class="active"><a href="category.html">Floor Plan</a></li>
-                <li class=""><a href="category.html">Virtual Furniture</a></li>
-                <li class=""><a href="category.html">Video & Slideshow</a></li>
-                <li class=""><a href="category.html">Background Removal</a></li>
-                <li class=""><a href="category.html">Portrait Retouching</a></li>
-            </ul>
-        </div>
-        <div class="clear"></div>
-    </nav>
-<main>
-    <section class="slider">
-        <div class="flexsliderMain flexsliderHidden">
-            <ul class="slides">
-                <li>
-                    <a href="#">
-                        <div class="imgWrapper">
-                            <img src="images/6-a.jpg" alt="Image Enhancement" />
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div class="imgWrapper">
-                            <img src="images/23-a-1.jpg" alt="Image Enhancement" />
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div class="imgWrapper">
-                            <img src="images/17-aa.jpg" alt="Image Enhancement" />
-                        </div>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <div class="imgWrapper">
-                            <img src="images/22-a-1.jpg" alt="Image Enhancement" />
-                        </div>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </section>
-
-<section class="keyPoints">
-        <div class="row">
-            <h1>WHY FILL YOUR EMPTY LISTING WITH VIRTUAL FURNITURE?</h1>
-        </div>
-        <div class="row colCount1">
-            <div class="colSpan1">
-                <p>A homeowner or a realtor can get possible leads in selling their real estate by making an attractive first impression. This is why it is definitely crucial for property agencies and homeowners who are selling their properties to make sure that they are making a massive good impression to their prospective buyers. How can they do that? There is a lot of ways and online is the best platform for that.
-Online is where most of the businesses are happening today. It is already considered to be the biggest marketplace across the globe due to its broad coverage and influence. It is the perfect place for everyone to look for products and services. This is why creating an impressive online marketing campaign will surely invite more buyers, resulting in higher sales and we can help you with that.
-So, if you are a realtor for homes for sale, you should have your marketing campaign online. The latter comes in various methods and types. However, in property selling such as houses and apartments, virtual home staging is the most suited method. This is the most effective way for realtors and homeowners in selling their properties online. This method creates an appealing view of the properties, making it saleable.
-Our company provides the most updated and highly-optimized home staging that includes designing virtual furniture to create a more appealing property and space.
-What do you mean by virtual staging a house? It is a reliable step by step procedure in creating a pleasant and well-presented display of a house property. This is made possible by the incomparable technological advancement in home staging strategies. It is known to be more economical and effective compared to the traditional staging of vacant homes. In short, it is basically an optimized home staging technique to entice buyers.
-We can help you in building that perfect virtual house staging with the use of stunning and luxurious virtual furniture. In connection to this, we summarized some of the most effective ways that our virtual staging properties method can help realtors and homeowners like you in getting your properties and houses sold. </p>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </section>
-
-<section class="featured50Full">
-    <div class="colCount2">
-        <div class="colSpan1">
-            <div class="tagContainer">
-                <div class="tileTagBefore"><p>Before</p></div>
-                <div class="tileTagAfter"><p>After</p></div>
-                <img src="images/prod1.jpg" alt="Image Enhancement – before and after">
-            </div>
-        </div>
-        <div class="colSpan1">
-            <h2>LIVINGROOM</h2>
-            <p>Often the first room you walk into, a living area is a popular place for families and friends to gather, watch TV or just relax. Show buyers how the space can work by adding a virtual couch with chaise, a TV with beautiful view on the screen and a trendy coffee table. Seeing how a space can work will help buyers imagine themselves living in the home.</p>
-        </div>
-    </div>
-    <div class="colCount2">
-        <div class="colSpan1">
-            <div class="tagContainer">
-                <div class="tileTagBefore"><p>Before</p></div>
-                <div class="tileTagAfter"><p>After</p></div>
-                <img src="images/prod2.jpg" alt="Image Enhancement – before and after">
-            </div>
-        </div>
-        <div class="colSpan1">
-            <h2>BEDROOM</h2>
-            <p>Bedrooms without furniture can look rather drab and much smaller than they really are. Adding a bed, side table and chest of drawers can demonstrate just how big the room is and add life to the previously lifeless space.</p>
-        </div>
-    </div>
-    <div class="colCount2">
-        <div class="colSpan1">
-            <div class="tagContainer">
-                <div class="tileTagBefore"><p>Before</p></div>
-                <div class="tileTagAfter"><p>After</p></div>
-                <img src="images/prod3.jpg" alt="Image Enhancement – before and after">
-            </div>
-        </div>
-        <div class="colSpan1">
-            <h2>KITCHEN</h2>
-            <p>The heart of the home, take advantage of the opportunity to declutter and restyle the kitchen to attract more buyers. A clean kitchen with modern styling will help a buyer imagine spending time with their family, cooking, eating and bonding in the central room of the home.</p>
-        </div>
-    </div>
-    <div class="colCount2">
-        <div class="colSpan1">
-            <div class="tagContainer">
-                <div class="tileTagBefore"><p>Before</p></div>
-                <div class="tileTagAfter"><p>After</p></div>
-                <img src="images/prod4.jpg" alt="Image Enhancement – before and after">
-            </div>
-        </div>
-        <div class="colSpan1">
-            <h2>OUTDOOR</h2>
-            <p>Great curb appeal is essential when selling a home and it’s important in photos, too. Take this chance to show buyers just how cute a three-piece garden setting can be in the front yard or add a timber bench near the flowers to show how the front yard can be utilised.</p>
-        </div>
-    </div>
-</section>
-
-<section class="categories grey">
-    <div class="fullRow itemLoop">
-        <h2>OTHER SERVICES</h2>
-        <div class="item">
-            <div class="imgContainer">
-                <a href="category.html"><img src="images/1.jpg" alt="Image Enhancement" /></a>
-            </div>
-            <div class="content">
-                <a href="category.html">
-                    <h3>Image Enhancement</h3>
-                    <p>Perfect for real estate photo editing so you can present your listing with top-notch, retouched professional-looking photos.</p>
-                    <p class="price">
-                        AU$2.00
-                    </p>
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="imgContainer">
-                <a href="category.html"><img src="images/2.jpg" alt="Virtual Furniture" /></a>
-            </div>
-            <div class="content">
-                <a href="category.html">
-                    <h3>Virtual Staging</h3>
-                    <p>Our team can add furniture to real estate photography to show potential buyers just how versatile the space is.</p>
-                    <p class="price">
-                        AU$40.00
-                    </p>
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="imgContainer">
-                <a href="category.html"><img src="images/3.jpg" alt="Image Enhancement" /></a>
-            </div>
-            <div class="content">
-                <a href="category.html">
-                    <h3>Renders</h3>
-                    <p>Bring plans to life with our render service available for a range of plans and designs.</p>
-                    <p class="price">
-                        AU$82.00
-                    </p>
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="imgContainer">
-                <a href="category.html"><img src="images/4.jpg" alt="Virtual Furniture" /></a>
-            </div>
-            <div class="content">
-                <a href="category.html">
-                    <h3>Day to Dusk</h3>
-                    <p>Our photo retouching service will take your exterior property photo from drab to fab by adding a beautiful dusk sky.</p>
-                    <p class="price">
-                        AU$30.00
-                    </p>
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="imgContainer">
-                <a href="category.html"><img src="images/5.jpg" alt="Image Enhancement" /></a>
-            </div>
-            <div class="content">
-                <a href="category.html">
-                    <h3>Item Removal</h3>
-                    <p>Our photo editing experts can remove any object from a photo.</p>
-                    <p class="price">
-                        AU$23.00
-                    </p>
-                </a>
-            </div>
-        </div>
-        <div class="item">
-            <div class="imgContainer">
-                <a href="category.html"><img src="images/6.jpg" alt="Virtual Furniture" /></a>
-            </div>
-            <div class="content">
-                <a href="category.html">
-                    <h3>Floor Plan Redraws</h3>
-                    <p>Clearly showcase your listing to potential buyers with an online floorplan available in a range of 2D and 3D options.</p>
-                    <p class="price">
-                        AU$48.00
-                    </p>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-</main>
-
-<footer>
-        <section class="workTogether">
-            <h3><a href="sign-#"><span>Let&rsquo;s Work Together</span> <i class="icon-arrowRight"></i></a></h3>
-        </section>
-
-    <section class="footerContent">
-        <div class="row colCount4">
-            <div class="colSpan1 left content1">
-                <div class="logoContainer">
-                    <a href="#"><img src="images/100.png" alt="we-edit.com" /></a>
+<body id="site-body" class="homepage offcanvas-init">
+    <div class="site-wrapper">
+        <div class="site-overlay"></div>
+        <div class="offcanvas-menu">
+            <div class="offcanvas-inner">
+                <div class="offcanvas-header">
+                    <div class="float-left">
+                        <span class="offcanvas-title">Menu</span>
+                    </div>
+                    <div class="float-right">
+                        <div class="close-offcanvas">Close</div>
+                    </div>
+                </div>
+                <div class="offcanvas-content">
+                    <div class="main-menu">
+                        <ul class="site-navigation-main">
+                            <li class="menu-item"><a href="index.html">Home</a></li>
+                            <li class="menu-item has-submenu">
+                                <a href="category.html">Photo Editing</a>
+                                <span class="caret"></span>
+                                <ul class="submenu">
+                                    <li class="menu-item"><a href="category.html">Photo Enhancement</a></li>
+                                    <li class="menu-item"><a href="category.html">Day To Dusk</a></li>
+                                    <li class="menu-item"><a href="category.html">Item Removal</a></li>
+                                    <li class="menu-item"><a href="category.html">Panorama Stitching</a></li>
+                                    <li class="menu-item"><a href="category.html">Floor Plan</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item has-submenu">
+                                <a href="category.html">Virtual Furniture</a>
+                                <span class="caret"></span>
+                                <ul class="submenu">
+                                    <li class="menu-item"><a href="category.html">Background Removal</a></li>
+                                    <li class="menu-item"><a href="category.html">Portrait Retouching</a></li>
+                                </ul>
+                            </li>
+                            <li class="menu-item"><a href="category.html">Video & Slideshow</a></li>
+                            <li class="menu-item active"><a href="blog.html">Blog</a></li>
+                            <li class="menu-item"><a href="about.html">About</a></li>
+                            <li class="menu-item"><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div class="colSpan1 left content2">
-                <h3>Services List</h3>
-                <ul>
-                    <li><a href="#">Photo Editing</a></li>
-                    <li><a href="#">Floor Plan</a></li>
-                    <li><a href="#">Virtual Furniture</a></li>
-                    <li><a href="#">Background Removal</a></li>
-                    <li><a href="#">Portrait Retouching</a></li>
-                </ul>
-            </div>
-            <div class="colSpan1 left content3">
-                <h3>Company Link</h3>
-                <ul>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                    <li><a href="contact.html">Contact</a></li>
-                </ul>
-            </div>
-            <div class="colSpan1 left content4">
-                <h3>Social</h3>
-                <p>Connect and Share:</p>
-                <ul>
-                    <li><a href="https://www.facebook.com" target="_blank"><i class="fa fa-facebook" aria-label="Facebook"></i></a></li>
-                    <li><a href="https://twitter.com" target="_blank"><i class="fa fa-twitter" aria-label="Twitter"></i></a></li>
-                    <li><a href="https://plus.google.com" target="_blank"><i class="fa fa-google-plus" aria-label="Google Plus"></i></a></li>
-                    <li><a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram" aria-label="true"></i></a></li>
-                    <li><a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube" aria-label="YouTube"></i></a></li>
-                    <li class="last"><a href="https://www.linkedin.com/" target="_blank"><i class="fa fa-linkedin-square" aria-label="Linkedin"></i></a></li>
-                </ul>
-            </div>
-            <div class="clear"></div>
         </div>
+        <header class="site-header">
+            <nav class="site-navigation">
+                <div class="container">
+                    <div class="row">
+                        <a class="site-logo col-6 col-sm-6 col-md-6 col-lg-2" href="index.html">
+                            <img class="logo" src="images/logo.png" alt="we-edit.com">
+                        </a>
+                        <div class="main-menu col-6 col-sm-6 col-md-6 col-lg-10">
+                            <div id="offcanvas-toggler" class="d-lg-none d-xl-none">
+                                <div class="ico-menu">
+                                    <div class="bar"></div>
+                                    <div class="bar"></div>
+                                    <div class="bar"></div>
+                                </div>
+                                <span>MENU</span>
+                            </div>
+                            <ul class="site-navigation-main d-none d-lg-block">
+                                <li class="menu-item"><a href="index.html">Home</a></li>
+                                <li class="menu-item has-submenu">
+                                    <a href="category.html">Photo Editing</a>
+                                    <ul class="submenu">
+                                        <li class="menu-item"><a href="category.html">Photo Enhancement</a></li>
+                                        <li class="menu-item"><a href="category.html">Day To Dusk</a></li>
+                                        <li class="menu-item"><a href="category.html">Item Removal</a></li>
+                                        <li class="menu-item"><a href="category.html">Panorama Stitching</a></li>
+                                        <li class="menu-item"><a href="category.html">Floor Plan</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu-item has-submenu">
+                                    <a href="category.html">Virtual Furniture</a>
+                                    <ul class="submenu">
+                                        <li class="menu-item"><a href="category.html">Background Removal</a></li>
+                                        <li class="menu-item"><a href="category.html">Portrait Retouching</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu-item active"><a href="category.html">Video & Slideshow</a></li>
+                                <li class="menu-item"><a href="blog.html">Blog</a></li>
+                                <li class="menu-item"><a href="about.html">About</a></li>
+                                <li class="menu-item"><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main class="site-main">
+            <section class="section-wrapper slider-wrapper py-0">
+                <div class="flexslider control-paging-absolute control-paging-large control-paging-big flexslider-hidden">
+                    <ul class="slides">
+                        <li>
+                            <div class="slide-item" href="#">
+                                <div class="img-wrapper">
+                                    <img src="images/6-a.jpg" alt="Image Enhancement" />
+                                </div>
+                                <div class="slide-item-text container">
+                                    <h1 class="animate_left_to_right">World Class</h1>
+                                    <h2 class="animate_right_to_left">Combination</h2>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="slide-item" href="#">
+                                <div class="img-wrapper">
+                                    <img src="images/23-a-1.jpg" alt="Image Enhancement" />
+                                </div>
+                                <div class="slide-item-text container">
+                                    <h1 class="animate_left_to_right">World Class</h1>
+                                    <h2 class="animate_right_to_left">Support</h2>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="slide-item" href="#">
+                                <div class="img-wrapper">
+                                    <img src="images/17-aa.jpg" alt="Image Enhancement" />
+                                </div>
+                                <div class="slide-item-text container">
+                                    <h1 class="animate_left_to_right">Photography</h1>
+                                    <h2 class="animate_right_to_left">Creative</h2>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="slide-item" href="#">
+                                <div class="img-wrapper">
+                                    <img src="images/22-a-1.jpg" alt="Image Enhancement" />
+                                </div>
+                                <div class="slide-item-text container">
+                                    <h1 class="animate_left_to_right">Hello world!</h1>
+                                    <h2 class="animate_right_to_left">Crazy</h2>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </section>
-    <section class="backToTop">
-        <a href="#topScroll">
-            <i class="icon-arrowUp"></i>
-            <span class="block">Back To Top</span>
-        </a>
-    </section>
-    <section class="copyright">
-        <div class="row">
-            <p><img src="images/100.png" alt="we-edit.com" /> &copy; we-edit.com Pty Ltd. All Rights Reserved. </p>
-        </div>
-    </section>
-</footer>
-</body>
 
+            <section class="section-wrapper introduction-wrapper">
+                <div class="container">
+                    <div class="section-title text-center">
+                        <h1 class="heading">WHY FILL YOUR EMPTY LISTING WITH VIRTUAL FURNITURE?</h1>
+                    </div>
+                    <div class="section-content text-center">
+                        <div class="section-content-wrapper">
+                            <p class="small">A homeowner or a realtor can get possible leads in selling their real estate by making an attractive first impression. This is why it is definitely crucial for property agencies and homeowners who are selling their properties to make sure that they are making a massive good impression to their prospective buyers. How can they do that? There is a lot of ways and online is the best platform for that. Online is where most of the businesses are happening today. It is already considered to be the biggest marketplace across the globe due to its broad coverage and influence. It is the perfect place for everyone to look for products and services. This is why creating an impressive online marketing campaign will surely invite more buyers, resulting in higher sales and we can help you with that. So, if you are a realtor for homes for sale, you should have your marketing campaign online. The latter comes in various methods and types. However, in property selling such as houses and apartments, virtual home staging is the most suited method. This is the most effective way for realtors and homeowners in selling their properties online. This method creates an appealing view of the properties, making it saleable. Our company provides the most updated and highly-optimized home staging that includes designing virtual furniture to create a more appealing property and space. What do you mean by virtual staging a house? It is a reliable step by step procedure in creating a pleasant and well-presented display of a house property. This is made possible by the incomparable technological advancement in home staging strategies. It is known to be more economical and effective compared to the traditional staging of vacant homes. In short, it is basically an optimized home staging technique to entice buyers. We can help you in building that perfect virtual house staging with the use of stunning and luxurious virtual furniture. In connection to this, we summarized some of the most effective ways that our virtual staging properties method can help realtors and homeowners like you in getting your properties and houses sold.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>            
+
+            <section class="section-wrapper showcase-wrapper p-0">
+                <ul class="list-items no-list mt-5">
+                    <li class="showcase-item bg-grey">
+                        <div class="showcase-block showcase-image-top media row m-0 align-items-center">
+                            <div class="showcase-image col-lg-6 p-0">
+                                <div class="showcase-image-wrapper">
+                                    <div class="tag-before"><span>Before</span></div>
+                                    <div class="tag-after"><span>After</span></div>
+                                    <img src="images/prod1.jpg" alt="Image Enhancement – before and after">
+                                </div>
+                            </div>
+                            <div class="showcase-text media-body col-lg-6 p-0">
+                                <div class="showcase-text-wrapper">
+                                    <h2>LIVINGROOM</h2>
+                                    <p>Often the first room you walk into, a living area is a popular place for families and friends to gather, watch TV or just relax. Show buyers how the space can work by adding a virtual couch with chaise, a TV with beautiful view on the screen and a trendy coffee table. Seeing how a space can work will help buyers imagine themselves living in the home.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="showcase-item bg-grey">
+                        <div class="showcase-block showcase-image-bottom media row m-0 align-items-center">
+                            <div class="showcase-text media-body col-lg-6 p-0">
+                                <div class="showcase-text-wrapper">
+                                    <h2>BEDROOM</h2>
+                                    <p>Bedrooms without furniture can look rather drab and much smaller than they really are. Adding a bed, side table and chest of drawers can demonstrate just how big the room is and add life to the previously lifeless space.</p>
+                                </div>
+                            </div>
+                            <div class="showcase-image col-lg-6 p-0">
+                                <div class="showcase-image-wrapper">
+                                    <div class="tag-before"><span>Before</span></div>
+                                    <div class="tag-after"><span>After</span></div>
+                                    <img src="images/prod2.jpg" alt="Image Enhancement – before and after">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="showcase-item bg-grey">
+                        <div class="showcase-block showcase-image-top media row m-0 align-items-center">
+                            <div class="showcase-image col-lg-6 p-0">
+                                <div class="showcase-image-wrapper">
+                                    <div class="tag-before"><span>Before</span></div>
+                                    <div class="tag-after"><span>After</span></div>
+                                    <img src="images/prod3.jpg" alt="Image Enhancement – before and after">
+                                </div>
+                            </div>
+                            <div class="showcase-text media-body col-lg-6 p-0">
+                                <div class="showcase-text-wrapper">
+                                    <h2>KITCHEN</h2>
+                                    <p>The heart of the home, take advantage of the opportunity to declutter and restyle the kitchen to attract more buyers. A clean kitchen with modern styling will help a buyer imagine spending time with their family, cooking, eating and bonding in the central room of the home.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="showcase-item bg-grey">
+                        <div class="showcase-block showcase-image-bottom media row m-0 align-items-center">
+                            <div class="showcase-text media-body col-lg-6 p-0">
+                                <div class="showcase-text-wrapper">
+                                    <h2>OUTDOOR</h2>
+                                    <p>Great curb appeal is essential when selling a home and it’s important in photos, too. Take this chance to show buyers just how cute a three-piece garden setting can be in the front yard or add a timber bench near the flowers to show how the front yard can be utilised.</p>
+                                </div>
+                            </div>
+                            <div class="showcase-image col-lg-6 p-0">
+                                <div class="showcase-image-wrapper">
+                                    <div class="tag-before"><span>Before</span></div>
+                                    <div class="tag-after"><span>After</span></div>
+                                    <img src="images/prod4.jpg" alt="Image Enhancement – before and after">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+
+            <section class="section-wrapper categories-wrapper">
+                <div class="container">
+                    <div class="section-title text-center">
+                        <h2 class="heading">OTHER SERVICES</h2>
+                    </div>
+
+                    <ul class="list-items row mt-5">
+                        <li class="item col-sm-6 width50-flex">
+                            <div class="media row align-items-center">
+                                <a class="col-lg-6" href="category.html">
+                                    <img src="images/1.jpg" alt="Image Enhancement" />
+                                </a>
+                                <div class="col-lg-6 media-body">
+                                    <a href="category.html">
+                                        <h3>Image Enhancement</h3>
+                                        <p>Perfect for real estate photo editing so you can present your listing with top-notch, retouched professional-looking photos.</p>
+                                        <p class="price">AU$2.00</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="item col-sm-6 width50-flex">
+                            <div class="media row align-items-center">
+                                <a class="col-lg-6" href="category.html">
+                                    <img src="images/2.jpg" alt="Virtual Furniture" />
+                                </a>
+                                <div class="col-lg-6 media-body">
+                                    <a href="category.html">
+                                        <h3>Virtual Staging</h3>
+                                        <p>Our team can add furniture to real estate photography to show potential buyers just how versatile the space is.</p>
+                                        <p class="price">AU$40.00</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="item col-sm-6 width50-flex">
+                            <div class="media row align-items-center">
+                                <a class="col-lg-6" href="category.html">
+                                    <img src="images/3.jpg" alt="Image Enhancement" />
+                                </a>
+                                <div class="col-lg-6 media-body">
+                                    <a href="category.html">
+                                        <h3>Renders</h3>
+                                        <p>Bring plans to life with our render service available for a range of plans and designs.</p>
+                                        <p class="price">AU$82.00</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="item col-sm-6 width50-flex">
+                            <div class="media row align-items-center">
+                                <a class="col-lg-6" href="category.html">
+                                    <img src="images/4.jpg" alt="Virtual Furniture" />
+                                </a>
+                                <div class="col-lg-6 media-body">
+                                    <a href="category.html">
+                                        <h3>Day to Dusk</h3>
+                                        <p>Our photo retouching service will take your exterior property photo from drab to fab by adding a beautiful dusk sky.</p>
+                                        <p class="price">AU$30.00</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="item col-sm-6 width50-flex">
+                            <div class="media row align-items-center">
+                                <a class="col-lg-6" href="category.html">
+                                    <img src="images/5.jpg" alt="Virtual Furniture" />
+                                </a>
+                                <div class="col-lg-6 media-body">
+                                    <a href="category.html">
+                                        <h3>Item Removal</h3>
+                                        <p>Our photo editing experts can remove any object from a photo.</p>
+                                        <p class="price">AU$23.00</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="item col-sm-6 width50-flex">
+                            <div class="media row align-items-center">
+                                <a class="col-lg-6" href="category.html">
+                                    <img src="images/6.jpg" alt="Virtual Furniture" />
+                                </a>
+                                <div class="col-lg-6 media-body">
+                                    <a href="category.html">
+                                        <h3>Floor Plan Redraws</h3>
+                                        <p>Clearly showcase your listing to potential buyers with an online floorplan available in a range of 2D and 3D options.</p>
+                                        <p class="price">AU$48.00</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <section class="footer-main">
+                <div class="container">
+                    <div class="row">
+                        <div class="f-col col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                            <a href="#" class="f-logo">
+                                <img src="images/logo.png" alt="we-edit.com" />
+                            </a>
+                        </div>
+                        <div class="f-col col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                            <h3 class="f-title">Services List</h3>
+                            <ul>
+                                <li><a href="#">Photo Editing</a></li>
+                                <li><a href="#">Floor Plan</a></li>
+                                <li><a href="#">Virtual Furniture</a></li>
+                                <li><a href="#">Background Removal</a></li>
+                                <li><a href="#">Portrait Retouching</a></li>
+                            </ul>
+                        </div>
+                        <div class="f-col col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                            <h3 class="f-title">Company Link</h3>
+                            <ul>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="blog.html">Blog</a></li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                        <div class="f-col col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                            <h3 class="f-title">We-edit at Facebook</h3>
+                            <div class="facebook-box">
+                                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Ffacebook&tabs&width=340&height=214&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=340231906161242" width="340" height="214" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true" allow="encrypted-media"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="copyright">
+                <div class="container">
+                    <p>&copy; we-edit.com Pty Ltd. All Rights Reserved. </p>
+                    <ul class="social horizontal">
+                        <li><a href="https://www.facebook.com" target="_blank"><i class="fa fa-facebook" aria-label="Facebook"></i></a></li>
+                        <li><a href="https://twitter.com" target="_blank"><i class="fa fa-twitter" aria-label="Twitter"></i></a></li>
+                        <li><a href="https://plus.google.com" target="_blank"><i class="fa fa-google-plus" aria-label="Google Plus"></i></a></li>
+                        <li><a href="https://www.instagram.com/" target="_blank"><i class="fa fa-instagram" aria-label="true"></i></a></li>
+                        <li><a href="https://www.youtube.com/" target="_blank"><i class="fa fa-youtube" aria-label="YouTube"></i></a></li>
+                        <li class="last"><a href="https://www.linkedin.com/" target="_blank"><i class="fa fa-linkedin-square" aria-label="Linkedin"></i></a></li>
+                    </ul>
+                </div>
+            </section>
+        </footer>
+
+        <div class="preeloader" style="display: none;">
+            <div class="preloader-spinner">
+                <img src="images/preloader.gif" alt="">
+            </div>
+        </div>
+        
+        <!-- <div id="site-options">
+            <a href="#" id="fullscreen" class="option-item"></a>
+        </div> -->
+
+        <a href="#site-body" id="back-top">
+            <i class="fa fa-long-arrow-up"></i>
+        </a>
+    </div>
+</body>
 </html>

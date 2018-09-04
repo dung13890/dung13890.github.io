@@ -2,6 +2,9 @@
 
 .flexslider {
     position: relative;
+    background: none;
+    border: 0;
+    border-radius: 0;
 
     .img-wrapper {
         position: relative;
@@ -24,7 +27,13 @@
 
             > a,
             .slide-item {
-                color: #fff;
+                color: #272a35;
+
+                .slide-item-text {
+                    &.shadow-lg {
+                        color: #fff;
+                    }
+                }
             }
         }
 
@@ -36,10 +45,14 @@
             margin: auto;
             margin-top: -40px;
             text-align: center;
-            background: rgba(201, 181, 114, 0.5);
             z-index: 99;
             opacity: 0;
             transition: all 3s;
+            background: rgba(255, 255, 255, 0.8);
+
+            &.shadow-lg {
+                background: rgba(201, 181, 114, 0.5);
+            }
 
             h1,
             h2 {
@@ -126,6 +139,27 @@
             li {
                 width: 50px;
             }
+        }
+    }
+
+    &.control-paging-big {
+        .flex-control-nav {
+            li {
+                a {
+                    height: 5px;
+                    border-radius: 5px;
+                }
+            }
+        }
+    }
+
+    &.control-paging-absolute {
+        .flex-control-nav {
+            position: absolute;
+            bottom: 30px;
+            margin: auto;
+            left: 0;
+            right: 0;
         }
     }
 
