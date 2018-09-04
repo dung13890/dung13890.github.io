@@ -64,7 +64,7 @@
             > a {
                 width: auto;
                 padding: 30px 8px;
-                font-weight: 600;
+                font-weight: 400;
                 letter-spacing: 0.2px;
                 text-transform: uppercase;
                 position: relative;
@@ -230,7 +230,7 @@
 }
 
 .offcanvas-menu {
-    background-color: #343a40;
+    background-color: #151515;
     width: 320px;
     height: 100%;
     position: fixed;
@@ -249,13 +249,13 @@
         font-size: 13px;
         font-weight: 600;
         text-transform: uppercase;
-        background-color: #f4f7f6;
-        border-bottom: 1px solid #E6EAEA;
+        color: #fff;
+        background-color: #4491bb;
         overflow: hidden;
     }
 
     .close-offcanvas {
-        color: #202121;
+        color: #fff;
         cursor: pointer;
         padding-right: 30px;
         overflow: hidden;
@@ -268,7 +268,7 @@
             right: 27px;
             width: 20px;
             height: 3px;
-            background: #202121;
+            background: #fff;
             -webkit-transform: rotate(45deg);
             transform: rotate(45deg);
             -webkit-transition: all 0.3s ease-in-out;
@@ -300,29 +300,125 @@
     }
 
     .site-navigation-main {
+        margin: 0;
+        padding: 0;
+        
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+
         li {
             a {
+                font-size: 0.92em;
+                color: rgba(255, 255, 255, 0.8);
+                display: inline-block;
+                width: 100%;
+                padding: 6px 20px;
+
                 &:hover {
-                    color: #fff;
+                    color: $color-primary;
                 }
             }
 
             &.has-submenu {
-                margin-bottom: 15px;
+                margin: 0;
+                position: relative;
+
+                > .caret {
+                    position: absolute;
+                    width: 40px;
+                    line-height: 36px;
+                    text-align: center;
+                    right: 0;
+                    top: 0;
+                    transition: all 0.6s;
+                    z-index: 3;
+                    color: rgba(255, 255, 255, 0.8);
+                    background: #090909;
+
+                    &:before {
+                        content: "\F105";
+                        display: inline-block;
+                        font: normal normal normal 14px/1 FontAwesome;
+                        font-size: inherit;
+                        text-rendering: auto;
+                        -webkit-font-smoothing: antialiased;
+                        -moz-osx-font-smoothing: grayscale;
+                        transition: all 0.6s;
+                    }
+                }
+
+                > a {
+                    position: relative;
+
+                    &:after,
+                    &:before {
+                        display: none;
+                    }
+                }
+
+                > .submenu {
+                    opacity: 0;
+                    visibility: hidden;
+                    height: 0;
+                    background: #111;
+                    transition: all 0.4s;
+                    
+                    > li {
+                        > a {
+                            position: relative;
+                            padding: 6px 35px;
+                        }
+                    }
+                }
+
+                &.active {
+                    > .submenu {
+                        opacity: 1;
+                        visibility: visible;
+                        height: auto;
+                        padding-top: 20px;
+                        padding-bottom: 20px;
+                    }
+
+                    > .caret {
+                        &:before {
+                            content: "\F107";
+                        }
+                    }
+                }
             }
 
             &.active {
                 > a {
                     color: #fff;
+                    background: $color-secondary;
                 }
             }
         }
 
         > li {
             > a {
+                font-size: 1em;
+                font-weight: 400;
+                text-transform: uppercase;
                 width: 100%;
                 display: inline-block;
-                padding: 5px 0;
+                padding: 10px 20px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+            }
+
+            &.active {
+                > a {
+                    border-bottom: 1px solid $color-secondary;
+                }
+            }
+
+            &.has-submenu {
+                > .caret {
+                    line-height: 46px;
+                }
             }
         }
     }

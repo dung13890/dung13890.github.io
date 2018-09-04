@@ -141,3 +141,14 @@ ol {
     transition: all 0.5s ease-in-out;
     cursor: url(../images/close-cursor.png),pointer;
 }
+
+.site-main {
+    min-height: 500px;
+    // padding-top: 91px;
+}
+
+.homepage {
+    .site-main {
+        padding-top: 0;
+    }
+}

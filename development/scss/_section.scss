@@ -4,6 +4,10 @@
     padding-bottom: 60px;
 }
 
+.section-heightfixed {
+    height: 91px;
+}
+
 .bg-dark {
     background: #272a35 !important;
 }
@@ -52,6 +56,8 @@
         margin: 0;
         padding-bottom: 20px;
         position: relative;
+        max-width: 700px;
+        margin: auto;
 
         &:after {
             content: "";
@@ -169,4 +175,137 @@
     img {
         width: 100%;
     }
-}    
+}
+
+.showcase-block {
+    .showcase-image-wrapper {
+        position: relative;
+    }
+
+    .showcase-text-wrapper {
+        padding: 1em 4em;
+    }
+
+    .tag-before,
+    .tag-after {
+        z-index: 1;
+        position: absolute;
+        top: 0;
+        width: 5em;
+        height: 5em;
+        border-top: 5em solid #272a35;
+
+        span {
+            z-index: 1;
+            margin: 0;
+            width: 5em;
+            position: absolute;
+            top: -4.4em;
+            text-transform: uppercase;
+            text-align: center;
+            font-weight: 700;
+            font-size: 0.85em;
+            line-height: 1.1em;
+            color: #fff;
+        }
+    }
+
+    .tag-before {
+        z-index: 1;
+        left: 0;
+        border-right: 5em solid transparent;
+        span {
+            right: -4.5em;
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            transform: rotate(-45deg);
+        }
+    }
+
+    .tag-after {
+        z-index: 1;
+        right: 0;
+        border-left: 5em solid transparent;
+        span {
+            left: -4.5em;
+            -webkit-transform: rotate(45deg);
+            -moz-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
+            -o-transform: rotate(45deg);
+            transform: rotate(45deg);
+        }
+    }
+}
+
+.about-block-wrapper {
+    .row {
+        align-items: center;
+    }
+}
+
+.about-block-image {
+    img {
+        width: 100%;
+    }
+}
+
+.about-block-text {
+    padding: 0 70px;
+}
+
+.contact-block {
+    position: relative;
+
+    ul,
+    ol {
+        padding: 0;
+    }
+
+    .contact-block-text {
+        padding: 5em;
+    }
+
+    &.image-bottom {
+        .contact-block-image {
+            position: absolute;
+            bottom: 0;
+            top: auto;
+        }
+    }
+}
+
+.crazy-style {
+    position: relative;
+    text-transform: uppercase;
+
+    h2 {
+        color: #fff;
+        margin: 0 1em 0 0;
+        font-size: 2.75em;
+        font-weight: 600;
+        position: relative;
+        z-index: 1;
+
+        .sub-title {
+            color: $color-primary;
+            display: block;
+            margin: 0 0 0.25em;
+            font-size: 0.5em;
+            line-height: 1em;
+            letter-spacing: 0.07em;
+        }
+    }
+}
+
+.contact-work {
+    h3 {
+        color: $color-primary;
+        padding: 20px;
+    }
+
+    .crazy-style {
+        padding: 1.9em 0 1.9em 20em;
+    }
+}
