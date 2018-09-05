@@ -178,6 +178,14 @@
     }
 }
 
+.column-3 {
+    margin: -3px;
+    .single-gallery-items {
+        width: 33.333%;
+        padding: 3px;
+    }
+}
+
 .showcase-block {
     .showcase-image-wrapper {
         position: relative;
