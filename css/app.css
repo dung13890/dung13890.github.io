@@ -7956,6 +7956,13 @@ ol.social li a {
 .testimonial-item .testimonial-content .testimonial-name {
   font-weight: 600; }
 
+.ba-slider .handle {
+  width: 3px; }
+  .ba-slider .handle:after {
+    border: 0;
+    background: rgba(240, 196, 91, 0.61);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35), inset 0 2px 0 rgba(241, 197, 90, 0.64), inset 0 60px 50px -30px #efc45bb8; }
+
 /*! Home page styles */
 @media (max-width: 1200px) {
   .flexslider .slides .slide-item-text {
