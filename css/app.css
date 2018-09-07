@@ -7204,6 +7204,12 @@ label.fileToUpload input[type="file"] {
   .single-gallery-items img {
     width: 100%; }
 
+.column-3 {
+  margin: -3px; }
+  .column-3 .single-gallery-items {
+    width: 33.333%;
+    padding: 3px; }
+
 .showcase-block .showcase-image-wrapper {
   position: relative; }
 
@@ -7597,11 +7603,13 @@ label.fileToUpload input[type="file"] {
 /*! Footer styles */
 .site-footer {
   color: rgba(255, 255, 255, 0.8);
-  background-color: rgba(31, 31, 34, 0.9);
-  font-size: 0.95em;
-  padding: 70px 0; }
+  background-color: #262a35;
+  font-size: 0.95em; }
   .site-footer p, .site-footer ul, .site-footer ol {
     font-size: 0.95em; }
+
+.footer-main {
+  padding: 50px 0; }
 
 .facebook-box iframe {
   width: 100%; }
@@ -7624,17 +7632,19 @@ label.fileToUpload input[type="file"] {
   color: #fff;
   font-size: 1.1em;
   text-transform: uppercase;
-  padding-bottom: 5px; }
+  padding-bottom: 5px;
+  margin-bottom: 20px; }
 
 .f-logo img {
   max-width: 200px; }
 
 .f-col ul,
 .f-col ol {
-  padding: 0; }
+  padding: 0;
+  margin: 0; }
   .f-col ul li,
   .f-col ol li {
-    line-height: 30px; }
+    line-height: 35px; }
     .f-col ul li a,
     .f-col ol li a {
       color: rgba(255, 255, 255, 0.8);
@@ -7643,9 +7653,12 @@ label.fileToUpload input[type="file"] {
       .f-col ol li a:hover {
         color: #f1c55a;
         margin-left: 4px; }
-  .f-col ul.social li a:hover,
-  .f-col ol.social li a:hover {
-    color: #fff; }
+  .f-col ul.social,
+  .f-col ol.social {
+    text-align: center; }
+    .f-col ul.social li a:hover,
+    .f-col ol.social li a:hover {
+      color: #fff; }
 
 ul.social li a,
 ol.social li a {
@@ -7654,11 +7667,24 @@ ol.social li a {
   ol.social li a:hover {
     color: #fff; }
 
+.list-horizontal {
+  margin: 0;
+  padding: 0; }
+  .list-horizontal li {
+    display: inline-block; }
+    .list-horizontal li a {
+      margin: 0 5px;
+      color: rgba(255, 255, 255, 0.8); }
+      .list-horizontal li a:hover {
+        color: #f1c55a; }
+
 .copyright {
-  text-align: center;
-  padding-top: 80px; }
+  padding: 16px 0;
+  border-top: 1px solid #343844; }
   .copyright p {
     margin: 0; }
+  .copyright .list-horizontal {
+    text-align: right; }
 
 #site-options {
   position: fixed;
@@ -7750,7 +7776,7 @@ ol.social li a {
     right: 0;
     left: 0;
     z-index: 1;
-    background-color: rgba(31, 31, 34, 0.9); }
+    background-color: rgba(38, 42, 53, 0.85); }
   .page-header .container {
     position: relative;
     z-index: 2; }
@@ -7953,13 +7979,19 @@ ol.social li a {
     padding-right: 0; }
   .footer-main p, .footer-main ul, .footer-main ol {
     padding: 0; }
-  .site-footer {
-    padding: 50px 0; }
   .f-col {
     margin-top: 20px;
     margin-bottom: 20px; }
-  .copyright {
-    padding-top: 50px; } }
+  .f-logo-wrapper {
+    text-align: center; }
+    .f-logo-wrapper .f-logo {
+      display: inline-block;
+      margin: auto; }
+      .f-logo-wrapper .f-logo img {
+        display: inline-block;
+        margin: auto; }
+  .footer-main {
+    padding: 30px 0; } }
 
 @media (max-width: 768px) {
   .flexslider .slides .slide-item-text {
@@ -7986,7 +8018,17 @@ ol.social li a {
   .contact-form-block {
     margin-top: 40px; }
   .contact-form .form-group > .col-md-6:first-child {
-    margin-bottom: 1.8rem; } }
+    margin-bottom: 1.8rem; }
+  .copyright,
+  .copyright .list-horizontal {
+    text-align: center; }
+  .copyright .list-horizontal {
+    margin-top: 5px; }
+  .facebook-box-wrapper {
+    text-align: center; }
+    .facebook-box-wrapper .facebook-box {
+      display: inline-block;
+      margin: auto; } }
 
 @media (max-width: 576px) {
   .testimonial-item .testimonial-image {

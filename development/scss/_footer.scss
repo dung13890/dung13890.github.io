@@ -3,11 +3,14 @@
     color: $color-footer;
     background-color:  $color-footer-bg;
     font-size: 0.95em;
-    padding: 70px 0;
 
     p, ul, ol {
         font-size: 0.95em;
     }
+}
+
+.footer-main {
+    padding: 50px 0;
 }
 
 .facebook-box {
@@ -50,6 +53,7 @@
     font-size: 1.1em;
     text-transform: uppercase;
     padding-bottom: 5px;
+    margin-bottom: 20px;
 }
 
 .f-logo {
@@ -62,9 +66,10 @@
     ul,
     ol {
         padding: 0;
+        margin: 0;
 
         li {
-            line-height: 30px;
+            line-height: 35px;
             
             a {
                 color: $color-footer;
@@ -78,6 +83,8 @@
         }
 
         &.social {
+            text-align: center;
+
             li {
                 a {
                     &:hover {
@@ -104,12 +111,34 @@ ol {
     }
 }
 
+.list-horizontal {
+    margin: 0;
+    padding: 0;
+
+    li {
+        display: inline-block;
+
+        a {
+            margin: 0 5px;
+            color: rgba(255, 255, 255, 0.8);
+            
+            &:hover {
+                color: $color-primary;
+            }
+        }
+    }
+}
+
 .copyright {
-    text-align: center;
-    padding-top: 80px;
+    padding: 16px 0;
+    border-top: 1px solid #343844;
 
     p {
         margin: 0;
+    }
+
+    .list-horizontal {
+        text-align: right;
     }
 }
 
