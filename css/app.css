@@ -7124,8 +7124,7 @@ label.fileToUpload input[type="file"] {
   margin: 0;
   padding-bottom: 20px;
   position: relative;
-  max-width: 700px;
-  margin: auto; }
+  max-width: 700px; }
   .section-title .heading:after {
     content: "";
     background-color: #111;
@@ -7135,10 +7134,12 @@ label.fileToUpload input[type="file"] {
     left: 0;
     bottom: 0; }
 
-.section-title.text-center .heading:after {
-  left: 0;
-  right: 0;
+.section-title.text-center .heading {
   margin: auto; }
+  .section-title.text-center .heading:after {
+    left: 0;
+    right: 0;
+    margin: auto; }
 
 .crazy-block {
   position: relative;
