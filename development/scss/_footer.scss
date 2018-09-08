@@ -10,7 +10,7 @@
 }
 
 .footer-main {
-    padding: 50px 0;
+    padding: 22px 0;
 }
 
 .facebook-box {
@@ -58,7 +58,8 @@
 
 .f-logo {
     img {
-        max-width: 200px;
+        max-width: 180px;
+        max-height: 180px;
     }
 }
 
@@ -130,8 +131,8 @@ ol {
 }
 
 .copyright {
-    padding: 16px 0;
-    border-top: 1px solid #343844;
+    padding: 8px 0;
+    border-top: 1px solid $color-footer-border;
 
     p {
         margin: 0;
