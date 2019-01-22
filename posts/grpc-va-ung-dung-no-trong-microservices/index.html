@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Mr D">
+<meta name="description" content="Blog for developer">
+<meta name="generator" content="Hugo 0.31.1" />
+<title>Grpc và ứng dụng nó trong Microservices</title>
+<link rel="shortcut icon" href="https://dung13890.github.io/images/favicon.ico">
+<link rel="stylesheet" href="https://dung13890.github.io/css/style.css">
+<link rel="stylesheet" href="https://dung13890.github.io/css/highlight.css">
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+
+
+<link href="https://dung13890.github.io/index.xml" rel="alternate" type="application/rss+xml" title="while (!(successed = try()));" />
+
+
+<meta property="og:title" content="Grpc và ứng dụng nó trong Microservices" />
+<meta property="og:description" content="Hiện tại với API thì quá phổ biến cho các ứng dụng từ giao tiếp client tới server hay từ instance tới instance." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dung13890.github.io/posts/grpc-va-ung-dung-no-trong-microservices/" />
+
+
+
+<meta property="article:published_time" content="2017-12-27T05:40:41&#43;00:00"/>
+
+<meta property="article:modified_time" content="2017-12-27T05:40:41&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Grpc và ứng dụng nó trong Microservices">
+<meta itemprop="description" content="Hiện tại với API thì quá phổ biến cho các ứng dụng từ giao tiếp client tới server hay từ instance tới instance.">
+
+
+<meta itemprop="datePublished" content="2017-12-27T05:40:41&#43;00:00" />
+<meta itemprop="dateModified" content="2017-12-27T05:40:41&#43;00:00" />
+<meta itemprop="wordCount" content="998">
+
+
+
+<meta itemprop="keywords" content="microservice,GRPC,Golang," />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Grpc và ứng dụng nó trong Microservices"/>
+<meta name="twitter:description" content="Hiện tại với API thì quá phổ biến cho các ứng dụng từ giao tiếp client tới server hay từ instance tới instance."/>
+<meta name="twitter:site" content="@https://www.twitter.com/"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='https://dung13890.github.io'> <span class="arrow">←</span>Home</a>
+	
+
+	
+ 		<a href='/about/'>About</a>
+  	
+
+	
+		<a class="cta" href="https://dung13890.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>Grpc và ứng dụng nó trong Microservices</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        December 27, 2017
+        <br>
+        
+        
+            
+                <a href="https://dung13890.github.io/tags/microservice">microservice</a>
+            
+                <a href="https://dung13890.github.io/tags/grpc">GRPC</a>
+            
+                <a href="https://dung13890.github.io/tags/golang">Golang</a>
+            
+        
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        
+
+<p>Hiện tại với API thì quá phổ biến cho các ứng dụng từ giao tiếp client tới server hay từ instance tới instance. Tuy nhiên ngày nay công nghệ càng ngày càng phát triển với http2 ra đời đã kéo theo 1 loạt những thay đổi để cải thiện performance, gRPC là sự kết hợp của Protocol Buffers và http2, Protocol Buffers được phát triển bởi google nó nhẹ hơn, nhanh hơn và cung cấp hiệu năng tốt hơn so với sử dụng XML hoặc Json
+gRPC cũng cho phép định nghĩa cấu trúc của data dưới dạng file protoc và nó tự động generate ra file sử dụng để giao tiếp với ngôn ngữ mà bạn sử dụng. gRPC hiện tại cũng đã hỗ trợ khá đầy đủ các ngôn ngữ như C++, Java, Python, Go, &hellip; các bạn có thể tham khảo thêm ở đây <a href="https://grpc.io/docs/">https://grpc.io/docs/</a></p>
+
+<p><img src="https://viblo.asia/uploads/67f28126-e935-43c0-8e67-76d1bc1af721.jpg" alt="" /></p>
+
+<h2 id="bài-toán">Bài toán</h2>
+
+<p>Giả sử chúng ta có hệ thống microservices, Mỗi services của mình thường rất nhỏ nhưng lại cần thực thi liên tục. Services của mình quản lý thông tin người dùng, nhiệm vụ của services này chỉ thao tác các công việc liên quan đến người dùng như thêm, sửa, xoá, phân quyền, &hellip;.</p>
+
+<p>Cũng 1 instance khác mình quản lý products. Thay vì theo cách thông thường, để instance products giao tiếp đến instance users lấy thông tin người dùng bằng cách sử dụng REST API chúng ta có thể thay thế nó bằng gRPC với tốc độ xử lý cực nhanh giống như việc gọi các mothod trong kiến trúc monolithic <code>Kiến trúc khối</code></p>
+
+<p>Để cụ thể chi tiết hơn mình sẽ làm 1 hướng dẫn tạo 1 file protoc với language <code>Go</code></p>
+
+<p><img src="https://viblo.asia/uploads/7b48f60b-fbeb-4d69-831a-886225662ab4.jpg" alt="" /></p>
+
+<h2 id="demo">Demo</h2>
+
+<p>Init một instance với docker</p>
+
+<pre><code class="language-sh">cd $GOPATH/src/github.com/user/examples/grpc
+</code></pre>
+
+<p>Sau đó install implementation của go</p>
+
+<pre><code class="language-sh">$ go get google.golang.org/grpc
+</code></pre>
+
+<p>Tiếp  tục install plugin cho Go</p>
+
+<pre><code class="language-sh">$ go get -u github.com/golang/protobuf/protoc-gen-go
+</code></pre>
+
+<p>Trong project mình khởi tạo 1 file protoc với đường dẫn <code>grpc/pb/user/user.proto</code></p>
+
+<pre><code class="language-go">syntax = &quot;proto3&quot;;
+
+package user;
+// Khởi tạo đối tượng User
+
+service User {
+    rpc GetUsers(GetRequest) returns (GetResponse);
+    // Sử dụng giao thức rpc để gọi trực tiếp đến method của instance
+
+    rpc FindUser(FindRequest) returns (FindResponse);
+
+    rpc CreateUser(CreateRequest) returns (CreateResponse);
+}
+
+message Model {
+    string id = 1;
+    string name = 2;
+    string email = 3;
+    string phone = 4;
+
+    message Address {
+        string  street = 1;
+        string  city = 2;
+        string state = 3;
+        string country = 4;
+    }
+
+    repeated Address address = 5;
+}
+
+message GetRequest {
+    string keyword = 1;
+}
+
+message FindRequest {
+    string id = 1;
+}
+
+message CreateRequest {
+    Model user = 1;
+}
+
+message GetResponse {
+    string status = 1;
+    repeated Model users = 2;
+}
+
+message FindResponse {
+    string status = 1;
+    Model user = 2;
+}
+
+message CreateResponse {
+    string status = 1;
+    string message = 2;
+}
+</code></pre>
+
+<p>Mình đã khởi tạo 1 file proto để giao tiếp giữa 2 instance với nhau. Instance A sẽ request trực tiếp đến method của instance B và nhận được response giống với structure đã được định dạng sẵn trong file proto. Tuy nhiên file này vẫn chưa chạy được nhiệm vụ tiếp theo bạn phải generate nó ra với language bạn sử dụng. ở đây mình sử dụng Go nên để generate nó mình làm như sau</p>
+
+<h3 id="generate-file-proto">Generate file proto</h3>
+
+<p>Các bạn có thể tham khảo thêm generate với ngôn ngữ khác tại <a href="https://grpc.io/docs/">https://grpc.io/docs/</a></p>
+
+<pre><code class="language-sh">$ protoc -I user/ user/user.proto --go_out=plugins=grpc:user
+</code></pre>
+
+<p>Việc này sẽ tạo ra 1 file go với tên user.pb.go các bạn không cần quan tâm nhiều đến file này mọi thứ đã được định nghĩa ở file nguồn user.proto
+Công việc còn lại là làm thế nào để sử dụng file này giao tiếp giữa 2 instance</p>
+
+<h3 id="cấu-hình-trong-instance-server">Cấu hình trong instance server</h3>
+
+<p>Trong instance server các bạn khai báo như sau</p>
+
+<p>Import file <code>user.pb.go</code> vào go và khởi tạo struct <code>server</code></p>
+
+<pre><code class="language-go">import (
+    pb &quot;github.com/dung13890/micro-go/pb/user&quot;
+    &quot;golang.org/x/net/context&quot;
+    &quot;google.golang.org/grpc&quot;
+)
+
+type server struct {
+    request []*pb.GetRequest
+}
+</code></pre>
+
+<p>Tiếp tục khai báo method trong instance của server sử dụng <code>user.pb.go</code></p>
+
+<pre><code class="language-go">func (s *server) CreateUser(ctx context.Context, req *pb.CreateRequest) (*pb.CreateResponse, error) {
+    return &amp;pb.CreateResponse{}, nil
+}
+</code></pre>
+
+<p>Như vậy tất cả request và response đều được định dạng format trước ở trong file<code>user.pb.go</code> không cần biết các instance bạn sử dụng ngôn ngữ gì và cấu trúc code của bạn ra sao thì các format request &amp; response vẫn mãi ko bị thay đổi</p>
+
+<p>Hãy mở một port để kết nối cho phép các instance khác giao tiếp đến nó</p>
+
+<pre><code class="language-go">func main() {
+    lis, err := net.Listen(&quot;tcp&quot;, &quot;:8080&quot;)
+    if err != nil {
+        log.Fatalf(&quot;failed to listen: %v&quot;, err)
+    }
+
+    srv := grpc.NewServer()
+    pb.RegisterUserServer(srv, &amp;server{})
+    srv.Serve(lis)
+}
+</code></pre>
+
+<h3 id="cấu-hình-ở-instance-client">Cấu hình ở instance client</h3>
+
+<p>Ở instance client thì đơn giản hơn hãy mở 1 giao tiếp RPC đến instance server bằng cách</p>
+
+<pre><code class="language-go">func main() {
+    conn, err := grpc.Dial(&quot;user:8080&quot;, grpc.WithInsecure())
+    if err != nil {
+        log.Fatalf(&quot;did not connect: %v&quot;, err)
+    }
+    defer conn.Close()
+
+    client := pb.NewUserClient(conn)
+    request := &amp;pb.GetRequest{
+        Keyword: &quot;params request&quot;,
+    }
+    resp, err := client.CreateUser(context.Background(), request)
+    // To do something with resp from instance server response
+}
+</code></pre>
+
+<h2 id="kết-luận">Kết luận</h2>
+
+<p>Như vậy chúng ta đã có thể giao tiếp giữa các instance với nhau mà không cần qua các APIs. Với gRPC sử dụng giao tiếp RPC và nó gọi trực tiếp đến các method của những instance khác nhau về hiệu năng thì vượt trội hơn rất nhiều so với APIs. Nếu bạn muốn sử dụng authentication gRPC vẫn hoàn toàn có thể đáp ứng tốt điều đó đảm bảo cho các instance được private. Hiện tại gRPC vẫn chưa được sử dụng phổ biến nhưng với kiến trúc Microservices trong tương lai thì nó sẽ hữu dụng rất nhiều. Bài viết này sẽ hữu ích cho các bạn thích thú xây dựng với những ứng dụng theo hướng microservices. Chúc các bạn thành công.</p>
+
+<h2 id="tham-khảo">Tham khảo</h2>
+
+<p>Tài liệu grpc official: <a href="https://grpc.io/docs/quickstart/go.html">https://grpc.io/docs/quickstart/go.html</a><br />
+Repo Project: <a href="https://github.com/dung13890/micro-go">https://github.com/dung13890/micro-go</a><br />
+Bài viết tham khảo: <a href="https://medium.com/@shijuvar/building-high-performance-apis-in-go-using-grpc-and-protocol-buffers-2eda5b80771b">Building High Performance APIs In Go Using gRPC And Protocol Buffers</a></p>
+
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    
+    <img class="avatar" src="https://dung13890.github.io/images/avatar.jpg">
+    <div>
+        <span class="dark">Mr D</span>
+        <span>I&#39;m a developer.</span>
+    </div>
+    
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdung13890.github.io%2fposts%2fgrpc-va-ung-dung-no-trong-microservices%2f - Grpc%20v%c3%a0%20%e1%bb%a9ng%20d%e1%bb%a5ng%20n%c3%b3%20trong%20Microservices "><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="/posts/tao-tool-cli-don-gian-voi-golang/">Tạo tool cli đơn giản với golang<aside class="dates">Jan 22 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/5-ky-thuat-nang-cao-testing-trong-go/">5 kỹ thuật nâng cao testing trong golang<aside class="dates">Dec 10 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/">Xử lý đồng thời trong Golang giới thiệu về Go routines<aside class="dates">Jan 1 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/caddy-web-server-don-gian-va-hien-dai/">Caddy Web Server đơn giản và hiện đại<aside class="dates">Dec 30 2017</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+
+	
+    <a class="symbol" href="https://www.facebook.com/dung13890">
+        <i class="fa fa-facebook-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.github.com/dung13890">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2019 Mr D
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://dung13890.github.io/js/main.js"></script>
+<script src="https://dung13890.github.io/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-72792053-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

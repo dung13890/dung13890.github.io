@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Mr D">
+<meta name="description" content="Blog for developer">
+<meta name="generator" content="Hugo 0.31.1" />
+<title>Caddy Web Server đơn giản và hiện đại</title>
+<link rel="shortcut icon" href="https://dung13890.github.io/images/favicon.ico">
+<link rel="stylesheet" href="https://dung13890.github.io/css/style.css">
+<link rel="stylesheet" href="https://dung13890.github.io/css/highlight.css">
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+
+
+<link href="https://dung13890.github.io/index.xml" rel="alternate" type="application/rss+xml" title="while (!(successed = try()));" />
+
+
+<meta property="og:title" content="Caddy Web Server đơn giản và hiện đại" />
+<meta property="og:description" content="Chắc hẳn các bạn không còn lạ lẫm gì với nginx. Một Proxy mạnh mẽ đã được phát triển và hình thành lên webserver. Tuy nhiên hôm nay mình sẽ giới thiệu 1 webserver khác có tên là Caddy. Nó cực kỳ đơn giản, và theo đánh giá của mình và các tài liệu tìm được thì có thể trong tương lai gần nó sẽ là đối thủ đáng gờm của nginx." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dung13890.github.io/posts/caddy-web-server-don-gian-va-hien-dai/" />
+
+
+
+<meta property="article:published_time" content="2017-12-30T16:28:33&#43;00:00"/>
+
+<meta property="article:modified_time" content="2017-12-30T16:28:33&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Caddy Web Server đơn giản và hiện đại">
+<meta itemprop="description" content="Chắc hẳn các bạn không còn lạ lẫm gì với nginx. Một Proxy mạnh mẽ đã được phát triển và hình thành lên webserver. Tuy nhiên hôm nay mình sẽ giới thiệu 1 webserver khác có tên là Caddy. Nó cực kỳ đơn giản, và theo đánh giá của mình và các tài liệu tìm được thì có thể trong tương lai gần nó sẽ là đối thủ đáng gờm của nginx.">
+
+
+<meta itemprop="datePublished" content="2017-12-30T16:28:33&#43;00:00" />
+<meta itemprop="dateModified" content="2017-12-30T16:28:33&#43;00:00" />
+<meta itemprop="wordCount" content="793">
+
+
+
+<meta itemprop="keywords" content="caddy,web server,Golang," />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Caddy Web Server đơn giản và hiện đại"/>
+<meta name="twitter:description" content="Chắc hẳn các bạn không còn lạ lẫm gì với nginx. Một Proxy mạnh mẽ đã được phát triển và hình thành lên webserver. Tuy nhiên hôm nay mình sẽ giới thiệu 1 webserver khác có tên là Caddy. Nó cực kỳ đơn giản, và theo đánh giá của mình và các tài liệu tìm được thì có thể trong tương lai gần nó sẽ là đối thủ đáng gờm của nginx."/>
+<meta name="twitter:site" content="@https://www.twitter.com/"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='https://dung13890.github.io'> <span class="arrow">←</span>Home</a>
+	
+
+	
+ 		<a href='/about/'>About</a>
+  	
+
+	
+		<a class="cta" href="https://dung13890.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>Caddy Web Server đơn giản và hiện đại</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        December 30, 2017
+        <br>
+        
+        
+            
+                <a href="https://dung13890.github.io/tags/caddy">caddy</a>
+            
+                <a href="https://dung13890.github.io/tags/web-server">web server</a>
+            
+                <a href="https://dung13890.github.io/tags/golang">Golang</a>
+            
+        
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        
+
+<p><img src="https://viblo.asia/uploads/5ae0d226-9bbf-410f-ad65-897164139fe7.jpg" alt="caddy-web-server" />
+Chắc hẳn các bạn không còn lạ lẫm gì với nginx. Một Proxy mạnh mẽ đã được phát triển và hình thành lên webserver. Tuy nhiên hôm nay mình sẽ giới thiệu 1 webserver khác có tên là Caddy. Nó cực kỳ đơn giản, và theo đánh giá của mình và các tài liệu tìm được thì có thể trong tương lai gần nó sẽ là đối thủ đáng gờm của nginx.</p>
+
+<h1 id="giới-thiệu">Giới thiệu</h1>
+
+<p>Caddy server được viết bằng Go tài liệu đầy đủ <a href="https://caddyserver.com/">Caddy Server</a> là 1 open-source và đang được cộng đồng phát triển rất mạnh mẽ. Mục tiêu của nó là configuration đơn giản và mang lại hiệu năng cao cho applications của bạn. Nó hướng tới <code>HTTP/2.0</code> và mặc định sử dụng HTTPS (bạn vẫn có thể disable). Bạn không cần phải chạy nhiều script, bạn cũng không cần phải config rườm rà phức tạp. Tất cả chỉ đơn giản là 1 vài dòng ngắn ngủi. Hiện tại nó đã có đủ các tính năng của nginx gzipping, header modification, authentication, load balancing, &hellip;và thậm chí nó còn tự động phục vụ <code>markdown</code> như HTML</p>
+
+<h1 id="cài-đặt-và-cấu-hình">Cài đặt và cấu hình</h1>
+
+<p>Chém gió như vậy là đủ rồi bây giờ mình sẽ hướng dẫn cài đặt và cấu hình nó</p>
+
+<h2 id="cài-đặt-trực-tiếp">Cài đặt trực tiếp</h2>
+
+<p>Nếu các bạn cài đặt trực tiếp lên Server thì có thể tải từ <a href="https://caddyserver.com/download/linux/amd64">download</a>
+Giải nén ra và chép file executable <code>caddy</code> vào <code>/usr/local/bin/caddy</code>
+Hoặc cài tự động <code>curl https://getcaddy.com | bash</code></p>
+
+<pre><code>$ caddy -version
+Caddy 0.10.3
+</code></pre>
+
+<p>Vậy là thành công rồi đó !</p>
+
+<h2 id="cài-đặt-với-docker">Cài đặt với docker</h2>
+
+<p>Đôi khi các bạn muốn dev và muốn cài đặt 1 môi trường yêu cầu sử dụng webserver nhanh. thì các bạn có thể nghĩ đến docker hoặc thậm chí khi deploy lên production các bạn vẫn có thể dùng nó.
+Trên hub có rất nhiều docker image cho caddy tuy nhiên mình vẫn hay sử dụng <code>https://hub.docker.com/r/abiosoft/caddy/</code> image này mình thấy nó khá ngon và ổn định. Các bạn có thể dùng docker-compose.yml</p>
+
+<pre><code>version: &quot;3&quot;
+
+services:
+  caddy:
+    image: abiosoft/caddy
+    restart: always
+    volumes:
+     - ./caddyfile:/srv  # Map folder caddyfile
+    ports:
+     - &quot;80:80&quot;     # Public port
+     - &quot;443:443&quot;
+    links:
+      - services1
+      - services2
+      - services3
+    tty: true
+</code></pre>
+
+<h2 id="cấu-hình">Cấu hình</h2>
+
+<p>Caddy được viết bằng Go và biên dịch thành file executable cho nên có thế nói nó <code>run any where</code> trên linux
+Nó có rất nhiều module và tất nhiên nhu cầu services của bạn cần module nào thì có thể include nó.</p>
+
+<p>Giả sử mình có 1 domain <code>example.com</code>. ứng dụng của mình là java, node, python, &hellip; đang mở 1 port 3000. Nhiệm vụ lúc này của mình làm thế nào forward vào port 3000 đó.
+Rất đơn giản các bạn sẽ tạo 1 file <code>Caddyfile</code></p>
+
+<pre><code>example.com {
+    tls off
+    proxy localhost:3000
+}
+</code></pre>
+
+<p>Xong! Vỏn vẹn 3 dòng bây giờ hãy chạy lệnh</p>
+
+<pre><code class="language-sh">// cd to Caddyfile
+$ caddy -port 80
+Activating privacy features... done.
+http://example.com
+
+</code></pre>
+
+<p>Nếu bạn muốn sử dụng HTTPS để dev mà ko cần phải sử dụng SSL Certificate của bên thứ 3 thất đơn giản bạn chỉ cần bật tls</p>
+
+<pre><code>example.com {
+    tls self_signed
+    proxy localhost:3000
+}
+</code></pre>
+
+<p>Khởi chạy Caddy</p>
+
+<pre><code class="language-sh">// cd to Caddyfile
+$ caddy -port 443
+Activating privacy features... done.
+https://example.com
+</code></pre>
+
+<h2 id="cấu-hình-với-ứng-dụng-php">Cấu hình với ứng dụng php</h2>
+
+<p>Với ứng dụng PHP thì sao? Cũng như nginx vậy. Caddy cũng có <code>fastcgi</code>. Tất nhiên bạn cũng sẽ phải cài đặt <code>phpfpm</code>. Cấu hình nó không có gì là phức tạp trước tiên hãy xem listen của phpfpm là
+<code>/run/php/php7.0-fpm.sock</code>  hay <code>127.0.0.1:9000</code></p>
+
+<pre><code class="language-sh">$ ps aux | grep php-fpm
+</code></pre>
+
+<pre><code>example.com {
+    tls self_signed
+    root ./public
+    fastcgi / /run/php/php7.0-fpm.sock php {
+        index index.php
+
+    }
+    errors storage/logs/caddy.log
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+
+}
+</code></pre>
+
+<h2 id="chạy-daemon">Chạy daemon</h2>
+
+<p>Để giữ cho Caddy chạy running hiện nay có rất nhiều cách, các bạn có thể dụng những tool như PM2, forever&hellip; Tuy nhiên mình sẽ hướng dẫn thêm 1 cách khác tận dụng chính linux-systemd của server luôn.</p>
+
+<p>Hãy tạo 1 file <code>caddy.service</code> với nội dung <a href="https://github.com/mholt/caddy/blob/master/dist/init/linux-systemd/caddy.service">https://github.com/mholt/caddy/blob/master/dist/init/linux-systemd/caddy.service</a> trong <code>/etc/systemd/system/</code> thay thế <code>ExecStart</code> bằng exec của bạn.</p>
+
+<pre><code class="language-sh">$ sudo setcap cap_net_bind_service=+ep /usr/local/bin/caddy
+$ sudo cp caddy.service /etc/systemd/system/
+$ sudo chown root:root /etc/systemd/system/caddy.service
+$ sudo chmod 644 /etc/systemd/system/caddy.service
+$ sudo systemctl daemon-reload
+$ sudo systemctl start caddy.service
+</code></pre>
+
+<p><img src="https://viblo.asia/uploads/4a32407b-593c-4a56-888b-3e41468c9bd1.png" alt="" /></p>
+
+<h1 id="tổng-kết">Tổng kết</h1>
+
+<p>Với ý kiến đánh giá cá nhân của mình thì caddy khá mới mẻ và tiện lợi. Với những ứng dụng web chỉ 1 file Caddyfile đơn giản cũng đủ làm mọi thứ rồi. Về hiệu năng và xử lý thời điểm hiện tại có thể nó vẫn chưa ngang bằng được với nginx tuy nhiên với cộng đồng phát triển mạnh và khá nhiều người quan tâm có thể 1 tương lai gần nó sẽ được cải thiện về  performance.</p>
+
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    
+    <img class="avatar" src="https://dung13890.github.io/images/avatar.jpg">
+    <div>
+        <span class="dark">Mr D</span>
+        <span>I&#39;m a developer.</span>
+    </div>
+    
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdung13890.github.io%2fposts%2fcaddy-web-server-don-gian-va-hien-dai%2f - Caddy%20Web%20Server%20%c4%91%c6%a1n%20gi%e1%ba%a3n%20v%c3%a0%20hi%e1%bb%87n%20%c4%91%e1%ba%a1i "><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="/posts/tao-tool-cli-don-gian-voi-golang/">Tạo tool cli đơn giản với golang<aside class="dates">Jan 22 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/5-ky-thuat-nang-cao-testing-trong-go/">5 kỹ thuật nâng cao testing trong golang<aside class="dates">Dec 10 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/">Xử lý đồng thời trong Golang giới thiệu về Go routines<aside class="dates">Jan 1 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/grpc-va-ung-dung-no-trong-microservices/">Grpc và ứng dụng nó trong Microservices<aside class="dates">Dec 27 2017</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+
+	
+    <a class="symbol" href="https://www.facebook.com/dung13890">
+        <i class="fa fa-facebook-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.github.com/dung13890">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2019 Mr D
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://dung13890.github.io/js/main.js"></script>
+<script src="https://dung13890.github.io/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-72792053-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

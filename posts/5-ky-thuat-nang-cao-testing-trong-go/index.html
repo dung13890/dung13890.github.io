@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Mr D">
+<meta name="description" content="Blog for developer">
+<meta name="generator" content="Hugo 0.31.1" />
+<title>5 kỹ thuật nâng cao testing trong golang</title>
+<link rel="shortcut icon" href="https://dung13890.github.io/images/favicon.ico">
+<link rel="stylesheet" href="https://dung13890.github.io/css/style.css">
+<link rel="stylesheet" href="https://dung13890.github.io/css/highlight.css">
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+
+
+<link href="https://dung13890.github.io/index.xml" rel="alternate" type="application/rss+xml" title="while (!(successed = try()));" />
+
+
+<meta property="og:title" content="5 kỹ thuật nâng cao testing trong golang" />
+<meta property="og:description" content="Mặc định Go đã tích hợp sẵn thư viện testing. Nếu bạn đã từng viết Golang chắc hẳn bạn đã biết điều này. Tuy nhiên dưới đây sẽ là 5 kỹ năng nâng cao để bạn vận dụng nó cho việc testing ứng dụng lớn của bạn" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dung13890.github.io/posts/5-ky-thuat-nang-cao-testing-trong-go/" />
+
+
+
+<meta property="article:published_time" content="2018-12-10T15:27:26&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-12-10T15:27:26&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="5 kỹ thuật nâng cao testing trong golang">
+<meta itemprop="description" content="Mặc định Go đã tích hợp sẵn thư viện testing. Nếu bạn đã từng viết Golang chắc hẳn bạn đã biết điều này. Tuy nhiên dưới đây sẽ là 5 kỹ năng nâng cao để bạn vận dụng nó cho việc testing ứng dụng lớn của bạn">
+
+
+<meta itemprop="datePublished" content="2018-12-10T15:27:26&#43;00:00" />
+<meta itemprop="dateModified" content="2018-12-10T15:27:26&#43;00:00" />
+<meta itemprop="wordCount" content="695">
+
+
+
+<meta itemprop="keywords" content="testing,Golang," />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="5 kỹ thuật nâng cao testing trong golang"/>
+<meta name="twitter:description" content="Mặc định Go đã tích hợp sẵn thư viện testing. Nếu bạn đã từng viết Golang chắc hẳn bạn đã biết điều này. Tuy nhiên dưới đây sẽ là 5 kỹ năng nâng cao để bạn vận dụng nó cho việc testing ứng dụng lớn của bạn"/>
+<meta name="twitter:site" content="@https://www.twitter.com/"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='https://dung13890.github.io'> <span class="arrow">←</span>Home</a>
+	
+
+	
+ 		<a href='/about/'>About</a>
+  	
+
+	
+		<a class="cta" href="https://dung13890.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>5 kỹ thuật nâng cao testing trong golang</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        December 10, 2018
+        <br>
+        
+        
+            
+                <a href="https://dung13890.github.io/tags/testing">testing</a>
+            
+                <a href="https://dung13890.github.io/tags/golang">Golang</a>
+            
+        
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        
+
+<p>Mặc định Go đã tích hợp sẵn thư viện testing. Nếu bạn đã từng viết Golang chắc hẳn bạn đã biết điều này.
+Tuy nhiên dưới đây sẽ là 5 kỹ năng nâng cao để bạn vận dụng nó cho việc testing ứng dụng lớn của bạn</p>
+
+<h2 id="sử-dụng-test-suites">Sử dụng Test suites</h2>
+
+<pre><code class="language-go">
+type Something interface {
+    Do(input string) (Result, error)
+}
+
+// Suite tests sẽ test qua tất cả function mà inteface Something được implement
+func Suite(t *testing.T, impl Something) {
+    res, _ := impl.Do(&quot;thing&quot;)
+    if res != expected {
+        t.Fail(&quot;unexpected result&quot;)
+    }
+}
+
+// Test function đầu tiên mà inteface Something implement
+func Testfirst(t *testing.T) {
+    one := one.NewOne()
+    Suite(t, one)
+}
+
+// Test function khác mà inteface Something implement
+func TestOther(t *testing.T) {
+    other := other.NewOther()
+    Suite(t, other)
+}
+
+</code></pre>
+
+<p>Trong ví dụ trên các bạn có thể thấy chúng ta sử dụng suite để có thể test các function khác nhau được implement Type <code>Something</code></p>
+
+<h2 id="avoid-interface-pollution">Avoid interface pollution</h2>
+
+<p>Trong việc testing thì interfaces được đánh giá là khá quan trọng. Interfaces thì rất tuyệt vời nhưng interface pollution thì không.</p>
+
+<pre><code class="language-go">
+type acknowledger interface {
+    Ack(sub string, id ...string) error
+}
+
+type mockClient struct{}
+
+func (c *mockClient) Ack(sub string, id ...string) error {
+    return nil
+}
+
+var acker acknowledger = pubsub.New(...)
+
+acker = &amp;mockClient{} // in the test package
+</code></pre>
+
+<h2 id="don-t-export-concurrency-primitives">Don’t export concurrency primitives</h2>
+
+<p>GO cung cấp các concurrency primitives dễ sử dụng.</p>
+
+<pre><code class="language-go">type Reader struct {...}
+func (r *Reader) ReadChan() &lt;-chan Msg {...}
+</code></pre>
+
+<p>Ví dụ ta có 1 phương thức sử dụng channel, xử lý đồng thời</p>
+
+<p>Để testing phương thức trên ta có thể sử dụng như sau</p>
+
+<pre><code class="language-go">func TestConsumer(t testing.T, q queueIface) {
+    cons := &amp;Consumer{
+        r: q,
+    }
+    for {
+        select {
+        case msg := &lt;-cons.r.ReadChan():
+            // Test thing.
+        case err := &lt;-cons.r.ErrChan():
+            // What caused this again?
+        }
+    }
+}
+</code></pre>
+
+<h2 id="use-net-http-httptest">Use net/http/httptest</h2>
+
+<p>httptest cho phép bạn làm việc với <code>http.Handle</code> mà ko cần mở port tới máy chủ thực sự. Điều này tăng tốc độ test và cho phép chay song song</p>
+
+<pre><code class="language-go">
+func TestServe(t *testing.T) {
+    // The method to use if you want to practice typing
+    s := &amp;http.Server{
+        Handler: http.HandlerFunc(ServeHTTP),
+    }
+    // Pick port automatically for parallel tests and to avoid conflicts
+    l, err := net.Listen(&quot;tcp&quot;, &quot;:0&quot;)
+    if err != nil {
+        t.Fatal(err)
+    }
+    defer l.Close()
+    go s.Serve(l)
+
+    res, err := http.Get(&quot;http://&quot; + l.Addr().String() + &quot;/?sloths=arecool&quot;)
+    if err != nil {
+        log.Fatal(err)
+    }
+    greeting, err := ioutil.ReadAll(res.Body)
+    res.Body.Close()
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println(string(greeting))
+}
+
+// Use httptest
+func TestServeMemory(t *testing.T) {
+    // Less verbose and more flexible way
+    req := httptest.NewRequest(&quot;GET&quot;, &quot;http://example.com/?sloths=arecool&quot;, nil)
+    w := httptest.NewRecorder()
+
+    ServeHTTP(w, req)
+    greeting, err := ioutil.ReadAll(w.Body)
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println(string(greeting))
+}
+</code></pre>
+
+<p>Với 2 ví dụ ở trên ta thấy được sử dụng httptest code sẽ ngắn gọn hơn khá nhiều, ngoài ra nó còn không cần thiết phải mở port và vẫn có thể thực hiện test các phương thức liên quan đến http.Handler</p>
+
+<h2 id="sử-dụng-separate-test-package">Sử dụng separate _test package</h2>
+
+<p>Hầu hết hệ sinh thái trong môi trường test được tạo ra từ <code>pkg_test.go</code>, nhưng vẫn nằm trong package pkg. package test separate là package bạn tạo ra từ 1 file mới foo_test.go,
+nằm tại bên trong folder test/foo/. Từ đây bạn có thể import từ github <code>github.com/example/foo</code> và các dependencies khác. Nó giải quyết được vấn đề phụ thuộc theo chu kỳ trong test
+và cho phép các developer muốn sử dụng package của riêng họ</p>
+
+<p>Cuối cùng điều này hỗ trợ trong việc tránh các chu kỳ trong test. Hầu hết các package phụ thuộc vào các package khác mà bạn viết ngoài những gói đang được testing. Ví dụ package  <code>net/url</code>
+đã được implements URL parse mà package <code>net/http</code> sử dụng. Tuy nhiên <code>net/url</code> muốn sử dụng test bằng cách import <code>net/http</code> vậy nên package <code>net/url_test</code> được sinh ra</p>
+
+<p>Bây giờ khi bạn sử dụng một separate test package, bạn có thể yêu cầu quyền access vào các entities trong package của bạn nơi chúng có thể truy cập trươc đó.
+Chúng ta có thể sử dụng một file bổ sung để thực thi vì các file _test.go sẽ bị loại trừ khi build</p>
+
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    
+    <img class="avatar" src="https://dung13890.github.io/images/avatar.jpg">
+    <div>
+        <span class="dark">Mr D</span>
+        <span>I&#39;m a developer.</span>
+    </div>
+    
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdung13890.github.io%2fposts%2f5-ky-thuat-nang-cao-testing-trong-go%2f - 5%20k%e1%bb%b9%20thu%e1%ba%adt%20n%c3%a2ng%20cao%20testing%20trong%20golang "><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="/posts/tao-tool-cli-don-gian-voi-golang/">Tạo tool cli đơn giản với golang<aside class="dates">Jan 22 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/">Xử lý đồng thời trong Golang giới thiệu về Go routines<aside class="dates">Jan 1 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/caddy-web-server-don-gian-va-hien-dai/">Caddy Web Server đơn giản và hiện đại<aside class="dates">Dec 30 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/grpc-va-ung-dung-no-trong-microservices/">Grpc và ứng dụng nó trong Microservices<aside class="dates">Dec 27 2017</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+
+	
+    <a class="symbol" href="https://www.facebook.com/dung13890">
+        <i class="fa fa-facebook-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.github.com/dung13890">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2019 Mr D
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://dung13890.github.io/js/main.js"></script>
+<script src="https://dung13890.github.io/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-72792053-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>
