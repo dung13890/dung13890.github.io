@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Mr D">
+<meta name="description" content="Blog for developer">
+<meta name="generator" content="Hugo 0.31.1" />
+<title>Factory patterns trong golang</title>
+<link rel="shortcut icon" href="https://dung13890.github.io/images/favicon.ico">
+<link rel="stylesheet" href="https://dung13890.github.io/css/style.css">
+<link rel="stylesheet" href="https://dung13890.github.io/css/highlight.css">
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+
+
+<link href="https://dung13890.github.io/index.xml" rel="alternate" type="application/rss+xml" title="while (!(successed = try()));" />
+
+
+<meta property="og:title" content="Factory patterns trong golang" />
+<meta property="og:description" content="Factory patterns là một design pattern mà hầu như tất cả các dự án đều sử dụng. Nếu bạn đã từng biết đến các khái niệm như interface hay implements thì chắc hẳn design pattern này đã ko còn gì xa lạ" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dung13890.github.io/posts/factory-design-pattern-trong-golang/" />
+
+
+
+<meta property="article:published_time" content="2018-02-22T15:27:26&#43;00:00"/>
+
+<meta property="article:modified_time" content="2018-02-22T15:27:26&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Factory patterns trong golang">
+<meta itemprop="description" content="Factory patterns là một design pattern mà hầu như tất cả các dự án đều sử dụng. Nếu bạn đã từng biết đến các khái niệm như interface hay implements thì chắc hẳn design pattern này đã ko còn gì xa lạ">
+
+
+<meta itemprop="datePublished" content="2018-02-22T15:27:26&#43;00:00" />
+<meta itemprop="dateModified" content="2018-02-22T15:27:26&#43;00:00" />
+<meta itemprop="wordCount" content="694">
+
+
+
+<meta itemprop="keywords" content="design pattern,Golang," />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Factory patterns trong golang"/>
+<meta name="twitter:description" content="Factory patterns là một design pattern mà hầu như tất cả các dự án đều sử dụng. Nếu bạn đã từng biết đến các khái niệm như interface hay implements thì chắc hẳn design pattern này đã ko còn gì xa lạ"/>
+<meta name="twitter:site" content="@https://www.twitter.com/"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='https://dung13890.github.io'> <span class="arrow">←</span>Home</a>
+	
+
+	
+ 		<a href='/about/'>About</a>
+  	
+
+	
+		<a class="cta" href="https://dung13890.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>Factory patterns trong golang</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        February 22, 2018
+        <br>
+        
+        
+            
+                <a href="https://dung13890.github.io/tags/design-pattern">design pattern</a>
+            
+                <a href="https://dung13890.github.io/tags/golang">Golang</a>
+            
+        
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        
+
+<p>Factory patterns là một design pattern mà hầu như tất cả các dự án đều sử dụng. Nếu bạn đã từng biết đến các khái niệm như interface hay implements thì chắc hẳn design pattern này đã ko còn gì xa lạ.
+Để tạo ra những project <code>code cleaner</code> thì <code>design patterns</code> rõ ràng không thể thiếu trong mọi tư duy của developer. Hôm nay mình sẽ giới thiệu và đi xâu vào chi tiết về factory patterns trong golang.</p>
+
+<h2 id="mô-tả-về-factory-patterns">Mô tả về factory patterns</h2>
+
+<p>Không giống các ngôn ngữ khác, Go ko sử dụng class mà được tạo dựng các object thông qua <code>struct và interface</code>. các lớp interface thường là định hướng trước đối tượng và sẽ có nhiều cách thức để implements 1 interface.</p>
+
+<p>Một ví dụ đơn giản, bạn có 1 đối tượng động vật tương tự như là 1 interface. từ lớp động vật đó bạn có thể tạo ra 1 động vật cụ thể như con chó, con mèo, con gà, &hellip; Các implements này nó nhiệm vụ thực thi và mô tả chi tiết 1 lớp interface đã được định nghĩa.
+Trong ứng dụng của bạn nếu nó phát triển mở rộng buộc lòng bạn phải làm quen với pattern này. Hãy tưởng tượng có một interface động vật.
+Bạn cũng chưa rõ ràng được sử dụng động vật gì, tuy nhiên động vật nào cũng có chân, tay, mắt, mũi, &hellip;
+Sau khi implements con chó thay cho interface động vật thì các phương thức chân, tay, mắt, mũi sẽ được định hình rõ hơn và cụ thể hơn.</p>
+
+<h2 id="ví-dụ-đơn-giản">Ví dụ đơn giản</h2>
+
+<p>Để mô tả chi tiết hơn mình sẽ khởi tạo 1 factory pattern. Giả xử mình có interface animal</p>
+
+<pre><code class="language-go">type Animal interface {
+    run()
+}
+</code></pre>
+
+<p>Sau khi có interface mình cần tạo thêm 1 implements cho interface trên</p>
+
+<pre><code class="language-go">type dog struct {
+    name: string
+    age: int
+}
+
+func (d *dog) run() {
+    // todo something
+}
+</code></pre>
+
+<p>và bây giờ việc cần làm là làm thế nào để kết hợp interface và struct</p>
+
+<pre><code class="language-go">func NewDog() Animal {
+    return dog {
+        name: husky,
+        age: 2
+    }
+}
+
+</code></pre>
+
+<p>Method khởi tạo trên có ý nghĩa khởi tạo 1 động vật các bạn có thể thấy nó return 1 interface và kết quả return chính là struct của interface đó.</p>
+
+<p>Sử dụng trong các methods các bạn có thể gộp lại và làm như sau</p>
+
+<pre><code class="language-go">type Animal interface {
+    run()
+}
+
+type dog struct {
+    name: string
+    age: int
+}
+
+func (d *dog) run() {
+    // todo something
+    fmt.Printf(&quot;Hi, Hello my name %s&quot;, d.name)
+}
+
+// Factory function
+func NewDog() Animal {
+    return dog {
+        name: husky,
+        age: 2
+    }
+}
+
+func ActionAnimal(a Animal) {
+    a.run()
+}
+
+func main () {
+    dog := NewDog()
+    ActionAnimal(dog)
+}
+
+// Out put
+
+Hi, Hello husky
+
+</code></pre>
+
+<h2 id="multiple-implementations">Multiple implementations</h2>
+
+<p>Khi return về 1 interface, điều đó có nghĩa là chúng ta có thể tạo nhiều những factory function với nhiều implementations khác nhau.</p>
+
+<p>vẫn với các ví dụ ở trên tuy nhiên bây giờ mình sẽ tạo ra 1 implementation là cat</p>
+
+<pre><code class="language-go">
+type cat struct {
+    name: string
+    age: int
+}
+
+func (c *cat) run() {
+    // todo something
+    fmt.Printf(&quot;Hi, %s is  %s year old&quot;, c.name, c.age)
+}
+
+// Factory function
+func NewCat() Animal {
+    return cat {
+        name: tom,
+        age: 2
+    }
+}
+
+func main () {
+    dog := NewDog()
+    cat := NewCat()
+    ActionAnimal(dog)
+    ActionAnimal(cat)
+}
+
+</code></pre>
+
+<h2 id="kết-luận">Kết luận</h2>
+
+<p>Trong các project factory patterns là rất cần thiết, thay vì xử dụng trực tiếp các struct. Các bạn hoàn toàn có thể tạo ra các interface.
+Điều đó có nghĩa tất cả các cấu trúc trong project của các bạn được giao tiếp với nhau thông qua bởi các interface. Điều này giúp project của các bạn sạch sẽ và tối ưu hơn.
+Đôi khi bạn cần phải mở rộng ứng dụng của mình lên factory patterns sẽ đảm bảo cho code logic của bạn ko hề bị thay đổi. Việc cần làm là hãy viết các implementations khác để tối ưu hơn cho project của mình.</p>
+
+<p>Hi vọng bài viết phần nào mang lại kiến thức bổ ích cho các bạn.</p>
+
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    
+    <img class="avatar" src="https://dung13890.github.io/images/avatar.jpg">
+    <div>
+        <span class="dark">Mr D</span>
+        <span>I&#39;m a developer.</span>
+    </div>
+    
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdung13890.github.io%2fposts%2ffactory-design-pattern-trong-golang%2f - Factory%20patterns%20trong%20golang "><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="/posts/tao-tool-cli-don-gian-voi-golang/">Tạo tool cli đơn giản với golang<aside class="dates">Jan 22 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/5-ky-thuat-nang-cao-testing-trong-go/">5 kỹ thuật nâng cao testing trong golang<aside class="dates">Dec 10 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/">Xử lý đồng thời trong Golang giới thiệu về Go routines<aside class="dates">Jan 1 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/caddy-web-server-don-gian-va-hien-dai/">Caddy Web Server đơn giản và hiện đại<aside class="dates">Dec 30 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/grpc-va-ung-dung-no-trong-microservices/">Grpc và ứng dụng nó trong Microservices<aside class="dates">Dec 27 2017</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+
+	
+    <a class="symbol" href="https://www.facebook.com/dung13890">
+        <i class="fa fa-facebook-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.github.com/dung13890">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2019 Mr D
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://dung13890.github.io/js/main.js"></script>
+<script src="https://dung13890.github.io/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-72792053-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

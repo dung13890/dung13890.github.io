@@ -3,87 +3,120 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://daoanhdung.com/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/</loc>
+    <loc>https://dung13890.github.io/posts/tao-tool-cli-don-gian-voi-golang/</loc>
+    <lastmod>2019-01-22T16:04:10+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dung13890.github.io/posts/5-ky-thuat-nang-cao-testing-trong-go/</loc>
+    <lastmod>2018-12-10T15:27:26+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dung13890.github.io/posts/factory-design-pattern-trong-golang/</loc>
+    <lastmod>2018-02-22T15:27:26+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dung13890.github.io/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/</loc>
     <lastmod>2018-01-01T16:04:10+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daoanhdung.com/posts/caddy-web-server-don-gian-va-hien-dai/</loc>
+    <loc>https://dung13890.github.io/posts/caddy-web-server-don-gian-va-hien-dai/</loc>
     <lastmod>2017-12-30T16:28:33+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daoanhdung.com/about/</loc>
+    <loc>https://dung13890.github.io/about/</loc>
     <lastmod>2017-12-30T14:50:24+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daoanhdung.com/posts/grpc-va-ung-dung-no-trong-microservices/</loc>
+    <loc>https://dung13890.github.io/posts/grpc-va-ung-dung-no-trong-microservices/</loc>
     <lastmod>2017-12-27T05:40:41+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://daoanhdung.com/tags/caddy/</loc>
+    <loc>https://dung13890.github.io/tags/caddy/</loc>
     <lastmod>2017-12-30T16:28:33+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daoanhdung.com/categories/</loc>
+    <loc>https://dung13890.github.io/categories/</loc>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daoanhdung.com/tags/concurrency/</loc>
+    <loc>https://dung13890.github.io/tags/concurrency/</loc>
     <lastmod>2018-01-01T16:04:10+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daoanhdung.com/tags/golang/</loc>
-    <lastmod>2018-01-01T16:04:10+00:00</lastmod>
+    <loc>https://dung13890.github.io/tags/design-pattern/</loc>
+    <lastmod>2018-02-22T15:27:26+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daoanhdung.com/tags/grpc/</loc>
+    <loc>https://dung13890.github.io/tags/go-cli/</loc>
+    <lastmod>2019-01-22T16:04:10+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dung13890.github.io/tags/golang/</loc>
+    <lastmod>2019-01-22T16:04:10+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dung13890.github.io/tags/grpc/</loc>
     <lastmod>2017-12-27T05:40:41+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daoanhdung.com/tags/microservice/</loc>
+    <loc>https://dung13890.github.io/tags/microservice/</loc>
     <lastmod>2017-12-27T05:40:41+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daoanhdung.com/posts/</loc>
+    <loc>https://dung13890.github.io/posts/</loc>
+    <lastmod>2019-01-22T16:04:10+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dung13890.github.io/tags/routines/</loc>
     <lastmod>2018-01-01T16:04:10+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daoanhdung.com/tags/routines/</loc>
-    <lastmod>2018-01-01T16:04:10+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://daoanhdung.com/tags/</loc>
+    <loc>https://dung13890.github.io/tags/</loc>
     <lastmod>2017-12-30T16:28:33+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daoanhdung.com/tags/web-server/</loc>
+    <loc>https://dung13890.github.io/tags/testing/</loc>
+    <lastmod>2018-12-10T15:27:26+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://dung13890.github.io/tags/web-server/</loc>
     <lastmod>2017-12-30T16:28:33+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://daoanhdung.com/</loc>
-    <lastmod>2018-01-01T16:04:10+00:00</lastmod>
+    <loc>https://dung13890.github.io/</loc>
+    <lastmod>2019-01-22T16:04:10+00:00</lastmod>
     <priority>0</priority>
   </url>
   

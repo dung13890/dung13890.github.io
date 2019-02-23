@@ -2,39 +2,67 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Golang on while (!(successed = try()));</title>
-    <link>https://daoanhdung.com/tags/golang/</link>
+    <link>https://dung13890.github.io/tags/golang/</link>
     <description>Recent content in Golang on while (!(successed = try()));</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jan 2018 16:04:10 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 22 Jan 2019 16:04:10 +0000</lastBuildDate>
     
-	<atom:link href="https://daoanhdung.com/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://dung13890.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>Tạo tool cli đơn giản với golang</title>
+      <link>https://dung13890.github.io/posts/tao-tool-cli-don-gian-voi-golang/</link>
+      <pubDate>Tue, 22 Jan 2019 16:04:10 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/tao-tool-cli-don-gian-voi-golang/</guid>
+      <description>Golang là một ngôn ngữ mới được phát minh từ Google, cú pháp đơn giản tuy nhiên sức mạnh của nó thì vô cùng vượt trội, Nếu thành thục bạn có thể tạo ra 1 ứng dụng nó vô cùng mạnh mẽ. Ở bài viết này mình sẽ hướng dẫn tạo ra 1 tool cli đơn giản theo hướng package các bạn có thể tùy biến nó và xây dựng project của mình.</description>
+    </item>
+    
+    <item>
+      <title>5 kỹ thuật nâng cao testing trong golang</title>
+      <link>https://dung13890.github.io/posts/5-ky-thuat-nang-cao-testing-trong-go/</link>
+      <pubDate>Mon, 10 Dec 2018 15:27:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/5-ky-thuat-nang-cao-testing-trong-go/</guid>
+      <description>Mặc định Go đã tích hợp sẵn thư viện testing. Nếu bạn đã từng viết Golang chắc hẳn bạn đã biết điều này. Tuy nhiên dưới đây sẽ là 5 kỹ năng nâng cao để bạn vận dụng nó cho việc testing ứng dụng lớn của bạn
+Sử dụng Test suites type Something interface { Do(input string) (Result, error) } // Suite tests sẽ test qua tất cả function mà inteface Something được implement func Suite(t *testing.</description>
+    </item>
+    
+    <item>
+      <title>Factory patterns trong golang</title>
+      <link>https://dung13890.github.io/posts/factory-design-pattern-trong-golang/</link>
+      <pubDate>Thu, 22 Feb 2018 15:27:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/factory-design-pattern-trong-golang/</guid>
+      <description>Factory patterns là một design pattern mà hầu như tất cả các dự án đều sử dụng. Nếu bạn đã từng biết đến các khái niệm như interface hay implements thì chắc hẳn design pattern này đã ko còn gì xa lạ. Để tạo ra những project code cleaner thì design patterns rõ ràng không thể thiếu trong mọi tư duy của developer. Hôm nay mình sẽ giới thiệu và đi xâu vào chi tiết về factory patterns trong golang.</description>
+    </item>
+    
+    <item>
       <title>Xử lý đồng thời trong Golang giới thiệu về Go routines</title>
-      <link>https://daoanhdung.com/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/</link>
+      <link>https://dung13890.github.io/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/</link>
       <pubDate>Mon, 01 Jan 2018 16:04:10 +0000</pubDate>
       
-      <guid>https://daoanhdung.com/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/</guid>
+      <guid>https://dung13890.github.io/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/</guid>
       <description>Hiện nay có rất nhiều những ngôn ngữ lập trình hỗ trợ xử lý đồng thời (Concurrency) hoặc multiple threed. Công việc này vừa mang lại hiệu năng về tốc độ đồng thời có thể tận dụng hết được tài nguyên của phần cứng. Trong Go cũng vậy việc tách nhỏ 1 task lớn ra thành nhiều task con xử lý đồng thời sẽ mang lại 1 hiệu năng đáng kể</description>
     </item>
     
     <item>
       <title>Caddy Web Server đơn giản và hiện đại</title>
-      <link>https://daoanhdung.com/posts/caddy-web-server-don-gian-va-hien-dai/</link>
+      <link>https://dung13890.github.io/posts/caddy-web-server-don-gian-va-hien-dai/</link>
       <pubDate>Sat, 30 Dec 2017 16:28:33 +0000</pubDate>
       
-      <guid>https://daoanhdung.com/posts/caddy-web-server-don-gian-va-hien-dai/</guid>
+      <guid>https://dung13890.github.io/posts/caddy-web-server-don-gian-va-hien-dai/</guid>
       <description>Chắc hẳn các bạn không còn lạ lẫm gì với nginx. Một Proxy mạnh mẽ đã được phát triển và hình thành lên webserver. Tuy nhiên hôm nay mình sẽ giới thiệu 1 webserver khác có tên là Caddy. Nó cực kỳ đơn giản, và theo đánh giá của mình và các tài liệu tìm được thì có thể trong tương lai gần nó sẽ là đối thủ đáng gờm của nginx.</description>
     </item>
     
     <item>
       <title>Grpc và ứng dụng nó trong Microservices</title>
-      <link>https://daoanhdung.com/posts/grpc-va-ung-dung-no-trong-microservices/</link>
+      <link>https://dung13890.github.io/posts/grpc-va-ung-dung-no-trong-microservices/</link>
       <pubDate>Wed, 27 Dec 2017 05:40:41 +0000</pubDate>
       
-      <guid>https://daoanhdung.com/posts/grpc-va-ung-dung-no-trong-microservices/</guid>
+      <guid>https://dung13890.github.io/posts/grpc-va-ung-dung-no-trong-microservices/</guid>
       <description>Hiện tại với API thì quá phổ biến cho các ứng dụng từ giao tiếp client tới server hay từ instance tới instance. Tuy nhiên ngày nay công nghệ càng ngày càng phát triển với http2 ra đời đã kéo theo 1 loạt những thay đổi để cải thiện performance, gRPC là sự kết hợp của Protocol Buffers và http2, Protocol Buffers được phát triển bởi google nó nhẹ hơn, nhanh hơn và cung cấp hiệu năng tốt hơn so với sử dụng XML hoặc Json gRPC cũng cho phép định nghĩa cấu trúc của data dưới dạng file protoc và nó tự động generate ra file sử dụng để giao tiếp với ngôn ngữ mà bạn sử dụng.</description>
     </item>
     

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Routines on while (!(successed = try()));</title>
-    <link>https://daoanhdung.com/tags/routines/</link>
+    <link>https://dung13890.github.io/tags/routines/</link>
     <description>Recent content in Routines on while (!(successed = try()));</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 01 Jan 2018 16:04:10 +0000</lastBuildDate>
     
-	<atom:link href="https://daoanhdung.com/tags/routines/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://dung13890.github.io/tags/routines/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Xử lý đồng thời trong Golang giới thiệu về Go routines</title>
-      <link>https://daoanhdung.com/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/</link>
+      <link>https://dung13890.github.io/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/</link>
       <pubDate>Mon, 01 Jan 2018 16:04:10 +0000</pubDate>
       
-      <guid>https://daoanhdung.com/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/</guid>
+      <guid>https://dung13890.github.io/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/</guid>
       <description>Hiện nay có rất nhiều những ngôn ngữ lập trình hỗ trợ xử lý đồng thời (Concurrency) hoặc multiple threed. Công việc này vừa mang lại hiệu năng về tốc độ đồng thời có thể tận dụng hết được tài nguyên của phần cứng. Trong Go cũng vậy việc tách nhỏ 1 task lớn ra thành nhiều task con xử lý đồng thời sẽ mang lại 1 hiệu năng đáng kể</description>
     </item>
     

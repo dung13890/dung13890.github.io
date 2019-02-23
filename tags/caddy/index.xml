@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Caddy on while (!(successed = try()));</title>
-    <link>https://daoanhdung.com/tags/caddy/</link>
+    <link>https://dung13890.github.io/tags/caddy/</link>
     <description>Recent content in Caddy on while (!(successed = try()));</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 30 Dec 2017 16:28:33 +0000</lastBuildDate>
     
-	<atom:link href="https://daoanhdung.com/tags/caddy/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://dung13890.github.io/tags/caddy/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Caddy Web Server đơn giản và hiện đại</title>
-      <link>https://daoanhdung.com/posts/caddy-web-server-don-gian-va-hien-dai/</link>
+      <link>https://dung13890.github.io/posts/caddy-web-server-don-gian-va-hien-dai/</link>
       <pubDate>Sat, 30 Dec 2017 16:28:33 +0000</pubDate>
       
-      <guid>https://daoanhdung.com/posts/caddy-web-server-don-gian-va-hien-dai/</guid>
+      <guid>https://dung13890.github.io/posts/caddy-web-server-don-gian-va-hien-dai/</guid>
       <description>Chắc hẳn các bạn không còn lạ lẫm gì với nginx. Một Proxy mạnh mẽ đã được phát triển và hình thành lên webserver. Tuy nhiên hôm nay mình sẽ giới thiệu 1 webserver khác có tên là Caddy. Nó cực kỳ đơn giản, và theo đánh giá của mình và các tài liệu tìm được thì có thể trong tương lai gần nó sẽ là đối thủ đáng gờm của nginx.</description>
     </item>
     
