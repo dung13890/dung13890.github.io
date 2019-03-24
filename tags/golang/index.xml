@@ -6,10 +6,19 @@
     <description>Recent content in Golang on while (!(successed = try()));</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 22 Jan 2019 16:04:10 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 Mar 2019 15:27:26 +0000</lastBuildDate>
     
 	<atom:link href="https://dung13890.github.io/tags/golang/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Sử dụng mongo DB với Golang</title>
+      <link>https://dung13890.github.io/posts/su-dung-mongo-db-voi-golang/</link>
+      <pubDate>Fri, 15 Mar 2019 15:27:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/su-dung-mongo-db-voi-golang/</guid>
+      <description>Cũng như rất nhiều các ngôn ngữ server side khác. Go cũng có thể kết hợp với rất nhiều cơ sở dữ liệu khác nhau. Hầu hết các database mới nhất hiện nay đều được hỗ trợ rất đầy đủ và dễ sử dụng. Bên cạnh đó rất nhiều các developer đã viết thêm ORM để đơn giản hóa các câu truy vấn sql. Ở bài viết này mình sẽ hướng dẫn tích hợp mongo DB vào trong project với golang và thao tác với chúng.</description>
+    </item>
     
     <item>
       <title>Tạo tool cli đơn giản với golang</title>
