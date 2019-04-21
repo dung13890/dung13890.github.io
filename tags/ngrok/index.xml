@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ngrok on while (!(successed = try()));</title>
+    <link>https://dung13890.github.io/tags/ngrok/</link>
+    <description>Recent content in Ngrok on while (!(successed = try()));</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 15 Apr 2019 15:27:26 +0000</lastBuildDate>
+    
+	<atom:link href="https://dung13890.github.io/tags/ngrok/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Tạo đường hầm tunnel tới local với ngrok</title>
+      <link>https://dung13890.github.io/posts/tao-duong-ham-tunnel-toi-local-voi-ngrok/</link>
+      <pubDate>Mon, 15 Apr 2019 15:27:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/tao-duong-ham-tunnel-toi-local-voi-ngrok/</guid>
+      <description>Với ngrok bạn có thể tạo 1 webserver với https đơn giản mà không mất nhiều chi phí. Ngrok sẽ mở giúp bạn 1 đường hầm tunnel đi tới chính local của bạn và public nó ra ngoài internet. Điều này có lợi ích gì thì bài viết này sẽ giúp bạn giải thích rõ điều đó.
+Nếu bạn là 1 developer, đôi khi bạn cần publish site của bạn cho người khác review qua.</description>
+    </item>
+    
+  </channel>
+</rss>
