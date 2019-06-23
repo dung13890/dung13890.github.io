@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Mr D">
+<meta name="description" content="Blog for developer">
+<meta name="generator" content="Hugo 0.31.1" />
+<title>Giải pháp để kiểm tra nếu server của bạn đã bị tấn công.</title>
+<link rel="shortcut icon" href="https://dung13890.github.io/images/favicon.ico">
+<link rel="stylesheet" href="https://dung13890.github.io/css/style.css">
+<link rel="stylesheet" href="https://dung13890.github.io/css/highlight.css">
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+
+
+<link href="https://dung13890.github.io/index.xml" rel="alternate" type="application/rss+xml" title="while (!(successed = try()));" />
+
+
+<meta property="og:title" content="Giải pháp để kiểm tra nếu server của bạn đã bị tấn công." />
+<meta property="og:description" content="Khi server đã bị tê liệt vì tiêu tốn quá nhiều tài nguyên bởi cuộc tấn công. vậy giải pháp để bạn khách phục sẽ là gì?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dung13890.github.io/posts/giai-phap-de-kiem-tra-neu-server-cua-ban-da-bi-tan-cong/" />
+
+
+
+<meta property="article:published_time" content="2019-06-22T12:04:10&#43;00:00"/>
+
+<meta property="article:modified_time" content="2019-06-22T12:04:10&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Giải pháp để kiểm tra nếu server của bạn đã bị tấn công.">
+<meta itemprop="description" content="Khi server đã bị tê liệt vì tiêu tốn quá nhiều tài nguyên bởi cuộc tấn công. vậy giải pháp để bạn khách phục sẽ là gì?">
+
+
+<meta itemprop="datePublished" content="2019-06-22T12:04:10&#43;00:00" />
+<meta itemprop="dateModified" content="2019-06-22T12:04:10&#43;00:00" />
+<meta itemprop="wordCount" content="346">
+
+
+
+<meta itemprop="keywords" content="bash,linux,http," />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Giải pháp để kiểm tra nếu server của bạn đã bị tấn công."/>
+<meta name="twitter:description" content="Khi server đã bị tê liệt vì tiêu tốn quá nhiều tài nguyên bởi cuộc tấn công. vậy giải pháp để bạn khách phục sẽ là gì?"/>
+<meta name="twitter:site" content="@https://www.twitter.com/"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='https://dung13890.github.io'> <span class="arrow">←</span>Home</a>
+	
+
+	
+ 		<a href='/about/'>About</a>
+  	
+
+	
+		<a class="cta" href="https://dung13890.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>Giải pháp để kiểm tra nếu server của bạn đã bị tấn công.</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        June 22, 2019
+        <br>
+        
+        
+            
+                <a href="https://dung13890.github.io/tags/bash">bash</a>
+            
+                <a href="https://dung13890.github.io/tags/linux">linux</a>
+            
+                <a href="https://dung13890.github.io/tags/http">http</a>
+            
+        
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        
+
+<p>Khi server đã bị tê liệt vì tiêu tốn quá nhiều tài nguyên bởi cuộc tấn công. vậy giải pháp để bạn khách phục sẽ là gì. Dưới đây là một vài giải pháp mình đã tham khảo được để giảm thiểu các vấn đề này.</p>
+
+<p>Dưới đây là 1 vài cách thức để giúp bạn kiểm tra số lượng connection tới server của bạn khi bạn cảm thấy server quá tải trì ệ, tê liêt.</p>
+
+<h3 id="đếm-lượng-connection-vào-các-port-web-80-443">Đếm lượng connection vào các port web 80, 443..</h3>
+
+<pre><code class="language-sh">netstat -n | grep :80 |wc -l
+# Output
+# 2034
+</code></pre>
+
+<h3 id="kiểm-tra-số-lượng-connection-đang-ở-trạng-thái-syn-recv">Kiểm tra số lượng connection đang ở trạng thái SYN_RECV</h3>
+
+<pre><code class="language-sh">netstat -n | grep :80 | grep SYN_RECV|wc -l
+# Output
+# 1034
+</code></pre>
+
+<h3 id="hiển-thị-tất-cả-các-ip-đang-kết-nối-và-số-lượng-kết-nối-từ-mỗi-ip">Hiển thị tất cả các IP đang kết nối và số lượng kết nối từ mỗi IP:</h3>
+
+<pre><code class="language-sh">netstat -an|grep :80 |awk '{print $5}'|cut -d&quot;:&quot; -f1|sort|uniq -c|sort -rn
+# Output
+# 1012 14.177.107.xxx
+# 28 14.177.107.xxx
+# 1 32.109.222.xxx
+# 7 83.102.152.xxx
+# ...
+</code></pre>
+
+<pre><code class="language-sh">netstat -an | grep ':80' | awk '{print $5}' | sed s/'::ffff:'// | cut -d&quot;:&quot; -f1 | sort | uniq -c
+# Output
+# 1012 14.177.107.xxx
+# 28 14.177.107.xxx
+# ...
+</code></pre>
+
+<h3 id="nếu-bạn-muốn-kiểm-tra-ip-nào-mở-nhiều-syn">Nếu bạn muốn kiểm tra IP nào mở nhiều SYN</h3>
+
+<pre><code class="language-sh">netstat -an|grep :80|grep SYN |awk '{print $5}'|cut -d&quot;:&quot; -f1|sort|uniq -c|sort -rn
+# Output
+# 1012 14.177.107.xxx
+</code></pre>
+
+<h3 id="nếu-bạn-sử-dụng-nhiều-server-muốn-kiểm-tra-địa-chỉ-server-nào-đang-bị-tấn-công">Nếu bạn sử dụng nhiều server muốn kiểm tra địa chỉ server nào đang bị tấn công</h3>
+
+<pre><code class="language-sh">netstat -plan | grep :80 | awk '{print $4}'| cut -d: -f1 |sort |uniq -c
+# Output
+#   1
+#   1012 14.177.107.xxx
+#   1 45.32.240.xxx
+</code></pre>
+
+<p>Khi đã kiểm tra và xác định có dấu hiệu nghi vấn việc cần làm của bạn là block ngay lập tức IP đó lại</p>
+
+<pre><code class="language-sh">route add 14.177.107.xxx reject
+</code></pre>
+
+<p>Sau đó hãy restart lại tất các các connection đang diễn ra bằng cách restart web server của bạn</p>
+
+<pre><code class="language-sh">service nginx restart
+</code></pre>
+
+<p>Đây là các giải pháp nhằm mục đích chống tấn công nhanh chóng để khắc phục khi server của bạn bị tê liệt. Hi vọng nó sẽ giúp ích phần nào cho các bạn.</p>
+
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    
+    <img class="avatar" src="https://dung13890.github.io/images/avatar.jpg">
+    <div>
+        <span class="dark">Mr D</span>
+        <span>I&#39;m a developer.</span>
+    </div>
+    
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdung13890.github.io%2fposts%2fgiai-phap-de-kiem-tra-neu-server-cua-ban-da-bi-tan-cong%2f - Gi%e1%ba%a3i%20ph%c3%a1p%20%c4%91%e1%bb%83%20ki%e1%bb%83m%20tra%20n%e1%ba%bfu%20server%20c%e1%bb%a7a%20b%e1%ba%a1n%20%c4%91%c3%a3%20b%e1%bb%8b%20t%e1%ba%a5n%20c%c3%b4ng. "><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="/posts/tao-duong-ham-tunnel-toi-local-voi-ngrok/">Tạo đường hầm tunnel tới local với ngrok<aside class="dates">Apr 15 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/su-dung-mongo-db-voi-golang/">Sử dụng mongo DB với Golang<aside class="dates">Mar 15 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/tao-tool-cli-don-gian-voi-golang/">Tạo tool cli đơn giản với golang<aside class="dates">Jan 22 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/5-ky-thuat-nang-cao-testing-trong-go/">5 kỹ thuật nâng cao testing trong golang<aside class="dates">Dec 10 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/factory-design-pattern-trong-golang/">Factory patterns trong golang<aside class="dates">Feb 22 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/">Xử lý đồng thời trong Golang giới thiệu về Go routines<aside class="dates">Jan 1 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/caddy-web-server-don-gian-va-hien-dai/">Caddy Web Server đơn giản và hiện đại<aside class="dates">Dec 30 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/grpc-va-ung-dung-no-trong-microservices/">Grpc và ứng dụng nó trong Microservices<aside class="dates">Dec 27 2017</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+
+	
+    <a class="symbol" href="https://www.facebook.com/dung13890">
+        <i class="fa fa-facebook-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.github.com/dung13890">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2019 Mr D
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://dung13890.github.io/js/main.js"></script>
+<script src="https://dung13890.github.io/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-72792053-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>
