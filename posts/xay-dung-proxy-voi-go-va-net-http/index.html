@@ -121,19 +121,21 @@ Chúng có thể can thiệp các tiến trình hoặc gì đơn giản là forw
 
 <p>Http_proxy=<a href="https://your-ip:1234">https://your-ip:1234</a></p>
 
-<p>+&mdash;&mdash;&mdash;&mdash;&ndash;+           +&mdash;&mdash;&mdash;&mdash;&mdash;-+         +&mdash;&mdash;&mdash;&mdash;&mdash;-+
+<pre><code>+--------------+           +----------------+         +----------------+
 |              |           |                |         |                |
-|   client     +&mdash;&mdash;&mdash;-^+ forward proxy  +&mdash;&mdash;&ndash;^+    Server      |
+|   client     +----------^+ forward proxy  +--------^+    Server      |
 |              |           |                |         |                |
-+&mdash;&mdash;&mdash;&mdash;&ndash;+           +&mdash;&mdash;&mdash;&mdash;&mdash;-+         +&mdash;-^&mdash;&mdash;&mdash;&ndash;+
++--------------+           +----------------+         +----^-----------+
                                                             |
                                                             |
-+&mdash;&mdash;&mdash;&mdash;&mdash;+                                           |
++---------------+                                           |
 |               |                                           |
-|   client      +&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;&mdash;-+
+|   client      +-------------------------------------------+
 |               |
-+&mdash;&mdash;&mdash;&mdash;&mdash;+
-Không sử dụng proxy</p>
++---------------+
+Không sử dụng proxy
+
+</code></pre>
 
 <p>Nhìn vào sơ đồ trên thì có thể thấy forward proxy sẽ là lớp trung gian để forward các request tới server. Lợi ích nó mang lại là gì thì mọi người đều có thể thấy rõ. Ví dụ đơn giản nhất
 nếu request từ client tới server không có gì nằm giữa thì bạn sẽ ko thể controll được các request. Giả xử rằng Server A ko thích bạn và họ block ip client của bạn. Vậy làm thế nào bạn có thể truy cập.
