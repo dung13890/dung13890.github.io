@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Mr D">
+<meta name="description" content="Blog for developer">
+<meta name="generator" content="Hugo 0.31.1" />
+<title>Sử dụng lambda &#43; sqs làm hệ thống send message trên aws</title>
+<link rel="shortcut icon" href="https://dung13890.github.io/images/favicon.ico">
+<link rel="stylesheet" href="https://dung13890.github.io/css/style.css">
+<link rel="stylesheet" href="https://dung13890.github.io/css/highlight.css">
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+
+
+<link href="https://dung13890.github.io/index.xml" rel="alternate" type="application/rss+xml" title="while (!(successed = try()));" />
+
+
+<meta property="og:title" content="Sử dụng lambda &#43; sqs làm hệ thống send message trên aws" />
+<meta property="og:description" content="Chắc hẳn các bạn đã từng làm các server với send message hoặc gửi email sử dụng queue, Các đó ổn tuy nhiên về hiệu năng với bài toán gửi cho số lượng lớn khoảng 1.000.000 end user nhận được message cùng lúc thì đó cũng là 1 bài toán khá đau đầu." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dung13890.github.io/posts/su-dung-lambda-sqs-lam-he-thong-send-message-tren-aws/" />
+
+
+
+<meta property="article:published_time" content="2019-08-20T19:21:26&#43;00:00"/>
+
+<meta property="article:modified_time" content="2019-08-20T19:21:26&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Sử dụng lambda &#43; sqs làm hệ thống send message trên aws">
+<meta itemprop="description" content="Chắc hẳn các bạn đã từng làm các server với send message hoặc gửi email sử dụng queue, Các đó ổn tuy nhiên về hiệu năng với bài toán gửi cho số lượng lớn khoảng 1.000.000 end user nhận được message cùng lúc thì đó cũng là 1 bài toán khá đau đầu.">
+
+
+<meta itemprop="datePublished" content="2019-08-20T19:21:26&#43;00:00" />
+<meta itemprop="dateModified" content="2019-08-20T19:21:26&#43;00:00" />
+<meta itemprop="wordCount" content="629">
+
+
+
+<meta itemprop="keywords" content="Golang,aws,lambda,sqs," />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Sử dụng lambda &#43; sqs làm hệ thống send message trên aws"/>
+<meta name="twitter:description" content="Chắc hẳn các bạn đã từng làm các server với send message hoặc gửi email sử dụng queue, Các đó ổn tuy nhiên về hiệu năng với bài toán gửi cho số lượng lớn khoảng 1.000.000 end user nhận được message cùng lúc thì đó cũng là 1 bài toán khá đau đầu."/>
+<meta name="twitter:site" content="@https://www.twitter.com/"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='https://dung13890.github.io'> <span class="arrow">←</span>Home</a>
+	
+
+	
+ 		<a href='/about/'>About</a>
+  	
+
+	
+		<a class="cta" href="https://dung13890.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>Sử dụng lambda &#43; sqs làm hệ thống send message trên aws</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        August 20, 2019
+        <br>
+        
+        
+            
+                <a href="https://dung13890.github.io/tags/golang">Golang</a>
+            
+                <a href="https://dung13890.github.io/tags/aws">aws</a>
+            
+                <a href="https://dung13890.github.io/tags/lambda">lambda</a>
+            
+                <a href="https://dung13890.github.io/tags/sqs">sqs</a>
+            
+        
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        
+
+<p>Chắc hẳn các bạn đã từng làm các server với send message hoặc gửi email sử dụng queue, Các đó ổn tuy nhiên về hiệu năng với bài toán gửi cho số lượng lớn khoảng 1.000.000 end user nhận được message cùng lúc thì đó cũng là 1 bài toán khá đau đầu.
+Ở bài viết này mình xin giới thiệu sử dụng lambda function 1 service ngon bổ rẻ của aws chuyên để sử dụng dành cho các công việc như thế này. Ở đây mình sẽ sử dụng <code>golang</code> cho công việc send message này. Thật may là aws cũng hỗ trợ sẵn layer dành cho go.</p>
+
+<h2 id="tổng-quan">Tổng quan</h2>
+
+<p>Trước hết mình sẽ mô tả qua về hoạt động của service này.</p>
+
+<p>Mình muốn send message cho 1.000.000 end user cùng nhận được các message cùng 1 lúc. Thông thường công việc phải làm sẽ đẩy các jobs send message vào trong queue, Sau đó sử dụng tool supervisord và setup numprocs tạo ra nhiều worker. Các worker này sẽ có nhiệm vụ truy xuất vào redis đọc các queue và xử lý song song các queue đó.
+Tuy nhiên để send 1.000.000 message đồng thời tốn khá nhiều worker, dẫn tới các tài nguyên của server khó lòng đáp ứng đủ.</p>
+
+<p>Tuy nhiên giải pháp đó có cách để khắc phục đó là sử dụng lambda + sqs. <a href="https://docs.aws.amazon.com/lambda/latest/dg/go-programming-model-handler-types.html">https://docs.aws.amazon.com/lambda/latest/dg/go-programming-model-handler-types.html</a>. Cũng tương tự như cách trên nhưng thay vì push các queue vào redis chứa thì thay vào đó mình sẽ sử dụng sqs của aws.
+Các sqs này có nhiệm vụ nhận các job queue và trigger tới lambda. lambda xử lý gọn nhẹ và rất nhanh, hơn thế có cớ ché scaling có thể tùy ý tăng số lượng lambda để xử lý song song nhiều queue cùng lúc. Hơn nữa chi phí lambda khá là rẻ,</p>
+
+<p><a href="https://aws.amazon.com/lambda/pricing/">Pricing</a> lambda free cho 1M request free, sau đó mỗi 1M request sẽ tính $0.2. Như vậy 1$ bạn sẽ có 6M request. có thể coi là chấp nhận được. Bạn đừng lo lắng nếu chi phí đắt. Nếu application của bạn có lượng end user nhiều như vậy thì mình tin rằng con số này chả là gì cả.</p>
+
+<h2 id="tiến-hành">Tiến hành.</h2>
+
+<p><a href="github.com/aws/aws-lambda-go/events">github.com/aws/aws-lambda-go/events</a>
+<a href="github.com/aws/aws-lambda-go/lambda">github.com/aws/aws-lambda-go/lambda</a></p>
+
+<p>2 thư viện trên là thư viện chính trong applicatin này</p>
+
+<p>Trong file main.go của mình như sau</p>
+
+<pre><code class="language-go">package main
+
+import (
+    &quot;context&quot;
+    &quot;errors&quot;
+    &quot;fmt&quot;
+
+    &quot;github.com/aws/aws-lambda-go/events&quot;
+    &quot;github.com/aws/aws-lambda-go/lambda&quot;
+)
+
+
+func Handler(ctx context.Context, sqsEvent events.SQSEvent) error {
+    for _, msg := range sqsEvent.Records {
+        // Send message with msg.Body
+        fmt.Printf(&quot;Got SQS message %q with body %q\n&quot;, msg.MessageId, msg.Body)
+    }
+}
+
+func main() {
+    lambda.Start(Handler)
+}
+</code></pre>
+
+<p>Trong function trên lambda đơn giản chỉ lắng nghe sự kiện được trigger từ sqs. lambda sẽ đọc các records từ sqs sau đó thực hiện actions send message. Trong ví dụ trên mình sẽ thay thể bằng log ra màn hình.</p>
+
+<h2 id="setup-trong-aws">Setup trong aws.</h2>
+
+<p>Để đăng ký lambda trước tiên bạn cần login vào console của lambda sau đó register 1 lambda service. Sau khi đăng ký sau sẽ tới màn hình configuration</p>
+
+<p><img src="/send-message-golang-configuration.png" alt="golang configuration" /></p>
+
+<p>Tại dropdown trigger các bọn select và chọn sqs queue để trigger. Các bạn có thể tùy chọn nhiều trigger như API Gateway,.. đồng thời song song.</p>
+
+<p>Như vậy là xong các bạn zip file source code của mình lại và upload lên lambda function. sau đó save lại.</p>
+
+<p>Nhìn vào sơ đồ design ta có thể thấy bất cứ khi nào sqs có event thì lập tức sẽ được trigger tới lambda, và lambda sẽ thực hiện function send message như đã viết ở trên.</p>
+
+<p>Công việc bây giờ của bạn chẳng cần làm gì chỉ cần push queue vào trong sqs việc còn lại đã có lambda xử lý. Tuyệt vời quá phải ko nào.</p>
+
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    
+    <img class="avatar" src="https://dung13890.github.io/images/avatar.jpg">
+    <div>
+        <span class="dark">Mr D</span>
+        <span>I&#39;m a developer.</span>
+    </div>
+    
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdung13890.github.io%2fposts%2fsu-dung-lambda-sqs-lam-he-thong-send-message-tren-aws%2f - S%e1%bb%ad%20d%e1%bb%a5ng%20lambda%20%2b%20sqs%20l%c3%a0m%20h%e1%bb%87%20th%e1%bb%91ng%20send%20message%20tr%c3%aan%20aws "><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="/posts/xay-dung-proxy-voi-go-va-net-http/">Xây dựng 1 proxy với Go và net/http<aside class="dates">Jul 15 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/giai-phap-de-kiem-tra-neu-server-cua-ban-da-bi-tan-cong/">Giải pháp để kiểm tra nếu server của bạn đã bị tấn công.<aside class="dates">Jun 22 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/tao-duong-ham-tunnel-toi-local-voi-ngrok/">Tạo đường hầm tunnel tới local với ngrok<aside class="dates">Apr 15 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/su-dung-mongo-db-voi-golang/">Sử dụng mongo DB với Golang<aside class="dates">Mar 15 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/tao-tool-cli-don-gian-voi-golang/">Tạo tool cli đơn giản với golang<aside class="dates">Jan 22 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/5-ky-thuat-nang-cao-testing-trong-go/">5 kỹ thuật nâng cao testing trong golang<aside class="dates">Dec 10 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/factory-design-pattern-trong-golang/">Factory patterns trong golang<aside class="dates">Feb 22 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/">Xử lý đồng thời trong Golang giới thiệu về Go routines<aside class="dates">Jan 1 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/caddy-web-server-don-gian-va-hien-dai/">Caddy Web Server đơn giản và hiện đại<aside class="dates">Dec 30 2017</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/grpc-va-ung-dung-no-trong-microservices/">Grpc và ứng dụng nó trong Microservices<aside class="dates">Dec 27 2017</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+
+	
+    <a class="symbol" href="https://www.facebook.com/dung13890">
+        <i class="fa fa-facebook-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.github.com/dung13890">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2019 Mr D
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://dung13890.github.io/js/main.js"></script>
+<script src="https://dung13890.github.io/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-72792053-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

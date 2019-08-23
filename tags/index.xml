@@ -6,10 +6,19 @@
     <description>Recent content in Tags on while (!(successed = try()));</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 22 Jun 2019 12:04:10 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 20 Aug 2019 19:21:26 +0000</lastBuildDate>
     
 	<atom:link href="https://dung13890.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Aws</title>
+      <link>https://dung13890.github.io/tags/aws/</link>
+      <pubDate>Tue, 20 Aug 2019 19:21:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/tags/aws/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Bash</title>
@@ -59,7 +68,7 @@
     <item>
       <title>Golang</title>
       <link>https://dung13890.github.io/tags/golang/</link>
-      <pubDate>Mon, 15 Jul 2019 15:27:26 +0000</pubDate>
+      <pubDate>Tue, 20 Aug 2019 19:21:26 +0000</pubDate>
       
       <guid>https://dung13890.github.io/tags/golang/</guid>
       <description></description>
@@ -80,6 +89,15 @@
       <pubDate>Sat, 22 Jun 2019 12:04:10 +0000</pubDate>
       
       <guid>https://dung13890.github.io/tags/http/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Lambda</title>
+      <link>https://dung13890.github.io/tags/lambda/</link>
+      <pubDate>Tue, 20 Aug 2019 19:21:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/tags/lambda/</guid>
       <description></description>
     </item>
     
@@ -143,6 +161,15 @@
       <pubDate>Mon, 01 Jan 2018 16:04:10 +0000</pubDate>
       
       <guid>https://dung13890.github.io/tags/routines/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Sqs</title>
+      <link>https://dung13890.github.io/tags/sqs/</link>
+      <pubDate>Tue, 20 Aug 2019 19:21:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/tags/sqs/</guid>
       <description></description>
     </item>
     

@@ -6,10 +6,19 @@
     <description>Recent content on while (!(successed = try()));</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 15 Jul 2019 15:27:26 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 20 Aug 2019 19:21:26 +0000</lastBuildDate>
     
 	<atom:link href="https://dung13890.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Sử dụng lambda &#43; sqs làm hệ thống send message trên aws</title>
+      <link>https://dung13890.github.io/posts/su-dung-lambda-sqs-lam-he-thong-send-message-tren-aws/</link>
+      <pubDate>Tue, 20 Aug 2019 19:21:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/su-dung-lambda-sqs-lam-he-thong-send-message-tren-aws/</guid>
+      <description>Chắc hẳn các bạn đã từng làm các server với send message hoặc gửi email sử dụng queue, Các đó ổn tuy nhiên về hiệu năng với bài toán gửi cho số lượng lớn khoảng 1.000.000 end user nhận được message cùng lúc thì đó cũng là 1 bài toán khá đau đầu. Ở bài viết này mình xin giới thiệu sử dụng lambda function 1 service ngon bổ rẻ của aws chuyên để sử dụng dành cho các công việc như thế này.</description>
+    </item>
     
     <item>
       <title>Xây dựng 1 proxy với Go và net/http</title>
