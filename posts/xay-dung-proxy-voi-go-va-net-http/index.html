@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Mr D">
+<meta name="description" content="Blog for developer">
+<meta name="generator" content="Hugo 0.31.1" />
+<title>Xây dựng 1 proxy với Go và net/http</title>
+<link rel="shortcut icon" href="https://dung13890.github.io/images/favicon.ico">
+<link rel="stylesheet" href="https://dung13890.github.io/css/style.css">
+<link rel="stylesheet" href="https://dung13890.github.io/css/highlight.css">
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+
+
+<link href="https://dung13890.github.io/index.xml" rel="alternate" type="application/rss+xml" title="while (!(successed = try()));" />
+
+
+<meta property="og:title" content="Xây dựng 1 proxy với Go và net/http" />
+<meta property="og:description" content="Khái niệm proxy thì chắc hẳn ai cũng biết tuy nhiên mình vẫn muốn nhắc lại. Proxies là các hành động nằm trung gian ở giữa client và server." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dung13890.github.io/posts/xay-dung-proxy-voi-go-va-net-http/" />
+
+
+
+<meta property="article:published_time" content="2019-07-15T15:27:26&#43;00:00"/>
+
+<meta property="article:modified_time" content="2019-07-15T15:27:26&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Xây dựng 1 proxy với Go và net/http">
+<meta itemprop="description" content="Khái niệm proxy thì chắc hẳn ai cũng biết tuy nhiên mình vẫn muốn nhắc lại. Proxies là các hành động nằm trung gian ở giữa client và server.">
+
+
+<meta itemprop="datePublished" content="2019-07-15T15:27:26&#43;00:00" />
+<meta itemprop="dateModified" content="2019-07-15T15:27:26&#43;00:00" />
+<meta itemprop="wordCount" content="570">
+
+
+
+<meta itemprop="keywords" content="Golang,proxy,net/http," />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Xây dựng 1 proxy với Go và net/http"/>
+<meta name="twitter:description" content="Khái niệm proxy thì chắc hẳn ai cũng biết tuy nhiên mình vẫn muốn nhắc lại. Proxies là các hành động nằm trung gian ở giữa client và server."/>
+<meta name="twitter:site" content="@https://www.twitter.com/"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='https://dung13890.github.io'> <span class="arrow">←</span>Home</a>
+	
+
+	
+ 		<a href='/about/'>About</a>
+  	
+
+	
+		<a class="cta" href="https://dung13890.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>Xây dựng 1 proxy với Go và net/http</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        July 15, 2019
+        <br>
+        
+        
+            
+                <a href="https://dung13890.github.io/tags/golang">Golang</a>
+            
+                <a href="https://dung13890.github.io/tags/proxy">proxy</a>
+            
+                <a href="https://dung13890.github.io/tags/net/http">net/http</a>
+            
+        
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        
+
+<p>Khái niệm proxy thì chắc hẳn ai cũng biết tuy nhiên mình vẫn muốn nhắc lại. Proxies là các hành động nằm trung gian ở giữa client và server.
+Chúng có thể can thiệp các tiến trình hoặc gì đơn giản là forward các request.</p>
+
+<p>Có rất nhiều phương thức proxies như</p>
+
+<ul class="task-list">
+<li><label><input type="checkbox" checked disabled class="task-list-item"> Database proxies</label></li>
+<li><label><input type="checkbox" checked disabled class="task-list-item"> TCP proxies</label></li>
+<li><label><input type="checkbox" checked disabled class="task-list-item"> HTTP proxies</label></li>
+<li><label><input type="checkbox" checked disabled class="task-list-item"> &hellip;</label></li>
+</ul>
+
+<p>Tuy nhiên phổ biến nhất thì vẫn là http proxies vì đa số người dùng bình thường sử dụng http request.</p>
+
+<h3 id="diagram">Diagram</h3>
+
+<p>Http_proxy=<a href="https://your-ip:1234">https://your-ip:1234</a></p>
+
+<pre><code>+--------------+           +----------------+         +----------------+
+|              |           |                |         |                |
+|   client     +----------^+ forward proxy  +--------^+    Server      |
+|              |           |                |         |                |
++--------------+           +----------------+         +----^-----------+
+                                                            |
+                                                            |
++---------------+                                           |
+|               |                                           |
+|   client      +-------------------------------------------+
+|               |
++---------------+
+Không sử dụng proxy
+
+</code></pre>
+
+<p>Nhìn vào sơ đồ trên thì có thể thấy forward proxy sẽ là lớp trung gian để forward các request tới server. Lợi ích nó mang lại là gì thì mọi người đều có thể thấy rõ. Ví dụ đơn giản nhất
+nếu request từ client tới server không có gì nằm giữa thì bạn sẽ ko thể controll được các request. Giả xử rằng Server A ko thích bạn và họ block ip client của bạn. Vậy làm thế nào bạn có thể truy cập.
+đó là truy cập qua 1 proxy, proxy bạn có thể đặt ở 1 server khác. Khi bạn connect tới Server A và sử dụng forward proxy nó sẽ chuyển hướng các request của bạn tới server A và nặc danh IP là từ server forward proxy.</p>
+
+<h3 id="tạo-forward-proxy-với-go">Tạo forward Proxy với Go</h3>
+
+<p>Để khởi tạo 1 proxy forward bạn cần tìm hiểu tài liệu về package http trong go <code>import &quot;net/http&quot;</code> <a href="https://golang.org/pkg/net/http/">https://golang.org/pkg/net/http/</a>.</p>
+
+<pre><code class="language-go">type Proxy struct {
+}
+
+func NewProxy() *Proxy { return &amp;Proxy{} }
+</code></pre>
+
+<p>Trước tiên khởi 1 struct và 1 method NewProxy, method này sẽ có nhiệm vụ khởi tạo đối tượng Proxy.</p>
+
+<p>Để lắng nghe được các request từ client bạn cần phải mở 1 port và sử dụng method <code>ListenAndServe</code> từ package <code>http</code>.</p>
+
+<pre><code class="language-go">
+func main() {
+    proxy := NewProxy()
+    err := http.ListenAndServe(&quot;:1234&quot;, proxy)
+}
+</code></pre>
+
+<p>vậy là OK rồi bây giờ cần phải xử lý proxy với methods ServeHTTP các bạn có thể viết như sau</p>
+
+<pre><code class="language-go">func (p *Proxy) ServeHTTP(wr http.ResponseWriter, r *http.Request) {
+    var resp *http.Response
+    var err error
+    var req *http.Request
+    client := &amp;http.Client{}
+
+    req, err = http.NewRequest(r.Method, r.RequestURI, r.Body)
+    for name, value := range r.Header {
+        req.Header.Set(name, value[0])
+    }
+    resp, err = client.Do(req)
+    r.Body.Close()
+
+    if err != nil {
+        http.Error(wr, err.Error(), http.StatusInternalServerError)
+        return
+    }
+
+    for k, v := range resp.Header {
+        wr.Header().Set(k, v[0])
+    }
+
+    wr.WriteHeader(resp.StatusCode)
+    io.Copy(wr, resp.Body)
+    resp.Body.Close()
+}
+
+</code></pre>
+
+<p>Vậy là xong bạn có thể sử dụng luôn với proxy này.</p>
+
+<p>nếu bạn sử dụng curl để test thử thì có thể chạy với command như sau</p>
+
+<pre><code class="language-sh">curl -x 127.0.0.1:1234 http://example.com
+
+</code></pre>
+
+<p>Nếu bạn sử dụng trình duyệt thì có thể tham khảo hướng dẫn thay đổi proxy của trình duyệt thì có thể tham khảo 1 vài hướng dẫn <a href="https://customers.trustedproxies.com/knowledgebase.php?action=displayarticle&amp;id=10">https://customers.trustedproxies.com/knowledgebase.php?action=displayarticle&amp;id=10</a></p>
+
+<p>Một lưu ý nhỏ bài viết này chỉ hướng dẫn bạn khởi tạo 1 proxy đơn giản và chỉ có thể truy cập được các trang web mà không sử dụng SSL. Tuy nhiên bài viết sau mình sẽ hướng dẫn làm 1 web proxy hoàn chỉnh hơn và có thể truy cập tất các các trang với SSL.</p>
+
+<p>Hi vọng bài viết có thể mang lại 1 chút kiến thức cho các bạn.</p>
+
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    
+    <img class="avatar" src="https://dung13890.github.io/images/avatar.jpg">
+    <div>
+        <span class="dark">Mr D</span>
+        <span>I&#39;m a developer.</span>
+    </div>
+    
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdung13890.github.io%2fposts%2fxay-dung-proxy-voi-go-va-net-http%2f - X%c3%a2y%20d%e1%bb%b1ng%201%20proxy%20v%e1%bb%9bi%20Go%20v%c3%a0%20net%2fhttp "><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="/posts/xu-ly-dong-thoi-trong-python/">Xử lý đồng thời trong python<aside class="dates">Oct 23 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/tu-lam-tool-deployer-giong-ansible-playbook/">Tự làm tool deployer giống ansible playbook<aside class="dates">Sep 20 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/su-dung-lambda-sqs-lam-he-thong-send-message-tren-aws/">Sử dụng lambda &#43; sqs làm hệ thống send message trên aws<aside class="dates">Aug 20 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/giai-phap-de-kiem-tra-neu-server-cua-ban-da-bi-tan-cong/">Giải pháp để kiểm tra nếu server của bạn đã bị tấn công.<aside class="dates">Jun 22 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/tao-duong-ham-tunnel-toi-local-voi-ngrok/">Tạo đường hầm tunnel tới local với ngrok<aside class="dates">Apr 15 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/su-dung-mongo-db-voi-golang/">Sử dụng mongo DB với Golang<aside class="dates">Mar 15 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/tao-tool-cli-don-gian-voi-golang/">Tạo tool cli đơn giản với golang<aside class="dates">Jan 22 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/5-ky-thuat-nang-cao-testing-trong-go/">5 kỹ thuật nâng cao testing trong golang<aside class="dates">Dec 10 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/factory-design-pattern-trong-golang/">Factory patterns trong golang<aside class="dates">Feb 22 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/">Xử lý đồng thời trong Golang giới thiệu về Go routines<aside class="dates">Jan 1 2018</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+
+	
+    <a class="symbol" href="https://www.facebook.com/dung13890">
+        <i class="fa fa-facebook-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.github.com/dung13890">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2019 Mr D
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://dung13890.github.io/js/main.js"></script>
+<script src="https://dung13890.github.io/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-72792053-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

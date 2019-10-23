@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Design Pattern on while (!(successed = try()));</title>
+    <link>https://dung13890.github.io/tags/design-pattern/</link>
+    <description>Recent content in Design Pattern on while (!(successed = try()));</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 22 Feb 2018 15:27:26 +0000</lastBuildDate>
+    
+	<atom:link href="https://dung13890.github.io/tags/design-pattern/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Factory patterns trong golang</title>
+      <link>https://dung13890.github.io/posts/factory-design-pattern-trong-golang/</link>
+      <pubDate>Thu, 22 Feb 2018 15:27:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/factory-design-pattern-trong-golang/</guid>
+      <description>Factory patterns là một design pattern mà hầu như tất cả các dự án đều sử dụng. Nếu bạn đã từng biết đến các khái niệm như interface hay implements thì chắc hẳn design pattern này đã ko còn gì xa lạ. Để tạo ra những project code cleaner thì design patterns rõ ràng không thể thiếu trong mọi tư duy của developer. Hôm nay mình sẽ giới thiệu và đi xâu vào chi tiết về factory patterns trong golang.</description>
+    </item>
+    
+  </channel>
+</rss>

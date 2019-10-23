@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Mr D">
+<meta name="description" content="Blog for developer">
+<meta name="generator" content="Hugo 0.31.1" />
+<title>Tự làm tool deployer giống ansible playbook</title>
+<link rel="shortcut icon" href="https://dung13890.github.io/images/favicon.ico">
+<link rel="stylesheet" href="https://dung13890.github.io/css/style.css">
+<link rel="stylesheet" href="https://dung13890.github.io/css/highlight.css">
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+
+
+<link href="https://dung13890.github.io/index.xml" rel="alternate" type="application/rss+xml" title="while (!(successed = try()));" />
+
+
+<meta property="og:title" content="Tự làm tool deployer giống ansible playbook" />
+<meta property="og:description" content="Nếu các bạn đã từng sử dụng các tool như Rocketeer, jenkins, ansible để deploy thì hẳn đã biết nó dễ dàng cho việc deploy như thế nào. Hôm nay mình sẽ hướng dẫn các bạn tự mình viết scrips đơn giản phục vụ cho việc deployer giống như các tool ở trên" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dung13890.github.io/posts/tu-lam-tool-deployer-giong-ansible-playbook/" />
+
+
+
+<meta property="article:published_time" content="2019-09-20T14:32:26&#43;00:00"/>
+
+<meta property="article:modified_time" content="2019-09-20T14:32:26&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Tự làm tool deployer giống ansible playbook">
+<meta itemprop="description" content="Nếu các bạn đã từng sử dụng các tool như Rocketeer, jenkins, ansible để deploy thì hẳn đã biết nó dễ dàng cho việc deploy như thế nào. Hôm nay mình sẽ hướng dẫn các bạn tự mình viết scrips đơn giản phục vụ cho việc deployer giống như các tool ở trên">
+
+
+<meta itemprop="datePublished" content="2019-09-20T14:32:26&#43;00:00" />
+<meta itemprop="dateModified" content="2019-09-20T14:32:26&#43;00:00" />
+<meta itemprop="wordCount" content="759">
+
+
+
+<meta itemprop="keywords" content="deployer,Golang,ssh excute," />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Tự làm tool deployer giống ansible playbook"/>
+<meta name="twitter:description" content="Nếu các bạn đã từng sử dụng các tool như Rocketeer, jenkins, ansible để deploy thì hẳn đã biết nó dễ dàng cho việc deploy như thế nào. Hôm nay mình sẽ hướng dẫn các bạn tự mình viết scrips đơn giản phục vụ cho việc deployer giống như các tool ở trên"/>
+<meta name="twitter:site" content="@https://www.twitter.com/"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='https://dung13890.github.io'> <span class="arrow">←</span>Home</a>
+	
+
+	
+ 		<a href='/about/'>About</a>
+  	
+
+	
+		<a class="cta" href="https://dung13890.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>Tự làm tool deployer giống ansible playbook</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        September 20, 2019
+        <br>
+        
+        
+            
+                <a href="https://dung13890.github.io/tags/deployer">deployer</a>
+            
+                <a href="https://dung13890.github.io/tags/golang">Golang</a>
+            
+                <a href="https://dung13890.github.io/tags/ssh-excute">ssh excute</a>
+            
+        
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        
+
+<p>Nếu các bạn đã từng sử dụng các tool như Rocketeer, jenkins, ansible,&hellip; để deploy thì hẳn đã biết nó dễ dàng cho việc deploy như thế nào. Hôm nay mình sẽ hướng dẫn các bạn tự mình viết scrips đơn giản phục vụ cho việc deployer giống như các tool ở trên bằng Go.
+Go có goroutine có thể sự dụng cho các bạn muốn deploy multiple server. Hơn nữa còn tiện lợi hơn go sẽ build ra file execute có thể thực thi ngay lập tức mà ko cần phải cài cắm gì.</p>
+
+<h3 id="cấu-trúc-folder">Cấu trúc folder</h3>
+
+<pre><code>.
+├── Gopkg.lock
+├── Gopkg.toml
+├── README.md
+├── config.yml
+├── main.go
+├── templates
+└── vendor
+
+</code></pre>
+
+<p>Cấu trúc trong Tool của mình như sau.</p>
+
+<ul>
+<li>vendor sử dụng để chứa các package add thêm khi development</li>
+<li>templates sử dụng để chưá các file template có mẫu sẵn có thể copy từ template vào</li>
+<li>main.go đây là hàm main chính khi bắt đầu khởi chạy</li>
+<li>config.yml file này chính là file config các thông tin về server Tool sẽ đọc từ file này và thao tác trên server</li>
+<li>Gopkg.lock, Gopkg.toml là file log và define các package được cài thêm.</li>
+</ul>
+
+<h3 id="cấu-hình-file-config">Cấu hình file config.</h3>
+
+<p>Đầu tiên cần phải khai báo các thông tin server vào file config, như vậy tool mới có thể đọc từ đó và thao tác tới server được. Có thể config như sau</p>
+
+<pre><code>webservers:
+  hosts:
+    server1:
+      address: &quot;127.0.0.1&quot;
+      user: &quot;local&quot;
+      dir: &quot;/var/www/project&quot;
+    server2:
+      address: &quot;127.0.0.2&quot;
+      user: &quot;local&quot;
+      dir: &quot;/var/www/project&quot;
+</code></pre>
+
+<p>Ở đây đơn giản là mình sẽ sử dụng deploy 2 server cùng lúc. Các bạn muốn deploy cho bao nhiêu server thì có thể khai báo thêm.</p>
+
+<p>Tiếp theo khi đã thao tác vào server công việc chính sẽ là thao tác trên server đó các dòng lệnh để thực hiện build project hoặc install các package liên quan</p>
+
+<pre><code>tasks:
+    - name: &quot;install project&quot;
+    cmd: &quot;git pull origin&quot;
+    args:
+        - &quot;master&quot;
+    - name: &quot;Install dependencies&quot;
+      cmd: &quot;yarn install&quot;
+    - name: &quot;Build project&quot;
+      cmd: &quot;yarn run product&quot;
+</code></pre>
+
+<p>Đây là các command để thực hiện deployer cho 1 project nodejs đơn giản. Nếu project của các bạn cần nhiều câu lệnh hơn thì có thể update thêm vào đây.</p>
+
+<p>Vậy là có thể tạm coi xong 1 phần cấu hình config file tiếp theo chúng ta sẽ tới gian đoạn thực thi các config file đó</p>
+
+<h3 id="main-file">Main file</h3>
+
+<p>Đầu tiên các bạn sẽ phải define struc tương đương với yml file. Cấu trúc như sau</p>
+
+<pre><code class="language-go">type Configuration struct {
+    WebServers
+}
+
+type WebServers struct {
+    Hosts map[string]Server `yaml:&quot;hosts&quot;`
+    Tasks []Task
+}
+
+type Server struct {
+    Address string `yaml:&quot;address&quot;`
+    User    string `yaml:&quot;user&quot;`
+    Dir     string `yaml:&quot;dir&quot;`
+}
+
+type Task struct {
+    Name string   `yaml:&quot;name&quot;`
+    Cmd  string   `yaml:&quot;cmd&quot;`
+    Args []string `yaml:&quot;args&quot;`
+}
+</code></pre>
+
+<p>Ok như vậy là đã có 1 struct Configuration có thể get toàn bộ thông tin từ yml file rồi. Tiếp đến có thể sử dụng thêm thư viện <a href="https://github.com/go-yaml/yaml">https://github.com/go-yaml/yaml</a> để Unmarshal từ file yml đó</p>
+
+<pre><code class="language-sh">go get gopkg.in/yaml.v2
+</code></pre>
+
+<p>Ok rồi vậy làm thế nào để lấy file config ra sử dụng. Các bạn cần viết thêm 1 method getConf như sau</p>
+
+<pre><code class="language-go">func (c *Configuration) getConf() *Configuration {
+
+    yamlFile, err1 := ioutil.ReadFile(&quot;config.yml&quot;)
+    if err1 != nil {
+        log.Printf(&quot;yamlFile.Get err   #%v &quot;, err1)
+    }
+
+    err2 := yaml.Unmarshal(yamlFile, &amp;c)
+    if err2 != nil {
+        log.Fatalf(&quot;error: %v&quot;, err2)
+    }
+
+    return c
+}
+</code></pre>
+
+<p>Method này có output là gía trị của config trong yml vậy là các bạn hoàn toàn có thể lấy toàn bộ thông tin trong config. trong file main.go như sau</p>
+
+<pre><code class="language-go">
+func main() {
+    c := Configuration{}
+    c.getConf()
+}
+</code></pre>
+
+<p>OK Như vậy là đã hoàn tất công đoạn config file. Tiếp đến là excute multiple server các bạn cần tạo ra 1 function exec như sau.</p>
+
+<pre><code class="language-go">func Connection(s Server) {
+    cmd := exec.Command(
+        &quot;ssh&quot;,
+        &quot;-t&quot;,
+        fmt.Sprintf(&quot;%s@%s&quot;, s.User, s.Address),
+        fmt.Sprintf(&quot;'cd %s ; ls -al'&quot;, s.Dir),
+    )
+    stdout, err := cmd.Output()
+    if err != nil {
+        println(err.Error())
+        return
+    }
+
+    print(string(stdout))
+}
+</code></pre>
+
+<p>Và main function như sau</p>
+
+<pre><code class="language-go">func main() {
+    c := Configuration{}
+    c.getConf()
+    var wg sync.WaitGroup
+    for _, server := range c.WebServers.Hosts {
+        wg.Add(1)
+        go Connection(server)
+    }
+    wg.Wait()
+}
+
+</code></pre>
+
+<p>Tới đây bạn đã có thể connection được vào 1 trong những target server của bạn tuy nhiên để show output khi exec command deploy tuần tự theo từng server và bôi màu cho output với success, error hay warning thì bài sau mình sẽ hướng dẫn chi tiết tiếp.</p>
+
+<p>Các bạn có thể tham khảo các tài liệu liên quan tại đây. Rất cảm ơn các bạn đã tham khảo bài viết của mình.</p>
+
+<ul class="task-list">
+<li><label><input type="checkbox" checked disabled class="task-list-item"> <a href="https://docs.ansible.com">Ansible</a></label></li>
+<li><label><input type="checkbox" checked disabled class="task-list-item"> <a href="https://github.com/go-yaml/yaml">go-yaml</a></label></li>
+</ul>
+
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    
+    <img class="avatar" src="https://dung13890.github.io/images/avatar.jpg">
+    <div>
+        <span class="dark">Mr D</span>
+        <span>I&#39;m a developer.</span>
+    </div>
+    
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdung13890.github.io%2fposts%2ftu-lam-tool-deployer-giong-ansible-playbook%2f - T%e1%bb%b1%20l%c3%a0m%20tool%20deployer%20gi%e1%bb%91ng%20ansible%20playbook "><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="/posts/xu-ly-dong-thoi-trong-python/">Xử lý đồng thời trong python<aside class="dates">Oct 23 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/su-dung-lambda-sqs-lam-he-thong-send-message-tren-aws/">Sử dụng lambda &#43; sqs làm hệ thống send message trên aws<aside class="dates">Aug 20 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/xay-dung-proxy-voi-go-va-net-http/">Xây dựng 1 proxy với Go và net/http<aside class="dates">Jul 15 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/giai-phap-de-kiem-tra-neu-server-cua-ban-da-bi-tan-cong/">Giải pháp để kiểm tra nếu server của bạn đã bị tấn công.<aside class="dates">Jun 22 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/tao-duong-ham-tunnel-toi-local-voi-ngrok/">Tạo đường hầm tunnel tới local với ngrok<aside class="dates">Apr 15 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/su-dung-mongo-db-voi-golang/">Sử dụng mongo DB với Golang<aside class="dates">Mar 15 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/tao-tool-cli-don-gian-voi-golang/">Tạo tool cli đơn giản với golang<aside class="dates">Jan 22 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/5-ky-thuat-nang-cao-testing-trong-go/">5 kỹ thuật nâng cao testing trong golang<aside class="dates">Dec 10 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/factory-design-pattern-trong-golang/">Factory patterns trong golang<aside class="dates">Feb 22 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/">Xử lý đồng thời trong Golang giới thiệu về Go routines<aside class="dates">Jan 1 2018</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+
+	
+    <a class="symbol" href="https://www.facebook.com/dung13890">
+        <i class="fa fa-facebook-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.github.com/dung13890">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2019 Mr D
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://dung13890.github.io/js/main.js"></script>
+<script src="https://dung13890.github.io/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-72792053-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

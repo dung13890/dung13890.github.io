@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="author" content="Mr D">
+<meta name="description" content="Blog for developer">
+<meta name="generator" content="Hugo 0.31.1" />
+<title>Tạo đường hầm tunnel tới local với ngrok</title>
+<link rel="shortcut icon" href="https://dung13890.github.io/images/favicon.ico">
+<link rel="stylesheet" href="https://dung13890.github.io/css/style.css">
+<link rel="stylesheet" href="https://dung13890.github.io/css/highlight.css">
+
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+
+
+
+<link href="https://dung13890.github.io/index.xml" rel="alternate" type="application/rss+xml" title="while (!(successed = try()));" />
+
+
+<meta property="og:title" content="Tạo đường hầm tunnel tới local với ngrok" />
+<meta property="og:description" content="Với ngrok bạn có thể tạo 1 webserver với https đơn giản mà không mất nhiều chi phí." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://dung13890.github.io/posts/tao-duong-ham-tunnel-toi-local-voi-ngrok/" />
+
+
+
+<meta property="article:published_time" content="2019-04-15T15:27:26&#43;00:00"/>
+
+<meta property="article:modified_time" content="2019-04-15T15:27:26&#43;00:00"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta itemprop="name" content="Tạo đường hầm tunnel tới local với ngrok">
+<meta itemprop="description" content="Với ngrok bạn có thể tạo 1 webserver với https đơn giản mà không mất nhiều chi phí.">
+
+
+<meta itemprop="datePublished" content="2019-04-15T15:27:26&#43;00:00" />
+<meta itemprop="dateModified" content="2019-04-15T15:27:26&#43;00:00" />
+<meta itemprop="wordCount" content="783">
+
+
+
+<meta itemprop="keywords" content="tunnel,ngrok," />
+
+<meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Tạo đường hầm tunnel tới local với ngrok"/>
+<meta name="twitter:description" content="Với ngrok bạn có thể tạo 1 webserver với https đơn giản mà không mất nhiều chi phí."/>
+<meta name="twitter:site" content="@https://www.twitter.com/"/>
+
+
+    </head>
+<body>
+    <nav class="main-nav">
+	
+		<a href='https://dung13890.github.io'> <span class="arrow">←</span>Home</a>
+	
+
+	
+ 		<a href='/about/'>About</a>
+  	
+
+	
+		<a class="cta" href="https://dung13890.github.io/index.xml">Subscribe</a>
+	
+</nav>
+
+    <section id="wrapper">
+        
+        
+<article class="post">
+    <header>
+        <h1>Tạo đường hầm tunnel tới local với ngrok</h1>
+        <h2 class="subtitle"></h2>
+        <h2 class="headline">
+        April 15, 2019
+        <br>
+        
+        
+            
+                <a href="https://dung13890.github.io/tags/tunnel">tunnel</a>
+            
+                <a href="https://dung13890.github.io/tags/ngrok">ngrok</a>
+            
+        
+        
+        </h2>
+    </header>
+    <section id="post-body">
+        
+
+<p>Với ngrok bạn có thể tạo 1 webserver với https đơn giản mà không mất nhiều chi phí. Ngrok sẽ mở giúp bạn 1 đường hầm tunnel đi tới chính local của bạn và public nó ra ngoài internet. Điều này có lợi ích gì thì bài viết này sẽ giúp bạn giải thích rõ điều đó.</p>
+
+<p>Nếu bạn là 1 developer, đôi khi bạn cần publish site của bạn cho người khác review qua. tuy nhiên người review lại ở nước ngoài hay 1 nơi nào đó ko cùng local internet của bạn. Hay bạn muốn test webhook của mình mà không cần phải đưa nó lên server. Vậy làm thế nào để giải quyết việc đó,
+Đừng lo vấn đề đơn giản đó đã được giải quyết bằng ngrok. Vậy Ngrok là gì, Thực ra nó chỉ là 1 services, Nhiệm vụ của nó là tự mở 1 tunnel để đi vào local của bạn. Nó biến chính local bạn là 1 server thông qua 1 port tunnel mà bạn đã mở ở local. sau đó nó sẽ khởi tạo 1 subdomain online cho phép người khác request
+tới service ngrok. Nhiệm vụ của ngrok sẽ forward tới local của bạn thông qua tunnel.</p>
+
+<h2 id="ví-dụ-đơn-giản">Ví dụ đơn giản</h2>
+
+<p>Giả sử bạn có đoạn code go như sau</p>
+
+<pre><code class="language-go">
+package main
+
+import (
+    &quot;fmt&quot;
+    &quot;log&quot;
+    &quot;net/http&quot;
+)
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, &quot;Hi there, I love %s!&quot;, r.URL.Path[1:])
+}
+
+func main() {
+    http.HandleFunc(&quot;/&quot;, handler)
+    log.Fatal(http.ListenAndServe(&quot;:8080&quot;, nil))
+}
+</code></pre>
+
+<p>Bạn mở tại local 1 port 8080 và port này chỉ có thể truy cập tại local của bạn hoặc trong cùng giải ip trong router nhà bạn bằng cách</p>
+
+<p><code>localhost:8080</code> hoặc <code>your_ip:8080</code>. Để publish service của bạn ra bên ngoài bạn cần tải thêm 1 tool <a href="https://ngrok.com/">ngrok cli</a> về local
+sau đó chạy command như sau</p>
+
+<pre><code class="language-sh">$ ./ngrok http 8080
+
+</code></pre>
+
+<pre><code class="language-sh">ngrok by @inconshreveable
+
+Tunnel Status                 online
+Version                       2.0/2.0
+Web Interface                 http://127.0.0.1:4040
+Forwarding                    http://92832de0.ngrok.io -&gt; localhost:8080
+Forwarding                    https://92832de0.ngrok.io -&gt; localhost:8080
+
+Connnections                  ttl     opn     rt1     rt5     p50     p90
+                              0       1       0.00    0.00    0.00    0.00
+</code></pre>
+
+<p>Vậy là xong ngrok đã tự tạo cho bạn 1 tunnel thông qua tool <a href="https://ngrok.com/">ngrok cli</a> mà bạn vừa tải về. Bạn có thể gửi domain <code>https://92832de0.ngrok.io</code> ra internet bên ngoài router nhà bạn người khác sẽ truy cập domain trên tương tự như bạn đang truy cập <code>localhost:8080</code>.</p>
+
+<h2 id="cấu-hình-ngrok">Cấu hình ngrok</h2>
+
+<h3 id="basic-authen">Basic authen</h3>
+
+<p>Nếu service sử dụng basic authencation vậy làm thế nào ngrok truy cập vào được khi service bắt buộc người truy cập phải nhập username và password authen</p>
+
+<p>Điều này rất đơn giản bạn chỉ cần sử dụng command sau</p>
+
+<pre><code class="language-sh">$ ./ngrok http -auth=&quot;username:password&quot; 8080
+</code></pre>
+
+<p>Thì ngrok đã có thể truy cập thoải mái trong service của bạn mà người truy cập không cần phải đăng nhập thông tin trên thủ công.</p>
+
+<h3 id="domain-local">Domain local</h3>
+
+<p>Nếu service của bạn sử dụng 1 domain local dạng như <code>sample.local</code> để truy cập vào thì ngrok hoàn toàn có thể config được</p>
+
+<pre><code class="language-sh">$ ./ngrok http -host-header=sample.local 80
+</code></pre>
+
+<h3 id="tcp-tunel">Tcp tunel</h3>
+
+<p>ngrok không chỉ cho phép http mà nó còn có thể cho phép bạn truy cập cả giao thức tcp.
+Giả sử trên local của bạn có mở port database hay cài sshd để ssh trực tiếp vào local của bạn
+ngrok cũng có thể tunnel trực tiếp vào máy bạn qua kết nối tcp đó</p>
+
+<pre><code class="language-sh">$ ./ngrok tcp 22
+
+// Out put
+
+tcp://0.tcp.ngrok.io:33405 -&gt; localhost:22
+</code></pre>
+
+<p>Như vậy từ 1 nơi khác bạn của thể ssh vào chính local máy mình thông qua command</p>
+
+<pre><code class="language-sh">$ ssh username@0.tcp.ngrok.io -p 33405
+</code></pre>
+
+<p>Nếu bạn không nhớ hết các cú pháp đừng lo lắng hãy sử dụng config với file yml</p>
+
+<p>Hãy tạo ra file yml với nội dung như sau</p>
+
+<pre><code class="language-yaml">tunnels:
+    app-protected:
+        proto: http
+        addr: 8080
+        auth: &quot;username:password&quot;
+    mongo:
+        proto: tcp
+        addr: 27017
+</code></pre>
+
+<p>Để chạy các tham số config trên bạn chạy command như sau</p>
+
+<pre><code class="language-sh">$ ./ngrok start -config ~/ngrok.yml --all
+</code></pre>
+
+<h2 id="ứng-dụng-với-ngrok">Ứng dụng với ngrok</h2>
+
+<p>Ngrok rất hữu ích trong nhiều trường hợp, Nếu bạn xây dựng 1 con bot của service bên thứ 3. Chắc hẳn rằng bạn cần 1 có 1 webhook
+ngrok đã giải quyết việc đó giúp bạn để service bên thứ 3 có thể truy cập được vào local của bạn trong lúc bạn dev. Hoặc bạn muốn sử dụng chính local của mình làm server để tiết kiệm chi phí, ngrok cũng giúp bạn tạo ra 1 domain free cho phép người khác có thể truy cập site trên local của bạn.
+tuy nhiên về performance thì không đảm bảo bằng phương pháp truyền thống.</p>
+
+<p>Bài viết giới thiệu về 1 tool hữu ích dành cho developer, Hi vọng nó có thể giúp bạn trong 1 vài tình huống.</p>
+
+    </section>
+</article>
+
+<footer id="post-meta" class="clearfix">
+    
+    <img class="avatar" src="https://dung13890.github.io/images/avatar.jpg">
+    <div>
+        <span class="dark">Mr D</span>
+        <span>I&#39;m a developer.</span>
+    </div>
+    
+    <section id="sharing">
+        <a class="twitter" href="https://twitter.com/intent/tweet?text=https%3a%2f%2fdung13890.github.io%2fposts%2ftao-duong-ham-tunnel-toi-local-voi-ngrok%2f - T%e1%ba%a1o%20%c4%91%c6%b0%e1%bb%9dng%20h%e1%ba%a7m%20tunnel%20t%e1%bb%9bi%20local%20v%e1%bb%9bi%20ngrok "><span class="icon-twitter"> tweet</span></a>
+
+<a class="facebook" href="#" onclick="
+    window.open(
+      'https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(location.href),
+      'facebook-share-dialog',
+      'width=626,height=436');
+    return false;"><span class="icon-facebook-rect"> Share</span>
+</a>
+
+    </section>
+</footer>
+
+<ul id="post-list" class="archive readmore">
+    <h3>Read more</h3>
+
+    
+    
+    
+        <li>
+            <a href="/posts/xu-ly-dong-thoi-trong-python/">Xử lý đồng thời trong python<aside class="dates">Oct 23 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/tu-lam-tool-deployer-giong-ansible-playbook/">Tự làm tool deployer giống ansible playbook<aside class="dates">Sep 20 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/su-dung-lambda-sqs-lam-he-thong-send-message-tren-aws/">Sử dụng lambda &#43; sqs làm hệ thống send message trên aws<aside class="dates">Aug 20 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/xay-dung-proxy-voi-go-va-net-http/">Xây dựng 1 proxy với Go và net/http<aside class="dates">Jul 15 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/giai-phap-de-kiem-tra-neu-server-cua-ban-da-bi-tan-cong/">Giải pháp để kiểm tra nếu server của bạn đã bị tấn công.<aside class="dates">Jun 22 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/su-dung-mongo-db-voi-golang/">Sử dụng mongo DB với Golang<aside class="dates">Mar 15 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/tao-tool-cli-don-gian-voi-golang/">Tạo tool cli đơn giản với golang<aside class="dates">Jan 22 2019</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/5-ky-thuat-nang-cao-testing-trong-go/">5 kỹ thuật nâng cao testing trong golang<aside class="dates">Dec 10 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/factory-design-pattern-trong-golang/">Factory patterns trong golang<aside class="dates">Feb 22 2018</aside></a>
+        </li>
+    
+        <li>
+            <a href="/posts/xu-ly-dong-thoi-trong-golang-gioi-thieu-ve-go-routines/">Xử lý đồng thời trong Golang giới thiệu về Go routines<aside class="dates">Jan 1 2018</aside></a>
+        </li>
+    
+</ul>
+
+
+
+        <footer id="footer">
+    
+        <div id="social">
+
+
+	
+    <a class="symbol" href="https://www.facebook.com/dung13890">
+        <i class="fa fa-facebook-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.github.com/dung13890">
+        <i class="fa fa-github-square"></i>
+    </a>
+    
+    <a class="symbol" href="https://www.twitter.com/">
+        <i class="fa fa-twitter-square"></i>
+    </a>
+    
+
+
+</div>
+
+    
+    <p class="small">
+    
+        © Copyright 2019 Mr D
+    
+    </p>
+</footer>
+
+    </section>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://dung13890.github.io/js/main.js"></script>
+<script src="https://dung13890.github.io/js/highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-72792053-1', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</body>
+</html>

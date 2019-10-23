@@ -6,10 +6,78 @@
     <description>Recent content in Posts on while (!(successed = try()));</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 22 Jan 2019 16:04:10 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Oct 2019 15:27:26 +0000</lastBuildDate>
     
 	<atom:link href="https://dung13890.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Xử lý đồng thời trong python</title>
+      <link>https://dung13890.github.io/posts/xu-ly-dong-thoi-trong-python/</link>
+      <pubDate>Wed, 23 Oct 2019 15:27:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/xu-ly-dong-thoi-trong-python/</guid>
+      <description>Python thì không phải là phương án tối ưu nhất cho việc xử lý các process đồng thời. Tuy nhiên ở bài viết này mình sẽ viết thử 1 scripts nho nhỏ để kiểm chứng hiệu suất của việc xử lý concurrentcy này.
+Scripts tải image đơn giản import urllib.request import time url = &#39;https://picsum.photos/id/{}/200/300&#39; args = [(n, url.format(n)) for n in range(20)] start = time.time() for img_id, url in args: res = urllib.</description>
+    </item>
+    
+    <item>
+      <title>Tự làm tool deployer giống ansible playbook</title>
+      <link>https://dung13890.github.io/posts/tu-lam-tool-deployer-giong-ansible-playbook/</link>
+      <pubDate>Fri, 20 Sep 2019 14:32:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/tu-lam-tool-deployer-giong-ansible-playbook/</guid>
+      <description>Nếu các bạn đã từng sử dụng các tool như Rocketeer, jenkins, ansible,&amp;hellip; để deploy thì hẳn đã biết nó dễ dàng cho việc deploy như thế nào. Hôm nay mình sẽ hướng dẫn các bạn tự mình viết scrips đơn giản phục vụ cho việc deployer giống như các tool ở trên bằng Go. Go có goroutine có thể sự dụng cho các bạn muốn deploy multiple server. Hơn nữa còn tiện lợi hơn go sẽ build ra file execute có thể thực thi ngay lập tức mà ko cần phải cài cắm gì.</description>
+    </item>
+    
+    <item>
+      <title>Sử dụng lambda &#43; sqs làm hệ thống send message trên aws</title>
+      <link>https://dung13890.github.io/posts/su-dung-lambda-sqs-lam-he-thong-send-message-tren-aws/</link>
+      <pubDate>Tue, 20 Aug 2019 19:21:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/su-dung-lambda-sqs-lam-he-thong-send-message-tren-aws/</guid>
+      <description>Chắc hẳn các bạn đã từng làm các server với send message hoặc gửi email sử dụng queue, Các đó ổn tuy nhiên về hiệu năng với bài toán gửi cho số lượng lớn khoảng 1.000.000 end user nhận được message cùng lúc thì đó cũng là 1 bài toán khá đau đầu. Ở bài viết này mình xin giới thiệu sử dụng lambda function 1 service ngon bổ rẻ của aws chuyên để sử dụng dành cho các công việc như thế này.</description>
+    </item>
+    
+    <item>
+      <title>Xây dựng 1 proxy với Go và net/http</title>
+      <link>https://dung13890.github.io/posts/xay-dung-proxy-voi-go-va-net-http/</link>
+      <pubDate>Mon, 15 Jul 2019 15:27:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/xay-dung-proxy-voi-go-va-net-http/</guid>
+      <description>Khái niệm proxy thì chắc hẳn ai cũng biết tuy nhiên mình vẫn muốn nhắc lại. Proxies là các hành động nằm trung gian ở giữa client và server. Chúng có thể can thiệp các tiến trình hoặc gì đơn giản là forward các request.
+Có rất nhiều phương thức proxies như
+Database proxies TCP proxies HTTP proxies &amp;hellip;  Tuy nhiên phổ biến nhất thì vẫn là http proxies vì đa số người dùng bình thường sử dụng http request.</description>
+    </item>
+    
+    <item>
+      <title>Giải pháp để kiểm tra nếu server của bạn đã bị tấn công.</title>
+      <link>https://dung13890.github.io/posts/giai-phap-de-kiem-tra-neu-server-cua-ban-da-bi-tan-cong/</link>
+      <pubDate>Sat, 22 Jun 2019 12:04:10 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/giai-phap-de-kiem-tra-neu-server-cua-ban-da-bi-tan-cong/</guid>
+      <description>Khi server đã bị tê liệt vì tiêu tốn quá nhiều tài nguyên bởi cuộc tấn công. vậy giải pháp để bạn khách phục sẽ là gì. Dưới đây là một vài giải pháp mình đã tham khảo được để giảm thiểu các vấn đề này.
+Dưới đây là 1 vài cách thức để giúp bạn kiểm tra số lượng connection tới server của bạn khi bạn cảm thấy server quá tải trì ệ, tê liêt.</description>
+    </item>
+    
+    <item>
+      <title>Tạo đường hầm tunnel tới local với ngrok</title>
+      <link>https://dung13890.github.io/posts/tao-duong-ham-tunnel-toi-local-voi-ngrok/</link>
+      <pubDate>Mon, 15 Apr 2019 15:27:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/tao-duong-ham-tunnel-toi-local-voi-ngrok/</guid>
+      <description>Với ngrok bạn có thể tạo 1 webserver với https đơn giản mà không mất nhiều chi phí. Ngrok sẽ mở giúp bạn 1 đường hầm tunnel đi tới chính local của bạn và public nó ra ngoài internet. Điều này có lợi ích gì thì bài viết này sẽ giúp bạn giải thích rõ điều đó.
+Nếu bạn là 1 developer, đôi khi bạn cần publish site của bạn cho người khác review qua.</description>
+    </item>
+    
+    <item>
+      <title>Sử dụng mongo DB với Golang</title>
+      <link>https://dung13890.github.io/posts/su-dung-mongo-db-voi-golang/</link>
+      <pubDate>Fri, 15 Mar 2019 15:27:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/su-dung-mongo-db-voi-golang/</guid>
+      <description>Cũng như rất nhiều các ngôn ngữ server side khác. Go cũng có thể kết hợp với rất nhiều cơ sở dữ liệu khác nhau. Hầu hết các database mới nhất hiện nay đều được hỗ trợ rất đầy đủ và dễ sử dụng. Bên cạnh đó rất nhiều các developer đã viết thêm ORM để đơn giản hóa các câu truy vấn sql. Ở bài viết này mình sẽ hướng dẫn tích hợp mongo DB vào trong project với golang và thao tác với chúng.</description>
+    </item>
     
     <item>
       <title>Tạo tool cli đơn giản với golang</title>
@@ -28,6 +96,15 @@
       <guid>https://dung13890.github.io/posts/5-ky-thuat-nang-cao-testing-trong-go/</guid>
       <description>Mặc định Go đã tích hợp sẵn thư viện testing. Nếu bạn đã từng viết Golang chắc hẳn bạn đã biết điều này. Tuy nhiên dưới đây sẽ là 5 kỹ năng nâng cao để bạn vận dụng nó cho việc testing ứng dụng lớn của bạn
 Sử dụng Test suites type Something interface { Do(input string) (Result, error) } // Suite tests sẽ test qua tất cả function mà inteface Something được implement func Suite(t *testing.</description>
+    </item>
+    
+    <item>
+      <title>Factory patterns trong golang</title>
+      <link>https://dung13890.github.io/posts/factory-design-pattern-trong-golang/</link>
+      <pubDate>Thu, 22 Feb 2018 15:27:26 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/factory-design-pattern-trong-golang/</guid>
+      <description>Factory patterns là một design pattern mà hầu như tất cả các dự án đều sử dụng. Nếu bạn đã từng biết đến các khái niệm như interface hay implements thì chắc hẳn design pattern này đã ko còn gì xa lạ. Để tạo ra những project code cleaner thì design patterns rõ ràng không thể thiếu trong mọi tư duy của developer. Hôm nay mình sẽ giới thiệu và đi xâu vào chi tiết về factory patterns trong golang.</description>
     </item>
     
     <item>

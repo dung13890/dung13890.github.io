@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Bash on while (!(successed = try()));</title>
+    <link>https://dung13890.github.io/tags/bash/</link>
+    <description>Recent content in Bash on while (!(successed = try()));</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 22 Jun 2019 12:04:10 +0000</lastBuildDate>
+    
+	<atom:link href="https://dung13890.github.io/tags/bash/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Giải pháp để kiểm tra nếu server của bạn đã bị tấn công.</title>
+      <link>https://dung13890.github.io/posts/giai-phap-de-kiem-tra-neu-server-cua-ban-da-bi-tan-cong/</link>
+      <pubDate>Sat, 22 Jun 2019 12:04:10 +0000</pubDate>
+      
+      <guid>https://dung13890.github.io/posts/giai-phap-de-kiem-tra-neu-server-cua-ban-da-bi-tan-cong/</guid>
+      <description>Khi server đã bị tê liệt vì tiêu tốn quá nhiều tài nguyên bởi cuộc tấn công. vậy giải pháp để bạn khách phục sẽ là gì. Dưới đây là một vài giải pháp mình đã tham khảo được để giảm thiểu các vấn đề này.
+Dưới đây là 1 vài cách thức để giúp bạn kiểm tra số lượng connection tới server của bạn khi bạn cảm thấy server quá tải trì ệ, tê liêt.</description>
+    </item>
+    
+  </channel>
+</rss>
